@@ -1,0 +1,30 @@
+import { _m, MessagesGroup } from "../../../types";
+
+export const patientFormMessages = new MessagesGroup({
+  firstName: _m("First Name", "الاسم الاول"),
+  middleName: _m("Middle Name", "الاسم الاوسط"),
+  lastName: _m("Last Name", "الاسم الاخير"),
+  sections: new MessagesGroup({
+    personalInfo: _m("Personal Information", "المعلومات الشخصية"),
+    contactInfo: _m("Contact Information", "معلومات الاتصال"),
+    address: _m("Address", "العنوان"),
+    medicalInfo: _m("Medical Information", "معلومات طبية"),
+    identity: _m("Identity", "الهوية"),
+  }),
+  gender: _m("Gender", "النوع"),
+  dateOfBirth: _m("Date of Birth", "تاريخ الميلاد"),
+  age: _m("Age", "العمر"),
+  mobilePhone: _m("Mobile Phone", "جوال"),
+  landlinePhone: _m("Landline Phone", "هاتف ثابت"),
+  email: _m("Email", "البريد الالكتروني"),
+  country: _m("Country", "البلد"),
+  city: _m("City", "المدينة"),
+  street: _m("Street", "الشارع"),
+  building: _m("Building", "المبنى"),
+  floor: _m("Floor", "الطابق"),
+  apartment: _m("Apartment", "الشقة"),
+  fullAddress: _m("Full Address", "العنوان الكامل"),
+  allergies: _m("Allergies", "الحساسية"),
+  notes: _m("Notes", "ملاحظات"),
+  identificationNumber: _m("Identification Number", "رقم الهوية"),
+});

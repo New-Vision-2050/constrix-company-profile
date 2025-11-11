@@ -1,0 +1,30 @@
+import { _m, MessagesGroup } from "../../types";
+
+export const commonMessages = new MessagesGroup({
+  loading: _m("Loading...", "جاري التحميل..."),
+  save: _m("Save", "حفظ"),
+  cancel: _m("Cancel", "إلغاء"),
+  close: _m("Close", "إغلاق"),
+  delete: _m("Delete", "حذف"),
+  edit: _m("Edit", "تعديل"),
+  confirm: _m("Confirm", "تأكيد"),
+  back: _m("Back", "رجوع"),
+  next: _m("Next", "التالي"),
+  previous: _m("Previous", "السابق"),
+  search: _m("Search", "بحث"),
+  filter: _m("Filter", "تصفية"),
+  sort: _m("Sort", "ترتيب"),
+  hello: _m(" Hello!", " مرحباً!"),
+  welcome: _m("Welcome to Minimal UI", "مرحباً بك في Minimal UI"),
+  about: _m("About", "حول"),
+  createdAt: _m("Created at", "تم الإنشاء في"),
+  days: new MessagesGroup({
+    mon: _m("Monday", "الإثنين"),
+    tue: _m("Tuesday", "الثلاثاء"),
+    wed: _m("Wednesday", "الأربعاء"),
+    thu: _m("Thursday", "الخميس"),
+    fri: _m("Friday", "الجمعة"),
+    sat: _m("Saturday", "السبت"),
+    sun: _m("Sunday", "الأحد"),
+  }),
+});

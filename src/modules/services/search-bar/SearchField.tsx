@@ -1,11 +1,13 @@
 import { InputAdornment, TextField } from "@mui/material";
 import { SearchNormal1 } from "iconsax-reactjs";
+import { useTranslations } from "next-intl";
 
 export default function ServicesSearchField() {
+  const t = useTranslations("pages.services");
   return (
     <TextField
-      id="outlined-suffix-shrink"
-      label="بحث"
+      id="services-search-field"
+      label={t("searchPlaceholder")}
       variant="outlined"
       slotProps={{
         input: {

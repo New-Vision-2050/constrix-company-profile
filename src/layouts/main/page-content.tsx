@@ -1,40 +1,46 @@
-import LoadingBackdrop from "@/components/ui/interactions/loading-backdrop";
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
+"use client";
+import { Box, darken, lighten, Stack, Typography } from "@mui/material";
 import { PropsWithChildren, ReactNode } from "react";
 
 type Props = PropsWithChildren<{
-  title: ReactNode;
-  actions?: ReactNode;
-  breadcrumbs?: ReactNode;
-  loading?: boolean;
+  title?: ReactNode;
+  description?: ReactNode;
 }>;
 
-function PageContent({
-  title,
-  actions,
-  breadcrumbs,
-  children,
-  loading = false,
-}: Props) {
+function MainPageContent({ title, description, children }: Props) {
   return (
-    <>
-      <LoadingBackdrop open={loading} />
-      <Stack spacing={2}>
-        <Box display="flex" gap={4}>
-          <Typography variant="h4" gutterBottom flexGrow={1}>
+    <Stack>
+      <Stack
+        py={14}
+        spacing={4}
+        alignItems="center"
+        sx={({ palette }) => ({
+          background: `linear-gradient(90deg,${lighten(palette.primary.dark, 0.1)} 0%, ${darken(palette.primary.dark, 0.3)} 100%)`,
+        })}
+      >
+        {title && (
+          <Typography
+            variant="h2"
+            textAlign="center"
+            color="primary.contrastText"
+            fontWeight={500}
+          >
             {title}
           </Typography>
-          <Box display="flex" alignItems="center" gap={2}>
-            {actions}
-          </Box>
-        </Box>
-        <Box>{breadcrumbs}</Box>
-        <Box>{children}</Box>
+        )}
+        {description && (
+          <Typography
+            variant="body1"
+            textAlign="center"
+            color="primary.contrastText"
+          >
+            {description}
+          </Typography>
+        )}
       </Stack>
-    </>
+      {children}
+    </Stack>
   );
 }
 
-export default PageContent;
+export default MainPageContent;

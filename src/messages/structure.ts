@@ -1,6 +1,7 @@
 import { MessagesGroup } from "./types";
 import { commonMessages } from "./groups/common";
 import { navigationMessages, publicNavMessages } from "./groups/navigation";
+import { servicesPageMessages } from "./groups/pages/services";
 
 // Main messages structure combining all groups
 export const messagesStructure = new MessagesGroup({
@@ -9,4 +10,7 @@ export const messagesStructure = new MessagesGroup({
   nav: publicNavMessages,
   services: new MessagesGroup({}),
   serviceCategories: new MessagesGroup({}),
+  pages: new MessagesGroup({
+    services: servicesPageMessages,
+  }),
 });

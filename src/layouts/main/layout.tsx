@@ -26,6 +26,7 @@ import { useTranslations } from "next-intl";
 import type { MainSectionProps } from "../core/main-section";
 import type { HeaderSectionProps } from "../core/header-section";
 import type { LayoutSectionProps } from "../core/layout-section";
+import { FooterSection } from "../core/footer-section";
 
 // ----------------------------------------------------------------------
 
@@ -79,15 +80,15 @@ export function MainLayout({
               [theme.breakpoints.up(layoutQuery)]: { display: "none" },
             }}
           />
-          
+
           {/** @slot Logo */}
-          <Logo 
+          <Logo
             isSingle={false}
-            sx={{ 
-              height: { xs: 32, md: 40 } 
-            }} 
+            sx={{
+              height: { xs: 32, md: 40 },
+            }}
           />
-          
+
           {/** @slot Mobile drawer */}
           <NavMobile data={publicNavItems} open={open} onClose={onClose} />
         </Box>
@@ -163,12 +164,10 @@ export function MainLayout({
     );
   };
 
-  const renderFooter = () => null;
+  const renderFooter = () => <FooterSection />;
 
   const renderMain = () => (
-    <MainSection {...slotProps?.main}>
-      {children}
-    </MainSection>
+    <MainSection {...slotProps?.main}>{children}</MainSection>
   );
 
   return (

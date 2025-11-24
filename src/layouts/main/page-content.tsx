@@ -16,7 +16,7 @@ function MainPageContent({ title, description, children }: Props) {
         spacing={4}
         alignItems="center"
         sx={({ palette }) => ({
-          background: `linear-gradient(90deg,${lighten(palette.primary.dark, 0.1)} 0%, ${darken(palette.primary.dark, 0.3)} 100%)`,
+          background: `linear-gradient(90deg,${darken(palette.primary.main, 0.4)} 0%, ${darken(palette.primary.main, 0.5)} 100%)`,
         })}
       >
         {title && (

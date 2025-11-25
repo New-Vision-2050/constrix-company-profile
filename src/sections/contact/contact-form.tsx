@@ -1,19 +1,20 @@
+"use client";
+
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Button, Grid, TextField } from "@mui/material";
+import { Box, Button, Stack, TextField } from "@mui/material";
 import { MuiTelInput } from "mui-tel-input";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 export default function ContactForm() {
-  // Contact form validation schema
   const t = useTranslations("contactForm");
 
   const contactSchema = z.object({
     name: z.string().min(3, t("errors.name")),
     phone: z.string().min(6, t("errors.phone")).optional().or(z.literal("")),
     email: z.string().email(t("errors.email")),
-    subject: z.string().optional().or(z.literal("")),
+    address: z.string().min(3, t("errors.address")),
     message: z.string().min(10, t("errors.message")),
   });
 
@@ -32,7 +33,7 @@ export default function ContactForm() {
       name: "",
       phone: "",
       email: "",
-      subject: "",
+      address: "",
       message: "",
     },
   });
@@ -51,73 +52,75 @@ export default function ContactForm() {
       noValidate
       sx={{ width: "100%" }}
     >
-      <Grid container spacing={2}>
-        <Grid size={{ xs: 12 }}>
-          <TextField
-            fullWidth
-            label={t("name")}
-            {...register("name")}
-            error={!!errors.name}
-            helperText={errors.name?.message}
-          />
-        </Grid>
+      <Stack spacing={3}>
+        <TextField
+          fullWidth
+          label={t("name")}
+          placeholder={t("placeholders.name")}
+          {...register("name")}
+          error={!!errors.name}
+          helperText={errors.name?.message}
+        />
 
-        <Grid size={{ xs: 12 }}>
-          <MuiTelInput
-            fullWidth
-            label={t("phone")}
-            defaultCountry="SA"
-            value={phoneValue}
-            onChange={(value) => setValue("phone", value)}
-            error={!!errors.phone}
-            helperText={errors.phone?.message}
-          />
-        </Grid>
+        <MuiTelInput
+          fullWidth
+          label={t("phone")}
+          placeholder={t("placeholders.phone")}
+          defaultCountry="SA"
+          value={phoneValue}
+          onChange={(value) => setValue("phone", value)}
+          error={!!errors.phone}
+          helperText={errors.phone?.message}
+        />
 
-        <Grid size={{ xs: 12 }}>
-          <TextField
-            fullWidth
-            label={t("email")}
-            {...register("email")}
-            error={!!errors.email}
-            helperText={errors.email?.message}
-          />
-        </Grid>
+        <TextField
+          fullWidth
+          type="email"
+          label={t("email")}
+          placeholder={t("placeholders.email")}
+          {...register("email")}
+          error={!!errors.email}
+          helperText={errors.email?.message}
+        />
 
-        <Grid size={{ xs: 12 }}>
-          <TextField
-            fullWidth
-            label={t("subject")}
-            {...register("subject")}
-            error={!!errors.subject}
-            helperText={errors.subject?.message}
-          />
-        </Grid>
+        <TextField
+          fullWidth
+          label={t("address")}
+          placeholder={t("placeholders.address")}
+          {...register("address")}
+          error={!!errors.address}
+          helperText={errors.address?.message}
+        />
 
-        <Grid size={{ xs: 12 }}>
-          <TextField
-            fullWidth
-            label={t("message")}
-            multiline
-            minRows={6}
-            {...register("message")}
-            error={!!errors.message}
-            helperText={errors.message?.message}
-          />
-        </Grid>
+        <TextField
+          fullWidth
+          label={t("message")}
+          placeholder={t("placeholders.message")}
+          multiline
+          rows={6}
+          {...register("message")}
+          error={!!errors.message}
+          helperText={errors.message?.message}
+        />
 
-        <Grid size={{ xs: 12 }}>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            fullWidth
-            disabled={isSubmitting}
-          >
-            {t("submit")}
-          </Button>
-        </Grid>
-      </Grid>
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          fullWidth
+          size="large"
+          disabled={isSubmitting}
+          sx={{
+            py: 1.75,
+            fontWeight: 600,
+            fontSize: "1rem",
+            textTransform: "none",
+            borderRadius: 1,
+          }}
+        >
+          {t("submit")}
+        </Button>
+      </Stack>
     </Box>
   );
 }

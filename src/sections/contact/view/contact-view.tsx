@@ -1,22 +1,31 @@
 "use client";
 
 import React from "react";
-import { Box, Grid } from "@mui/material";
+import LayoutStack from "@/layouts/main/layout-stack";
+import MainPageContent from "@/layouts/main/page-content";
+import PageSection from "@/layouts/main/page-section";
+import { Grid } from "@mui/material";
 import ContactForm from "../contact-form";
-
 import ContactInfo from "../contact-info";
+import { useTranslations } from "next-intl";
 
 export default function ContactView() {
+  const t = useTranslations("navigation");
+
   return (
-    <Box sx={{ px: { xs: 2, md: 6 }, py: 6 }}>
-      <Grid container spacing={12}>
-        <Grid size={{ xs: 6 }}>
-          <ContactForm />
-        </Grid>
-        <Grid size={{ xs: 6 }}>
-          <ContactInfo />
-        </Grid>
-      </Grid>
-    </Box>
+    <MainPageContent title={"Contact Us"}>
+      <LayoutStack>
+        <PageSection>
+          <Grid container spacing={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
+              <ContactInfo />
+            </Grid>
+            <Grid size={{ xs: 12, md: 6 }}>
+              <ContactForm />
+            </Grid>
+          </Grid>
+        </PageSection>
+      </LayoutStack>
+    </MainPageContent>
   );
 }

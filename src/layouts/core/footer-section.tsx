@@ -1,26 +1,21 @@
 "use client";
 
 import React from "react";
+import { Typography, Stack, IconButton, Link } from "@mui/material";
 import {
-  Box,
-  Container,
-  Typography,
-  Stack,
-  IconButton,
-  Link,
-} from "@mui/material";
-import {
-  IconBrandFacebookFilled,
-  IconBrandX,
-  IconBrandYoutubeFilled,
-  IconChevronDown,
-  IconPhoneCall,
-  IconWorld,
-} from "@tabler/icons-react";
+  Facebook as FacebookIcon,
+  Instagram as InstagramIcon,
+  WhatsApp as WhatsAppIcon,
+  CameraAlt as SnapchatIcon,
+  Phone as PhoneIcon,
+  Language as LanguageIcon,
+} from "@mui/icons-material";
 import { useTranslations } from "next-intl";
 
 import { Logo } from "@/components/logo";
 import { RouterLink } from "@/routes/components";
+import LayoutStack from "../main/layout-stack";
+import PageSection from "../main/page-section";
 
 const navLinks = [
   { key: "home", href: "/", highlight: true },
@@ -31,124 +26,78 @@ const navLinks = [
 ];
 
 const socialLinks = [
-  {
-    key: "youtubeLabel",
-    href: "https://youtube.com",
-    Icon: IconBrandYoutubeFilled,
-  },
-  { key: "xLabel", href: "https://x.com", Icon: IconBrandX },
-  {
-    key: "facebookLabel",
-    href: "https://facebook.com",
-    Icon: IconBrandFacebookFilled,
-  },
-];
+  { key: "snapchat", href: "https://snapchat.com", Icon: SnapchatIcon },
+  { key: "instagram", href: "https://instagram.com", Icon: InstagramIcon },
+  { key: "whatsapp", href: "https://whatsapp.com", Icon: WhatsAppIcon },
+  { key: "facebook", href: "https://facebook.com", Icon: FacebookIcon },
+] as const;
 
 export default function FooterSection() {
   const tFooter = useTranslations("footer");
   const tNav = useTranslations("nav");
 
-  const sanitizedPhone = tFooter("phoneValue").replace(/[^\d+]/g, "");
-
   return (
-    <Box
-      sx={{
-        py: { xs: 4, md: 6 },
-        color: "text.primary",
-      }}
-    >
-      <Container maxWidth="lg">
+    <LayoutStack sx={{ bgcolor: "primary.lighter" }}>
+      <PageSection>
         <Stack spacing={{ xs: 4, md: 5 }}>
+          {/* Main Footer Content */}
           <Stack
             direction={{ xs: "column", lg: "row" }}
-            alignItems={{ xs: "flex-start", lg: "center" }}
-            justifyContent="space-between"
             spacing={{ xs: 4, lg: 3 }}
-            useFlexGap
+            alignItems={{ xs: "center", lg: "flex-start" }}
+            justifyContent="space-between"
           >
+            {/* Left Section: Logo & Contact */}
             <Stack
               spacing={2.5}
               alignItems={{ xs: "center", lg: "flex-start" }}
-              textAlign={{ xs: "center", lg: "left" }}
-              sx={{ minWidth: { lg: 260 } }}
+              sx={{ width: { xs: "100%", lg: "auto" }, minWidth: { lg: 260 } }}
             >
               <Logo
                 isSingle={false}
-                sx={{
-                  height: { xs: 32, md: 40 },
-                }}
+                sx={{ height: { xs: 32, md: 40 }, width: "auto" }}
               />
 
               <Stack
                 direction="row"
                 spacing={1.5}
                 alignItems="center"
-                width="100%"
                 justifyContent={{ xs: "center", lg: "flex-start" }}
+                sx={{ width: "100%" }}
               >
-                <Box
+                <PhoneIcon
                   sx={{
-                    width: 44,
-                    height: 44,
-                    borderRadius: "12px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-
+                    fontSize: 24,
+                    color: "primary.main",
+                    flexShrink: 0,
+                  }}
+                />
+                <Typography
+                  variant="body2"
+                  color="text.primary"
+                  fontWeight={600}
+                  sx={{
+                    textAlign: { xs: "center", lg: "left" },
+                    wordBreak: "break-word",
                   }}
                 >
-                  <IconPhoneCall size={22} stroke={1.8} />
-                </Box>
-                <Box sx={{ textAlign: { xs: "center", lg: "left" } }}>
-                  <Typography
-                    variant="caption"
-                    color="text.secondary"
-                    sx={{ fontWeight: 500 }}
-                  >
-                    {tFooter("phoneLabel")}
-                  </Typography>
-                  <Link
-                    href={`tel:${sanitizedPhone}`}
-                    underline="none"
-                    sx={{
-                      display: "block",
-                      fontWeight: 700,
-                      fontSize: 18,
-                      color: "text.primary",
-                    }}
-                  >
-                    {tFooter("phoneValue")}
-                  </Link>
-                </Box>
+                  {tFooter("phoneLabel")}: {tFooter("phoneValue")}
+                </Typography>
               </Stack>
-
-              <Link
-                component={RouterLink}
-                href="/terms"
-                underline="hover"
-                sx={{
-                  fontWeight: 600,
-                  color: "text.primary",
-                  fontSize: 14,
-                }}
-              >
-                {tFooter("terms")}
-              </Link>
             </Stack>
 
+            {/* Center Section: Navigation */}
             <Stack
               spacing={2}
               alignItems="center"
               justifyContent="center"
-              sx={{ flexGrow: 1 }}
+              sx={{ flexGrow: 1, width: { xs: "100%", lg: "auto" } }}
             >
               <Stack
                 direction="row"
-                spacing={{ xs: 2, sm: 3 }}
+                spacing={{ xs: 1.5, sm: 2, md: 3 }}
                 alignItems="center"
                 justifyContent="center"
-                flexWrap="wrap"
-                useFlexGap
               >
                 {navLinks.map((item) => (
                   <Link
@@ -161,73 +110,61 @@ export default function FooterSection() {
                       alignItems: "center",
                       gap: 0.5,
                       fontWeight: 600,
+                      fontSize: { xs: 14, sm: 15 },
                       color: item.highlight ? "primary.main" : "text.primary",
-                      fontSize: 15,
-                      position: "relative",
                       textTransform: "none",
+                      transition: "color 0.2s ease",
                       "&:hover": {
                         color: "primary.main",
                       },
                     }}
                   >
                     {tNav(item.key)}
-                    {item.withDropdown && (
-                      <IconChevronDown size={16} stroke={2} />
-                    )}
                   </Link>
                 ))}
               </Stack>
             </Stack>
 
+            {/* Right Section: Language, CTA & Social Media */}
             <Stack
               spacing={2}
-              alignItems={{
-                xs: "center",
-                sm: "flex-start",
+              alignItems={{ xs: "center", sm: "flex-start" }}
+              sx={{
+                width: { xs: "100%", lg: "auto" },
+                minWidth: { lg: 260 },
               }}
-              textAlign={{ xs: "center", sm: "left" }}
-              sx={{ minWidth: { lg: 260 } }}
             >
+              {/* Language & CTA */}
               <Stack
                 direction="row"
                 spacing={1.5}
                 alignItems="center"
-                flexWrap="wrap"
-                useFlexGap
                 justifyContent={{ xs: "center", sm: "flex-start" }}
               >
                 <Stack direction="row" spacing={0.75} alignItems="center">
-                  <IconWorld size={18} />
+                  <LanguageIcon sx={{ fontSize: 18 }} />
                   <Typography variant="body2" fontWeight={600}>
                     {tFooter("language")}
                   </Typography>
                 </Stack>
 
-                <Box
-                  sx={{
-                    width: 4,
-                    height: 4,
-                    borderRadius: "50%",
-                    bgcolor: "text.secondary",
-                    opacity: 0.4,
-                  }}
-                />
-
                 <Link
                   href="#"
-                  underline="none"
-                  sx={{ fontWeight: 700, color: "primary.main", fontSize: 14 }}
+                  sx={{
+                    fontWeight: 700,
+                    fontSize: 14,
+                  }}
                 >
                   {tFooter("cta")}
                 </Link>
               </Stack>
 
+              {/* Social Media */}
               <Stack
                 direction="row"
-                spacing={1}
+                spacing={1.5}
                 alignItems="center"
-                flexWrap="wrap"
-                useFlexGap
+                justifyContent={{ xs: "center", sm: "flex-start" }}
               >
                 <Typography variant="body2" fontWeight={600}>
                   {tFooter("contactLabel")}
@@ -240,14 +177,16 @@ export default function FooterSection() {
                       href={href}
                       target="_blank"
                       rel="noreferrer"
-                      aria-label={tFooter(key)}
+                      aria-label={key}
                       sx={{
-                        width: 40,
-                        height: 40,
-                        borderRadius: 2,                       
+                        width: { xs: 44, sm: 48 },
+                        height: { xs: 44, sm: 48 },
+                        border: 1,
+                        color: "primary.main",
+                        borderRadius: "50%",
                       }}
                     >
-                      <Icon size={20} stroke={1.8} />
+                      <Icon sx={{ fontSize: { xs: 20, sm: 24 } }} />
                     </IconButton>
                   ))}
                 </Stack>
@@ -255,15 +194,49 @@ export default function FooterSection() {
             </Stack>
           </Stack>
 
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            textAlign={{ xs: "center", lg: "right" }}
+          {/* Footer Bottom: Terms & Copyright */}
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={{ xs: 1, sm: 2 }}
+            alignItems="center"
+            justifyContent={{ xs: "center", lg: "space-between" }}
+            flexWrap="wrap"
+            useFlexGap
+            sx={{
+              pt: { xs: 2, md: 0 },
+              borderTop: { xs: 1, md: 0 },
+              borderColor: "divider",
+            }}
           >
-            © {tFooter("rights")}
-          </Typography>
+            <Link
+              component={RouterLink}
+              href="/terms"
+              underline="hover"
+              sx={{
+                fontWeight: 600,
+                fontSize: { xs: 13, sm: 14 },
+                color: "text.primary",
+                transition: "color 0.2s ease",
+                "&:hover": {
+                  color: "primary.main",
+                },
+              }}
+            >
+              {tFooter("terms")}
+            </Link>
+            <Typography
+              variant="body2"
+              color="text.primary"
+              sx={{
+                fontSize: { xs: 13, sm: 14 },
+                textAlign: { xs: "center", sm: "left" },
+              }}
+            >
+              © {tFooter("rights")}
+            </Typography>
+          </Stack>
         </Stack>
-      </Container>
-    </Box>
+      </PageSection>
+    </LayoutStack>
   );
 }

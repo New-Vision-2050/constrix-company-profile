@@ -1,5 +1,6 @@
 import MainPageContent from "@/layouts/main/page-content";
 import PageSection from "@/layouts/main/page-section";
+import NewsModule from "@/modules/news";
 import { useTranslations } from "next-intl";
 
 export default function NewsPage() {
@@ -8,7 +9,7 @@ export default function NewsPage() {
   return (
     <MainPageContent title={t("title")}>
       <PageSection>
-        News Module
+        <NewsModule />
       </PageSection>
     </MainPageContent>
   );

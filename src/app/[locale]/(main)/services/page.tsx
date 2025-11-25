@@ -6,7 +6,7 @@ function ServicesPage() {
   const t = useTranslations("pages.services");
   return (
     <MainPageContent title={t("title")}>
-      <ServicesModule />
+        <ServicesModule />
     </MainPageContent>
   );
 }

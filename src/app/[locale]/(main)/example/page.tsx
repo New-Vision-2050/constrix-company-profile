@@ -9,7 +9,11 @@ import {
   Stack,
   TextField,
   Typography,
+  Box,
+  Card,
+  CardContent,
 } from "@mui/material";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 function ExamplePage() {
   return (
@@ -27,6 +31,29 @@ function ExamplePage() {
       }
     >
       <LayoutStack>
+        <PageSection>
+          <Card>
+            <CardContent>
+              <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
+                spacing={2}
+              >
+                <Box>
+                  <Typography variant="h6" gutterBottom>
+                    Theme Settings
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Toggle between light and dark mode. Your preference will be
+                    saved.
+                  </Typography>
+                </Box>
+                <ThemeToggle size="large" />
+              </Stack>
+            </CardContent>
+          </Card>
+        </PageSection>
         <PageSection>This is the main content of the page</PageSection>
         <PageSection>
           <Typography variant="body1">

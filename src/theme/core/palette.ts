@@ -1,10 +1,14 @@
-import type { PaletteColor, ColorSystemOptions, PaletteColorChannel } from '@mui/material/styles';
+import type {
+  PaletteColor,
+  ColorSystemOptions,
+  PaletteColorChannel,
+} from "@mui/material/styles";
 
-import { varAlpha, createPaletteChannel } from 'minimal-shared/utils';
+import { varAlpha, createPaletteChannel } from "minimal-shared/utils";
 
-import { themeConfig } from '../theme-config';
+import { themeConfig } from "../theme-config";
 
-import type { ThemeColorScheme } from '../types';
+import type { ThemeColorScheme } from "../types";
 
 // ----------------------------------------------------------------------
 
@@ -14,10 +18,19 @@ import type { ThemeColorScheme } from '../types';
  */
 
 // Keys for the palette colors
-export type PaletteColorKey = 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error';
+export type PaletteColorKey =
+  | "primary"
+  | "secondary"
+  | "info"
+  | "success"
+  | "warning"
+  | "error";
 
 // Palette color without additional channels
-export type PaletteColorNoChannels = Omit<PaletteColor, 'lighterChannel' | 'darkerChannel'>;
+export type PaletteColorNoChannels = Omit<
+  PaletteColor,
+  "lighterChannel" | "darkerChannel"
+>;
 
 // Palette color with additional channels
 export type PaletteColorWithChannels = PaletteColor & PaletteColorChannel;
@@ -49,16 +62,16 @@ export type PaletteColorExtend = {
 
 // Extended grey channels
 export type GreyExtend = {
-  '50Channel': string;
-  '100Channel': string;
-  '200Channel': string;
-  '300Channel': string;
-  '400Channel': string;
-  '500Channel': string;
-  '600Channel': string;
-  '700Channel': string;
-  '800Channel': string;
-  '900Channel': string;
+  "50Channel": string;
+  "100Channel": string;
+  "200Channel": string;
+  "300Channel": string;
+  "400Channel": string;
+  "500Channel": string;
+  "600Channel": string;
+  "700Channel": string;
+  "800Channel": string;
+  "900Channel": string;
 };
 
 // ----------------------------------------------------------------------
@@ -94,24 +107,34 @@ export const text = {
     secondary: grey[600],
     disabled: grey[500],
   }),
+  dark: createPaletteChannel({
+    primary: "#FFFFFF",
+    secondary: grey[500],
+    disabled: grey[600],
+  }),
 };
 
 // Background color
 export const background = {
   light: createPaletteChannel({
-    paper: '#FFFFFF',
+    paper: "#FFFFFF",
     default: grey[100],
     neutral: grey[200],
+  }),
+  dark: createPaletteChannel({
+    paper: "#1C252E",
+    default: "#141A21",
+    // neutral: varAlpha(grey["500Channel"], 0.12),
   }),
 };
 
 // Base action color
 export const baseAction = {
-  hover: varAlpha(grey['500Channel'], 0.08),
-  selected: varAlpha(grey['500Channel'], 0.16),
-  focus: varAlpha(grey['500Channel'], 0.24),
-  disabled: varAlpha(grey['500Channel'], 0.8),
-  disabledBackground: varAlpha(grey['500Channel'], 0.24),
+  hover: varAlpha(grey["500Channel"], 0.08),
+  selected: varAlpha(grey["500Channel"], 0.16),
+  focus: varAlpha(grey["500Channel"], 0.24),
+  disabled: varAlpha(grey["500Channel"], 0.8),
+  disabledBackground: varAlpha(grey["500Channel"], 0.24),
   hoverOpacity: 0.08,
   disabledOpacity: 0.48,
 };
@@ -119,6 +142,7 @@ export const baseAction = {
 // Action color
 export const action = {
   light: { ...baseAction, active: grey[600] },
+  dark: { ...baseAction, active: grey[500] },
 };
 
 // ----------------------------------------------------------------------
@@ -133,14 +157,22 @@ export const basePalette = {
   error,
   common,
   grey,
-  divider: varAlpha(grey['500Channel'], 0.2),
+  divider: varAlpha(grey["500Channel"], 0.2),
 };
 
-export const palette: Partial<Record<ThemeColorScheme, ColorSystemOptions['palette']>> = {
+export const palette: Partial<
+  Record<ThemeColorScheme, ColorSystemOptions["palette"]>
+> = {
   light: {
     ...basePalette,
     text: text.light,
     background: background.light,
     action: action.light,
+  },
+  dark: {
+    ...basePalette,
+    text: text.dark,
+    background: background.dark,
+    action: action.dark,
   },
 };

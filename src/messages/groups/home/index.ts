@@ -28,4 +28,6 @@ export const homeMessages = new MessagesGroup({
       ),
     }),
   }),
+  downloadCompanyFile: _m("Download Company File", "تحميل ملف الشركة"),
+  companyProfileFile: _m("Company Profile File", "ملف الشركة التعريفي"),
 });

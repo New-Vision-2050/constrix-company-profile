@@ -1,5 +1,6 @@
 import LayoutStack from "@/layouts/main/layout-stack";
 import { Box, Stack, Typography } from "@mui/material";
+import { useTranslations } from "next-intl";
 
 interface NewsHeaderProps {
   publishDate: string;
@@ -10,7 +11,7 @@ interface NewsHeaderProps {
 const NewsHeaderInfoItem = ({ label, value }: { label: string, value: string }) => (
   <LayoutStack direction="row" spacing={1} omitPadding={true}>
     <Typography variant="body1" fontWeight={500}>
-      {label}
+      {label} :
     </Typography>
     <Typography variant="body2" color="text.secondary">
       {value}
@@ -27,23 +28,24 @@ export default function NewsHeader({
   updateDate,
   category,
 }: NewsHeaderProps) {
+  const t = useTranslations("pages.newsDetails");
   return (
     <LayoutStack alignItems={'start'} spacing={1} omitPadding={true}>
       {/* Dates section */}
       <LayoutStack direction="row" spacing={1} omitPadding={true}>
         <NewsHeaderInfoItem
-          label="تاريخ النشر:"
+          label={t("publishDate")}
           value={publishDate}
         />
         <NewsHeaderInfoItem
-          label="تاريخ الإنتهاء:"
+          label={t("updateDate")}
           value={updateDate}
         />
       </LayoutStack>
 
       {/* Category section */}
       <NewsHeaderInfoItem
-        label="الفئة:"
+        label={t("category")}
         value={category}
       />
     </LayoutStack>

@@ -1,7 +1,13 @@
+import PageSection from "@/layouts/main/page-section";
+import NewsCardsList from "./components/NewsCardsList";
+import LayoutStack from "@/layouts/main/layout-stack";
+
 export default function NewsModule() {
     return (
-        <div>
-            News Module
-        </div>
+        <LayoutStack>
+            <PageSection>
+                <NewsCardsList />
+            </PageSection>
+        </LayoutStack>
     );
 }

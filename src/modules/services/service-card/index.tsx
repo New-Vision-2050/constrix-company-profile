@@ -3,9 +3,10 @@ import ServiceCardHeader from "./ServiceCardHeader";
 
 interface ServiceCardProps {
   bgImg?: string;
+  onClick?: () => void;
 }
 
-export default function ServiceCard({ bgImg }: ServiceCardProps) {
+export default function ServiceCard({ bgImg, onClick }: ServiceCardProps) {
   return (
     <Card
       elevation={2}
@@ -18,7 +19,9 @@ export default function ServiceCard({ bgImg }: ServiceCardProps) {
         backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(255, 255, 255, 0.2)), url(${bgImg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
+        cursor: onClick ? "pointer" : "default",
       }}
+      onClick={onClick}
     >
       <CardContent sx={{ p: 4 }}>
         {/* header & title */}

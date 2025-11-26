@@ -5,6 +5,7 @@ import HeroView from "@/sections/home/hero/hero-view";
 import PartnersView from "@/sections/home/partners/partners-view";
 import ServicesView from "@/sections/home/services/services-view";
 import CompanyProfileView from "@/sections/home/company-profile/company-profile-view";
+import AboutUsView from "@/sections/home/about-us/about-us-view";
 
 function HomePage() {
   return (
@@ -13,6 +14,7 @@ function HomePage() {
       <PartnersView />
       <ServicesView />
       <CompanyProfileView />
+      <AboutUsView />
     </>
   );
 }

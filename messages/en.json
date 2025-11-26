@@ -2,10 +2,6 @@
   "HomePage": {
     "title": "Hello world!"
   },
-  "home": {
-    "more": "More",
-    "partners": "Partners"
-  },
   "services": {
     "pluralTitle": "Services",
     "singularTitle": "Service",

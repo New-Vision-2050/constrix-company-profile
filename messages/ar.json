@@ -2,10 +2,6 @@
   "HomePage": {
     "title": "مرحبا يا عالم!"
   },
-  "home": {
-    "more": "المزيد",
-    "partners": "الشركاء"
-  },
   "services": {
     "pluralTitle": "الخدمات",
     "singularTitle": "خدمة",

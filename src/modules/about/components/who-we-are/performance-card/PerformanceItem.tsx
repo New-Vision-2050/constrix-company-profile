@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import { PerformanceItem as PerformanceItemType } from './types';
 import LayoutStack from '@/layouts/main/layout-stack';
+import { useTranslations } from 'next-intl';
 
 interface PerformanceItemProps {
   item: PerformanceItemType;
@@ -10,6 +11,8 @@ interface PerformanceItemProps {
  * Renders a single performance item with color indicator, label, and value
  */
 export default function PerformanceItem({ item }: PerformanceItemProps) {
+  const t = useTranslations('pages.about.whoWeAre');
+  
   return (
     <LayoutStack
       direction="row"
@@ -32,7 +35,7 @@ export default function PerformanceItem({ item }: PerformanceItemProps) {
           }}
         />
         <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.875rem' }}>
-          {item.label}
+          {item.labelCount} {t(item.labelKey)}
         </Typography>
       </Box>
 

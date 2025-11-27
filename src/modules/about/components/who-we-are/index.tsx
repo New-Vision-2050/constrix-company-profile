@@ -4,12 +4,15 @@ import PageSection from "@/layouts/main/page-section";
 import { Box, Typography, alpha } from "@mui/material";
 import UsersList from "./users-list";
 import PerformanceCard from "./performance-card";
+import { useTranslations } from "next-intl";
 
 /**
  * Who We Are section component
  * Displays company description and statistics
  */
 export default function WhoWeAre() {
+  // Translations
+  const t = useTranslations('pages.about.whoWeAre');
   return (
     <Box
       sx={({ palette }) => ({
@@ -22,7 +25,7 @@ export default function WhoWeAre() {
         <LayoutStack spacing={4}>
           {/* Section title */}
           <Typography variant="h3" textAlign="center" fontWeight={600}>
-            من نحن
+            {t('title')}
           </Typography>
 
           {/* Description text */}
@@ -32,10 +35,7 @@ export default function WhoWeAre() {
             color="text.secondary"
             sx={{ maxWidth: 800, mx: "auto", lineHeight: 2 }}
           >
-            الذي يأخذ ايه المسؤول الوصول إلى كل الإعدادات وعمليات التكوين
-            والتضمين، أعمد إلى إضافة المستخدمين وإدارة الأسماء المستعارة
-            لحسابات المجموعات وإعداد السياسات للإشراف على محتوى البريد
-            الإلكتروني الخاص بالأعمال والكثير غير ذلك.
+            {t('description')}
           </Typography>
 
           {/* Statistics cards */}

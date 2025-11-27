@@ -3,13 +3,15 @@ import PerformanceChart from './PerformanceChart';
 import PerformanceItem from './PerformanceItem';
 import { mockPerformanceData } from './mockData';
 import LayoutStack from '@/layouts/main/layout-stack';
+import { useTranslations } from 'next-intl';
 
 /**
  * Main component displaying performance statistics with circular chart
  * Follows Single Responsibility Principle by delegating to smaller components
  */
 export default function PerformanceCard() {
-  const { title, items } = mockPerformanceData;
+  const { items } = mockPerformanceData;
+  const t = useTranslations('pages.about.whoWeAre');
 
   return (
     <Paper
@@ -32,7 +34,7 @@ export default function PerformanceCard() {
         variant="body2"
         color="text.secondary"
       >
-        {title}
+        {t('performance-title')}
       </Typography>
 
       {/* Circular Chart */}

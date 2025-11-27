@@ -4,6 +4,7 @@ import SortControl from './SortControl';
 import { useUserSort } from './useUserSort';
 import { mockUsers } from './mockData';
 import LayoutStack from '@/layouts/main/layout-stack';
+import { useTranslations } from 'next-intl';
 
 /**
  * Main component displaying sorted list of users with their marks
@@ -11,6 +12,7 @@ import LayoutStack from '@/layouts/main/layout-stack';
  */
 export default function UsersList() {
   const { sortedUsers, sortOrder, setSortOrder } = useUserSort(mockUsers);
+  const t = useTranslations('pages.about.whoWeAre');
 
   return (
     <Paper
@@ -34,7 +36,7 @@ export default function UsersList() {
         spacing={2}
       >
         <Typography variant="h6" fontWeight={600}>
-          Students by average mark
+          {t('users-list-title')}
         </Typography>
         <SortControl sortOrder={sortOrder} onSortChange={setSortOrder} />
       </LayoutStack>

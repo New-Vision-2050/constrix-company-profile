@@ -77,7 +77,6 @@ export default function AboutUsView() {
             grabCursor={true}
             centeredSlides={true}
             slidesPerView="auto"
-            loopAdditionalSlides={1}
             watchSlidesProgress={true}
             allowTouchMove={true}
             slideToClickedSlide={true}
@@ -194,8 +193,7 @@ export default function AboutUsView() {
 
                       {/* Text Content - Left Side */}
 
-                      <Box>
-                        {/* Name */}
+                      <Box sx={{ p: 4 }}>
                         <Box
                           sx={{
                             textAlign: { xs: "center", md: "left" },

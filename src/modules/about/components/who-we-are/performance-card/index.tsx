@@ -23,7 +23,8 @@ export default function PerformanceCard() {
         bgcolor: 'background.paper',
         position: 'absolute',
         top: '8%',
-        left: '-41%'
+        left: '-41%',
+        display: { xs: 'none', sm: 'block' },
       }}
     >
       {/* Title */}

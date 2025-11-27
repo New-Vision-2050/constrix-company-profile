@@ -1,5 +1,4 @@
-import LayoutStack from "@/layouts/main/layout-stack";
-import { Box, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 
 interface NewsContentProps {
@@ -13,7 +12,7 @@ interface NewsContentProps {
 export default function NewsContent({ content }: NewsContentProps) {
   const t = useTranslations("pages.newsDetails");
   return (
-    <LayoutStack alignItems={'start'} spacing={2}>
+    <Stack alignItems={'start'} spacing={2}>
       {/* Section title */}
       <Typography
         variant="h5"
@@ -33,7 +32,7 @@ export default function NewsContent({ content }: NewsContentProps) {
       >
         {content}
       </Typography>
-    </LayoutStack>
+    </Stack>
   );
 }
 

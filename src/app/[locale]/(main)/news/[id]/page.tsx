@@ -1,6 +1,11 @@
 import MainPageContent from "@/layouts/main/page-content";
-import NewsDetailsModule from "@/modules/news-details";
+import NewsDetailsView from "@/modules/news-details";
 import { getNewsData } from "./getNewsData";
+import LayoutStack from "@/layouts/main/layout-stack";
+
+// enable dynamic params 
+export const dynamicParams = true;
+
 
 /**
  * News detail page - Server component
@@ -9,13 +14,16 @@ import { getNewsData } from "./getNewsData";
 export default async function NewsDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const newsData = await getNewsData(params.id);
+  const {id} = await params;
+  const newsData = await getNewsData(id);
 
   return (
     <MainPageContent title={newsData.title}>
-      <NewsDetailsModule newsData={newsData} />
+      <LayoutStack>
+          <NewsDetailsView newsData={newsData} />
+      </LayoutStack>
     </MainPageContent>
   );
 }

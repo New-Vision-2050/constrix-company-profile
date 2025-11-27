@@ -4,7 +4,7 @@ import ServicesList from "./services-list";
 import { Container, Stack } from "@mui/material";
 import LayoutStack from "@/layouts/main/layout-stack";
 
-export default function ServicesModule() {
+export default function ServicesView() {
   return (
     <PageSection>
       <LayoutStack>

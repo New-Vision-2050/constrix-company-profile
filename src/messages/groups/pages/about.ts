@@ -10,10 +10,13 @@ export const aboutPageMessages = new MessagesGroup({
     "users-list-title": _m("Students by average mark", "الطلاب حسب متوسط العلامات"),
     "sort-ascending": _m("Ascending", "تصاعدي"),
     "sort-descending": _m("Descending", "تنازلي"),
-    
+
     // Performance Card Section
     "performance-title": _m("Type of studying", "نوع الدراسة"),
     "students": _m("students", "طلاب"),
     "sessions": _m("sessions", "جلسات"),
+  }),
+  partners: new MessagesGroup({
+    title: _m("Partners", "الشركاء"),
   })
 });

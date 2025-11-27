@@ -3,6 +3,7 @@ import LayoutStack from "@/layouts/main/layout-stack";
 import PageSection from "@/layouts/main/page-section";
 import { Box, Typography, alpha } from "@mui/material";
 import UsersList from "./users-list";
+import PerformanceCard from "./performance-card";
 
 /**
  * Who We Are section component
@@ -38,8 +39,11 @@ export default function WhoWeAre() {
           </Typography>
 
           {/* Statistics cards */}
-          <UsersList />
-          
+          <Box position="relative" display="flex" flexDirection="row" gap={0} justifyContent="center" justifyItems="center">
+            <PerformanceCard />
+            <UsersList />
+          </Box>
+
         </LayoutStack>
       </PageSection>
     </Box>

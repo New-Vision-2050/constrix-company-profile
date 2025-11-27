@@ -21,6 +21,9 @@ export default function UsersList() {
         p: 3,
         borderRadius: 2,
         bgcolor: 'background.paper',
+        position: 'relative',
+        zIndex: 2,
+        boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
       }}
     >
       {/* Header with title and sort control */}

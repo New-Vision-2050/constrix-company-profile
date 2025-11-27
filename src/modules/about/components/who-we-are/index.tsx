@@ -2,6 +2,7 @@
 import LayoutStack from "@/layouts/main/layout-stack";
 import PageSection from "@/layouts/main/page-section";
 import { Box, Typography, alpha } from "@mui/material";
+import UsersList from "./users-list";
 
 /**
  * Who We Are section component
@@ -37,6 +38,7 @@ export default function WhoWeAre() {
           </Typography>
 
           {/* Statistics cards */}
+          <UsersList />
           
         </LayoutStack>
       </PageSection>

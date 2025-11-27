@@ -59,26 +59,32 @@ export default function ServicesView() {
           grabCursor={true}
           centeredSlides={true}
           slidesPerView="auto"
-          loop={true}
-          loopAdditionalSlides={2}
+          loopAdditionalSlides={1}
+          watchSlidesProgress={true}
+          allowTouchMove={true}
+          slideToClickedSlide={true}
           coverflowEffect={{
             rotate: 0,
             stretch: 0,
-            depth: 350,
+            depth: 300,
             modifier: 2,
             slideShadows: true,
           }}
-          autoplay={{
-            delay: 4000,
-            disableOnInteraction: false,
-          }}
           speed={600}
+          onInit={(swiper) => {
+            // Initialize swiper properly and start at the second card (index 1)
+            swiper.update();
+            // Start at the second card (index 1)
+            if (services.length > 1) {
+              swiper.slideTo(1, 0);
+            }
+          }}
           breakpoints={{
             640: {
               coverflowEffect: {
                 rotate: 0,
                 stretch: 0,
-                depth: 300,
+                depth: 250,
                 modifier: 2,
                 slideShadows: true,
               },
@@ -87,7 +93,7 @@ export default function ServicesView() {
               coverflowEffect: {
                 rotate: 0,
                 stretch: 0,
-                depth: 250,
+                depth: 200,
                 modifier: 2,
                 slideShadows: true,
               },

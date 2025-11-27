@@ -77,7 +77,6 @@ export default function AboutUsView() {
             grabCursor={true}
             centeredSlides={true}
             slidesPerView="auto"
-            loop={true}
             loopAdditionalSlides={1}
             watchSlidesProgress={true}
             allowTouchMove={true}
@@ -89,15 +88,14 @@ export default function AboutUsView() {
               modifier: 2,
               slideShadows: true,
             }}
-            autoplay={{
-              delay: 4000,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            }}
             speed={600}
             onInit={(swiper) => {
-              // Initialize swiper properly
+              // Initialize swiper properly and start at the second card (index 1)
               swiper.update();
+              // Start at the second card (index 1)
+              if (teamMembers.length > 1) {
+                swiper.slideTo(1, 0);
+              }
             }}
             breakpoints={{
               640: {
@@ -127,13 +125,19 @@ export default function AboutUsView() {
                 <SwiperSlide
                   key={`member-${displayMember.id}-${index}`}
                   style={{
-                    width: "85%",
-                    borderRadius: "10px",
+                    width: "65%",
                   }}
                 >
                   <Card
                     sx={{
-                      p: { xs: 3, md: 5 },
+                      height: "100%",
+                      borderRadius: 2.5,
+                      overflow: "hidden",
+                      boxShadow: "0 8px 30px rgba(0, 0, 0, 0.15)",
+                      position: "relative",
+                      display: "flex",
+                      flexDirection: "column",
+                      transition: "all 0.4s ease",
                     }}
                   >
                     {/* Opacity Logo Watermark */}

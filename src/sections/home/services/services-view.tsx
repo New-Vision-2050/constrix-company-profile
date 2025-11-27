@@ -38,7 +38,7 @@ export default function ServicesView() {
   ];
 
   return (
-    <PageSection>
+    <PageSection sx={{ my: { xs: 4, md: 6 } }}>
       {/* Title */}
       <Typography
         variant="h3"
@@ -56,13 +56,8 @@ export default function ServicesView() {
         <Swiper
           modules={[Autoplay, EffectCoverflow]}
           effect="coverflow"
-          grabCursor={true}
           centeredSlides={true}
           slidesPerView="auto"
-          loopAdditionalSlides={1}
-          watchSlidesProgress={true}
-          allowTouchMove={true}
-          slideToClickedSlide={true}
           coverflowEffect={{
             rotate: 0,
             stretch: 0,
@@ -169,7 +164,6 @@ export default function ServicesView() {
                       fontWeight: 700,
                       mb: 1.5,
                       fontSize: { xs: "1.1rem", md: "1.25rem" },
-                      textAlign: "right", // Right-aligned for Arabic
                     }}
                   >
                     {service.title}
@@ -180,7 +174,6 @@ export default function ServicesView() {
                       fontSize: { xs: "0.875rem", md: "0.9375rem" },
                       lineHeight: 1.6,
                       opacity: 0.95,
-                      textAlign: "right", // Right-aligned for Arabic
                     }}
                   >
                     {service.description}

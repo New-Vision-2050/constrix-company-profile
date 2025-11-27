@@ -19,7 +19,6 @@ export default function CompanyProfileView() {
       sx={{
         background: "#8B1F7A",
         py: { xs: 4, md: 8 },
-        my: { xs: 4, md: 10 },
       }}
     >
       <PageSection>

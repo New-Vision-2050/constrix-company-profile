@@ -74,20 +74,10 @@ export default function AboutUsView() {
           <Swiper
             modules={[Autoplay, EffectCoverflow]}
             effect="coverflow"
-            grabCursor={true}
             centeredSlides={true}
-            slidesPerView="auto"
-            watchSlidesProgress={true}
-            allowTouchMove={true}
-            slideToClickedSlide={true}
-            coverflowEffect={{
-              rotate: 0,
-              stretch: 0,
-              depth: 300,
-              modifier: 2,
-              slideShadows: true,
-            }}
+            slidesPerView={1.2}
             speed={600}
+            loop={true}
             onInit={(swiper) => {
               // Initialize swiper properly and start at the second card (index 1)
               swiper.update();
@@ -131,12 +121,9 @@ export default function AboutUsView() {
                     sx={{
                       height: "100%",
                       borderRadius: 2.5,
-                      overflow: "hidden",
-                      boxShadow: "0 8px 30px rgba(0, 0, 0, 0.15)",
                       position: "relative",
                       display: "flex",
                       flexDirection: "column",
-                      transition: "all 0.4s ease",
                     }}
                   >
                     {/* Opacity Logo Watermark */}
@@ -168,6 +155,7 @@ export default function AboutUsView() {
                         flexDirection: { xs: "column", md: "row" },
                         justifyContent: { xs: "center", md: "space-between" },
                         alignItems: { xs: "center", md: "flex-start" },
+                        minHeight: "300px",
                       }}
                     >
                       {/* Profile Section - Right Side */}
@@ -176,8 +164,8 @@ export default function AboutUsView() {
                         <Box
                           sx={{
                             position: "relative",
-                            width: { xs: 150, md: 180 },
-                            height: { xs: 150, md: 180 },
+                            minWidth: "300px",
+                            minHeight: "300px",
                           }}
                         >
                           <Image
@@ -193,35 +181,38 @@ export default function AboutUsView() {
 
                       {/* Text Content - Left Side */}
 
-                      <Box sx={{ p: 4 }}>
-                        <Box
+                      <Box
+                        sx={{
+                          px: 4,
+                          py: 1,
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "flex-start",
+                          alignItems: "flex-start",
+                        }}
+                      >
+                        <Typography
+                          variant="h6"
                           sx={{
-                            textAlign: { xs: "center", md: "left" },
+                            fontWeight: 600,
+                            mb: 2,
+                            fontSize: { xs: "1.1rem", md: "1.3rem" },
                           }}
                         >
-                          <Typography
-                            variant="h6"
-                            sx={{
-                              fontWeight: 600,
-                              mb: 0.5,
-                              fontSize: { xs: "1.1rem", md: "1.3rem" },
-                            }}
-                          >
-                            {displayMember.name}
-                          </Typography>
+                          {displayMember.name}
+                        </Typography>
 
-                          {/* Title */}
-                          <Typography
-                            variant="body2"
-                            sx={{
-                              fontSize: { xs: "0.9rem", md: "1rem" },
-                              fontWeight: 500,
-                              mb: 2,
-                            }}
-                          >
-                            {displayMember.title}
-                          </Typography>
-                        </Box>
+                        {/* Title */}
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            fontSize: { xs: "0.9rem", md: "1rem" },
+                            fontWeight: 500,
+                            mb: 2,
+                          }}
+                        >
+                          {displayMember.title}
+                        </Typography>
                         <Typography
                           variant="body1"
                           sx={{

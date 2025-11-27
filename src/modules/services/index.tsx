@@ -1,16 +1,12 @@
-import PageSection from "@/layouts/main/page-section";
 import ServicesSearchBar from "./search-bar";
 import ServicesList from "./services-list";
-import { Container, Stack } from "@mui/material";
-import LayoutStack from "@/layouts/main/layout-stack";
+import {  Stack } from "@mui/material";
 
 export default function ServicesView() {
   return (
-    <PageSection>
-      <LayoutStack>
+    <Stack gap={4}>
         <ServicesSearchBar />
         <ServicesList />
-      </LayoutStack>
-    </PageSection>
+    </Stack>
   );
 }

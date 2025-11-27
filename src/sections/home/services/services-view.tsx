@@ -38,7 +38,7 @@ export default function ServicesView() {
   ];
 
   return (
-    <PageSection sx={{ my: { xs: 4, md: 6 } }}>
+    <PageSection sx={{ mb: 6 }}>
       {/* Title */}
       <Typography
         variant="h3"
@@ -67,9 +67,7 @@ export default function ServicesView() {
           }}
           speed={600}
           onInit={(swiper) => {
-            // Initialize swiper properly and start at the second card (index 1)
             swiper.update();
-            // Start at the second card (index 1)
             if (services.length > 1) {
               swiper.slideTo(1, 0);
             }

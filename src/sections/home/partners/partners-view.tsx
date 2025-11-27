@@ -25,11 +25,7 @@ export default function PartnersView() {
   const t = useTranslations("home");
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-      }}
-    >
+    <Box mb={6}>
       <PageSection>
         {/* Title */}
         <Typography

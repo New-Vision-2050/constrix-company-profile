@@ -4,15 +4,26 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, Stack, TextField } from "@mui/material";
 import { MuiTelInput } from "mui-tel-input";
 import { useTranslations } from "next-intl";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
+import { isValidPhoneNumber } from "libphonenumber-js";
 
 export default function ContactForm() {
   const t = useTranslations("contactForm");
 
   const contactSchema = z.object({
     name: z.string().min(3, t("errors.name")),
-    phone: z.string().min(6, t("errors.phone")).optional().or(z.literal("")),
+    phone: z.string().refine(
+      (value) => {
+        // Allow empty string (optional field)
+        if (!value || value.trim() === "") return true;
+        // Validate phone number format
+        return isValidPhoneNumber(value);
+      },
+      {
+        message: t("errors.phone"),
+      }
+    ),
     email: z.string().email(t("errors.email")),
     address: z.string().min(3, t("errors.address")),
     message: z.string().min(10, t("errors.message")),
@@ -24,8 +35,7 @@ export default function ContactForm() {
     register,
     handleSubmit,
     reset,
-    setValue,
-    watch,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
@@ -37,7 +47,6 @@ export default function ContactForm() {
       message: "",
     },
   });
-  const phoneValue = watch("phone");
 
   const onSubmit = async (data: ContactFormValues) => {
     // Replace this with API call
@@ -62,15 +71,22 @@ export default function ContactForm() {
           helperText={errors.name?.message}
         />
 
-        <MuiTelInput
-          fullWidth
-          label={t("phone")}
-          placeholder={t("placeholders.phone")}
-          defaultCountry="SA"
-          value={phoneValue}
-          onChange={(value) => setValue("phone", value)}
-          error={!!errors.phone}
-          helperText={errors.phone?.message}
+        <Controller
+          name="phone"
+          control={control}
+          render={({ field, fieldState }) => (
+            <MuiTelInput
+              fullWidth
+              label={t("phone")}
+              placeholder={t("placeholders.phone")}
+              defaultCountry="SA"
+              value={field.value}
+              onChange={(value) => field.onChange(value)}
+              onBlur={field.onBlur}
+              error={!!fieldState.error}
+              helperText={fieldState.error?.message}
+            />
+          )}
         />
 
         <TextField

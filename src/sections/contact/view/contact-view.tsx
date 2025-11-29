@@ -18,10 +18,10 @@ export default function ContactView() {
         <PageSection>
           <Grid container spacing={6}>
             <Grid size={{ xs: 12, md: 6 }}>
-              <ContactInfo />
+              <ContactForm />
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
-              <ContactForm />
+              <ContactInfo />
             </Grid>
           </Grid>
         </PageSection>

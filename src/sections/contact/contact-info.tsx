@@ -10,13 +10,15 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import EmailIcon from "@mui/icons-material/Email";
-import LocationIcon from "@mui/icons-material/LocationOn";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
+import {
+  Facebook,
+  Instagram,
+  Whatsapp,
+  Notification,
+  Location,
+} from "iconsax-reactjs";
 
 export default function ContactInfo() {
   const t = useTranslations("contactInfo");
@@ -46,10 +48,10 @@ export default function ContactInfo() {
   ];
 
   const socialMediaIcons = [
-    { icon: NotificationsIcon, name: "NotificationsIcon" },
-    { icon: InstagramIcon, name: "Instagram" },
-    { icon: WhatsAppIcon, name: "WhatsApp" },
-    { icon: FacebookIcon, name: "Facebook" },
+    { icon: Facebook, name: "Facebook", variant: "Bold" },
+    { icon: Whatsapp, name: "WhatsApp", variant: "Outline" },
+    { icon: Instagram, name: "Instagram", variant: "Outline" },
+    { icon: Notification, name: "Notification", variant: "Bold" },
   ];
 
   return (
@@ -59,7 +61,7 @@ export default function ContactInfo() {
         variant="h4"
         sx={{
           mb: 4,
-          fontWeight: 600,
+          fontWeight: 400,
           color: "text.primary",
         }}
       >
@@ -71,16 +73,25 @@ export default function ContactInfo() {
         <Stack direction="row" spacing={2} alignItems="flex-start">
           <Box
             sx={{
-              width: 24,
-              height: 24,
+              width: 26,
+              height: 20,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               mt: 0.5,
-              color: "primary.main",
+              position: "relative",
             }}
           >
-            <EmailIcon sx={{ fontSize: 24 }} />
+            <Image
+              src="/Email.svg"
+              alt="Email"
+              width={26}
+              height={20}
+              style={{
+                width: "100%",
+                height: "auto",
+              }}
+            />
           </Box>
           <Stack>
             <Typography
@@ -89,7 +100,7 @@ export default function ContactInfo() {
             >
               {t("email")}
             </Typography>
-            <Typography variant="body1" sx={{ color: "text.primary" }}>
+            <Typography variant="body1" sx={{ color: "primary.main" }}>
               example@gmail.com
             </Typography>
           </Stack>
@@ -105,8 +116,8 @@ export default function ContactInfo() {
           >
             <Box
               sx={{
-                width: 24,
-                height: 24,
+                width: 26,
+                height: 26,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -114,7 +125,7 @@ export default function ContactInfo() {
                 color: "primary.main",
               }}
             >
-              <LocationIcon sx={{ fontSize: 24 }} />
+              <Location size={26} variant="Outline" />
             </Box>
             <Typography
               variant="body1"
@@ -133,21 +144,14 @@ export default function ContactInfo() {
                   px: 0,
                   py: 0.75,
                   borderRadius: 1,
-                  transition: "all 0.2s ease",
-                  "&:hover": {
-                    backgroundColor: "action.hover",
-                  },
-                  backgroundColor:
-                    selectedIndex === index ? "action.selected" : "transparent",
+                  color: "primary.main",
                 }}
               >
                 <ListItemText
                   primary={location.label}
                   primaryTypographyProps={{
-                    variant: "body2",
                     sx: {
-                      color: "text.primary",
-                      fontWeight: selectedIndex === index ? 500 : 400,
+                      fontWeight: 700,
                     },
                   }}
                 />
@@ -164,27 +168,20 @@ export default function ContactInfo() {
               <IconButton
                 key={index}
                 sx={{
-                  width: 48,
-                  height: 48,
-                  border: 2,
+                  width: 50,
+                  height: 50,
+                  border: 1,
                   borderColor: "primary.main",
                   borderRadius: "50%",
-                  color: "text.primary",
-                  p: 0,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  "&:hover": {
-                    backgroundColor: "primary.lighter",
-                    borderColor: "primary.dark",
-                  },
+                  color: "primary.main",
                 }}
               >
                 <IconComponent
-                  sx={{
-                    fontSize: 24,
-                    color: "text.primary",
-                  }}
+                  size={32}
+                  variant={social.variant as "Bold" | "Outline"}
                 />
               </IconButton>
             );

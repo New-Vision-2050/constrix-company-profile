@@ -1,15 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  Box,
-  Typography,
-  Stack,
-  IconButton,
-  List,
-  ListItem,
-  ListItemText,
-} from "@mui/material";
+import { Box, Typography, Stack, IconButton, MenuItem } from "@mui/material";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import {
@@ -134,30 +126,24 @@ export default function ContactInfo() {
               {t("addresses")}
             </Typography>
           </Stack>
-          <List sx={{ pl: 0 }}>
+          <Stack sx={{ pl: 0 }}>
             {locations.map((location, index) => (
-              <ListItem
+              <MenuItem
                 key={index}
+                selected={selectedIndex === index}
                 onClick={() => setSelectedIndex(index)}
                 sx={{
-                  cursor: "pointer",
                   px: 0,
                   py: 0.75,
                   borderRadius: 1,
                   color: "primary.main",
+                  fontWeight: 700,
                 }}
               >
-                <ListItemText
-                  primary={location.label}
-                  primaryTypographyProps={{
-                    sx: {
-                      fontWeight: 700,
-                    },
-                  }}
-                />
-              </ListItem>
+                {location.label}
+              </MenuItem>
             ))}
-          </List>
+          </Stack>
         </Stack>
 
         {/* Social Media Icons */}

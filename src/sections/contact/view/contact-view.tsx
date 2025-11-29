@@ -10,10 +10,10 @@ import ContactInfo from "../contact-info";
 import { useTranslations } from "next-intl";
 
 export default function ContactView() {
-  const t = useTranslations("navigation");
+  const t = useTranslations("nav");
 
   return (
-    <MainPageContent title={"Contact Us"}>
+    <MainPageContent title={t("contact")}>
       <LayoutStack>
         <PageSection>
           <Grid container spacing={6}>

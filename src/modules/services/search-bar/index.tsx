@@ -4,7 +4,7 @@ import ServicesCatBtnList from "./ServicesCatBtnList";
 
 export default function ServicesSearchBar() {
   return (
-    <Stack spacing={2}>
+    <Stack gap={2}>
       <ServicesSearchField />
       <ServicesCatBtnList />
     </Stack>

@@ -1,20 +1,19 @@
 import LayoutStack from "@/layouts/main/layout-stack";
 import MainPageContent from "@/layouts/main/page-content";
 import PageSection from "@/layouts/main/page-section";
-import ServicesView from "@/modules/services";
+import NewsPageView from "@/modules/news";
 import { useTranslations } from "next-intl";
 
-function ServicesPage() {
-  const t = useTranslations("pages.services");
+export default function NewsPage() {
+  const t = useTranslations("pages.news");
+
   return (
     <MainPageContent title={t("title")}>
       <LayoutStack>
         <PageSection>
-          <ServicesView />
+          <NewsPageView />
         </PageSection>
       </LayoutStack>
     </MainPageContent>
   );
 }
-
-export default ServicesPage;

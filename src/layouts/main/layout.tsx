@@ -26,7 +26,7 @@ import { useTranslations } from "next-intl";
 import type { MainSectionProps } from "../core/main-section";
 import type { HeaderSectionProps } from "../core/header-section";
 import type { LayoutSectionProps } from "../core/layout-section";
-import { FooterSection } from "../core/footer-section";
+import FooterSection from "../core/footer-section";
 
 // ----------------------------------------------------------------------
 
@@ -44,6 +44,7 @@ export type MainLayoutProps = LayoutBaseProps & {
 const publicNavItems = [
   { title: "nav.home", path: "/" },
   { title: "nav.services", path: "/services" },
+  { title: "nav.news", path: "/news" },
   { title: "nav.about", path: "/about" },
   { title: "nav.contact", path: "/contact" },
 ];

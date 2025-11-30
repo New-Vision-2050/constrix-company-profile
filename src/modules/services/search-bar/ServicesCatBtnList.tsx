@@ -3,12 +3,7 @@ import ServicesCategoryBtn from "./ServicesCategoryBtn";
 
 export default function ServicesCatBtnList() {
   return (
-    <Stack
-      spacing={2}
-      direction={"row"}
-      alignItems={"center"}
-      flexWrap={"wrap"}
-    >
+    <Stack direction="row"  flexWrap="wrap" width="100%">
       <ServicesCategoryBtn text="All" isActive />
       <ServicesCategoryBtn text="Web Design" />
       <ServicesCategoryBtn text="Web Development" />

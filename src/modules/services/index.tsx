@@ -1,14 +1,12 @@
 import ServicesSearchBar from "./search-bar";
 import ServicesList from "./services-list";
-import { Container, Stack } from "@mui/material";
+import {  Stack } from "@mui/material";
 
-export default function ServicesModule() {
+export default function ServicesView() {
   return (
-    <Container maxWidth="xl">
-      <Stack padding={4} spacing={4}>
+    <Stack gap={4}>
         <ServicesSearchBar />
         <ServicesList />
-      </Stack>
-    </Container>
+    </Stack>
   );
 }

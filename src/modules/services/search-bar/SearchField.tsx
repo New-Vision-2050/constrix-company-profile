@@ -9,6 +9,7 @@ export default function ServicesSearchField() {
       id="services-search-field"
       label={t("searchPlaceholder")}
       variant="outlined"
+      fullWidth
       slotProps={{
         input: {
           endAdornment: (

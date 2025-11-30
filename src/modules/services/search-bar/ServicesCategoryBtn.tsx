@@ -9,5 +9,10 @@ export default function ServicesCategoryBtn({
   text,
   isActive,
 }: ServicesCategoryBtnProps) {
-  return <Button variant={isActive ? "contained" : "text"} sx={{ textTransform: "none" }}>{text}</Button>;
+  return <Button
+    color={isActive ? "primary" : "inherit"}
+    variant={isActive ? "contained" : "text"}
+    sx={{ textTransform: "none" }}>
+    {text}
+  </Button>;
 }

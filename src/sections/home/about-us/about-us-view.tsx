@@ -166,6 +166,9 @@ export default function AboutUsView() {
                             position: "relative",
                             minWidth: "300px",
                             minHeight: "300px",
+                            m: 3,
+                            borderRadius: 2,
+                            overflow: "hidden",
                           }}
                         >
                           <Image
@@ -183,7 +186,8 @@ export default function AboutUsView() {
 
                       <Box
                         sx={{
-                          px: 4,
+                          pr: 10,
+                          pl: 3,
                           py: 1,
                           display: "flex",
                           flexDirection: "column",
@@ -197,6 +201,7 @@ export default function AboutUsView() {
                             fontWeight: 600,
                             mb: 2,
                             fontSize: { xs: "1.1rem", md: "1.3rem" },
+                            color: "primary.main",
                           }}
                         >
                           {displayMember.name}
@@ -206,9 +211,10 @@ export default function AboutUsView() {
                         <Typography
                           variant="body2"
                           sx={{
-                            fontSize: { xs: "0.9rem", md: "1rem" },
-                            fontWeight: 500,
+                            fontSize: { xs: "0.9rem", md: "1.2rem" },
+                            fontWeight: 600,
                             mb: 2,
+                            color: "secondary.main",
                           }}
                         >
                           {displayMember.title}

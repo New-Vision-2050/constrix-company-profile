@@ -1,8 +1,7 @@
 "use client";
 
 import { Box, Container, Stack } from "@mui/material";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import { ArrowLeft2, ArrowRight2 } from "iconsax-reactjs";
 import { useSwiper } from "swiper/react";
 
 function SwiperNavigation() {
@@ -19,23 +18,14 @@ function SwiperNavigation() {
               width: 48,
               height: 48,
               borderRadius: "50%",
-              backgroundColor: "#616161",
               border: "none",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               cursor: "pointer",
-              transition: "all 0.3s ease",
-              "&:hover": {
-                backgroundColor: "#757575",
-                transform: "scale(1.05)",
-              },
-              "&:active": {
-                transform: "scale(0.95)",
-              },
             }}
           >
-            <ChevronRightIcon sx={{ color: "#fff", fontSize: 24 }} />
+            <ArrowRight2 variant="Outline" size={30} color="#000" />
           </Box>
           <Box
             component="button"
@@ -44,23 +34,14 @@ function SwiperNavigation() {
               width: 48,
               height: 48,
               borderRadius: "50%",
-              backgroundColor: "#616161",
               border: "none",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               cursor: "pointer",
-              transition: "all 0.3s ease",
-              "&:hover": {
-                backgroundColor: "#757575",
-                transform: "scale(1.05)",
-              },
-              "&:active": {
-                transform: "scale(0.95)",
-              },
             }}
           >
-            <ChevronLeftIcon sx={{ color: "#fff", fontSize: 24 }} />
+            <ArrowLeft2 variant="Outline" size={30} color="#000" />
           </Box>
         </Stack>
       </Stack>

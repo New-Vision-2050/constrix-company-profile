@@ -4,7 +4,7 @@ import React from "react";
 import { Box, Button, Typography, Stack } from "@mui/material";
 import { useTranslations } from "next-intl";
 import PageSection from "@/layouts/main/page-section";
-import DownloadIcon from "@mui/icons-material/Download";
+import { DocumentDownload } from "iconsax-reactjs";
 
 export default function CompanyProfileView() {
   const t = useTranslations("home");
@@ -46,7 +46,7 @@ export default function CompanyProfileView() {
           <Box>
             <Button
               variant="contained"
-              startIcon={<DownloadIcon />}
+              endIcon={<DocumentDownload size={24} />}
               onClick={handleDownload}
               fullWidth={true}
               sx={{

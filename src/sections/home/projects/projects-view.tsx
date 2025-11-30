@@ -18,6 +18,36 @@ export default function ProjectsView() {
   const theme = useTheme();
   const isTabletOrMobile = useMediaQuery(theme.breakpoints.down("md"));
 
+  // Responsive card width based on window size
+  const [cardMaxWidth, setCardMaxWidth] = React.useState("100%");
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      const w = window.innerWidth;
+
+      if (w < 640) {
+        setCardMaxWidth("350px");
+      } else if (w < 900) {
+        setCardMaxWidth("500px");
+      } else if (w < 1200) {
+        setCardMaxWidth("600px");
+      } else if (w < 1440) {
+        setCardMaxWidth("800px");
+      } else if (w < 1600) {
+        setCardMaxWidth("1000px");
+      } else if (w < 1800) {
+        setCardMaxWidth("1100px");
+      } else {
+        setCardMaxWidth("1250px");
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   // Calculate spaceBetween (similar to useResponsiveSpaceBetween)
   const spaceBetween = 10;
 
@@ -86,19 +116,35 @@ export default function ProjectsView() {
               slidesPerView={1.2}
               spaceBetween={spaceBetween}
               breakpoints={{
-                640: {
+                320: {
                   slidesPerView: 1,
-                  spaceBetween: 15,
+                  spaceBetween: 10,
+                },
+                640: {
+                  slidesPerView: 1.1,
+                  spaceBetween: 20,
                 },
                 768: {
-                  slidesPerView: 1,
+                  slidesPerView: 1.2,
                   spaceBetween: 20,
                 },
                 1024: {
-                  slidesPerView: 1,
+                  slidesPerView: 1.3,
                   spaceBetween: 25,
                 },
                 1280: {
+                  slidesPerView: 1.2,
+                  spaceBetween: 30,
+                },
+                1440: {
+                  slidesPerView: 1.2,
+                  spaceBetween: 30,
+                },
+                1600: {
+                  slidesPerView: 1.25,
+                  spaceBetween: 30,
+                },
+                1920: {
                   slidesPerView: 1.3,
                   spaceBetween: 30,
                 },
@@ -113,12 +159,7 @@ export default function ProjectsView() {
                 <SwiperSlide key={project.id}>
                   <Box
                     sx={{
-                      width: {
-                        xs: "250px",
-                        sm: "600px",
-                        md: "900px",
-                        lg: "1200px",
-                      },
+                      width: cardMaxWidth,
                       height: {
                         xs: "400px",
                         sm: "350px",

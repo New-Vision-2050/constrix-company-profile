@@ -5,7 +5,7 @@ import { Box, Button, Stack } from "@mui/material";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import PageSection from "@/layouts/main/page-section";
-import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
+import { ArrowCircleLeft } from "iconsax-reactjs";
 export default function HeroView() {
   const t = useTranslations("home");
 
@@ -51,7 +51,7 @@ export default function HeroView() {
           <Button
             variant="contained"
             fullWidth
-            endIcon={<ArrowCircleLeftOutlinedIcon />}
+            endIcon={<ArrowCircleLeft size={24} />}
             sx={{
               py: { xs: 0.75, md: 1 },
               fontSize: { xs: 14, sm: 15, md: 16 },

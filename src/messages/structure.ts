@@ -4,6 +4,7 @@ import { navigationMessages, publicNavMessages } from "./groups/navigation";
 import { contactInfoMessages, contactMessages } from "./groups/contact";
 import { footerMessages } from "./groups/footer";
 import { servicesPageMessages } from "./groups/pages/services";
+import { homeMessages } from "./groups/home";
 import { newsPageMessages } from "./groups/pages/news";
 import { newsDetailsPageMessages } from "./groups/pages/news-details";
 
@@ -12,6 +13,7 @@ export const messagesStructure = new MessagesGroup({
   common: commonMessages,
   navigation: navigationMessages,
   nav: publicNavMessages,
+  home: homeMessages,
   footer: footerMessages,
   services: new MessagesGroup({}),
   serviceCategories: new MessagesGroup({}),

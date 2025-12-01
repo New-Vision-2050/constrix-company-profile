@@ -1,8 +1,9 @@
 import LayoutStack from "@/layouts/main/layout-stack";
 import MainPageContent from "@/layouts/main/page-content";
 import PageSection from "@/layouts/main/page-section";
-import { Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import KeySuccessCard from "../../components/key-success-card";
+import FeaturedCategories from "../../components/featured-categories";
 
 function AboutMainView() {
   return (
@@ -20,6 +21,10 @@ function AboutMainView() {
               <KeySuccessCard />
             </Grid>
           </Grid>
+        </PageSection>
+
+        <PageSection>
+          <FeaturedCategories />
         </PageSection>
       </LayoutStack>
     </MainPageContent>

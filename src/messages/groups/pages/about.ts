@@ -18,5 +18,12 @@ export const aboutPageMessages = new MessagesGroup({
   }),
   partners: new MessagesGroup({
     title: _m("Partners", "الشركاء"),
+  }),
+  goal: new MessagesGroup({
+    title: _m("The Motto", "الشعار"),
+    description: _m(
+      "Real cases that have been built for a long time, and we hope that the future will continue to witness what goes beyond the reader's focus.",
+      "حالات حقيقية مبنية منذ زمن طويل ونحن أن المحتوى المقروع لصفحة ما سيلهي القارئ عن التركيز"
+    ),
   })
 });

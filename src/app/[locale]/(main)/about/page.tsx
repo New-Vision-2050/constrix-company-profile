@@ -8,7 +8,7 @@ export default function AboutPage() {
     return (
         <MainPageContent title={t("title")} description={t("description")}>
             <AboutView />
-            <AboutMainView />
+            {/* <AboutMainView /> */}
         </MainPageContent>
     );
 }

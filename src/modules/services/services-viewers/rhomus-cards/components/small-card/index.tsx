@@ -7,7 +7,7 @@ import { Box, Stack, Typography } from "@mui/material";
 type SmallCardProps = {
   ratio?: number;
 };
-function SmallCard({ ratio = 0.85 }: SmallCardProps) {
+function SmallCard({ ratio = 0.75 }: SmallCardProps) {
   return (
     <AspectRatio ratio={ratio} boxProps={{ sx: { borderRadius: 2 } }}>
       <Stack

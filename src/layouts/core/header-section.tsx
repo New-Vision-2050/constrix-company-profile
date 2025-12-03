@@ -74,10 +74,7 @@ export function HeaderSection({
           {slots?.leftArea}
         </Box>
 
-        <HeaderCenterArea 
-          layoutQuery={layoutQuery}
-          {...slotProps?.centerArea}
-        >
+        <HeaderCenterArea layoutQuery={layoutQuery} {...slotProps?.centerArea}>
           {slots?.centerArea}
         </HeaderCenterArea>
 
@@ -177,12 +174,14 @@ const HeaderContainer = styled(Container, {
 
 const HeaderCenterArea = styled("div", {
   shouldForwardProp: (prop: string) => !["layoutQuery", "sx"].includes(prop),
-})<Pick<HeaderSectionProps, "layoutQuery">>(({ layoutQuery = "md", theme }) => ({
-  display: "none",
-  flex: "1 1 auto",
-  justifyContent: "center",
-  alignItems: "center",
-  [theme.breakpoints.up(layoutQuery)]: {
-    display: "flex",
-  },
-}));
+})<Pick<HeaderSectionProps, "layoutQuery">>(
+  ({ layoutQuery = "md", theme }) => ({
+    display: "none",
+    flex: "1 1 auto",
+    justifyContent: "center",
+    alignItems: "center",
+    [theme.breakpoints.up(layoutQuery)]: {
+      display: "flex",
+    },
+  })
+);

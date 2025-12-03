@@ -1,0 +1,53 @@
+import { Box, Card, CardActionArea, Typography, alpha } from "@mui/material";
+
+type Props = {
+  title: string;
+  projects: number;
+};
+
+function CategoryCard({ title, projects }: Props) {
+  return (
+    <Card
+      sx={{
+        height: "100%",
+        transition: "all 0.3s ease",
+        "&:hover": {
+          boxShadow: (theme) => theme.shadows[10],
+        },
+      }}
+    >
+      <CardActionArea
+        sx={{
+          height: "100%",
+          p: 3,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          justifyContent: "center",
+          minHeight: 120,
+        }}
+      >
+        <Typography
+          variant="h6"
+          sx={{
+            mb: 1,
+            fontWeight: 600,
+            color: "text.primary",
+          }}
+        >
+          {title}
+        </Typography>
+        <Typography
+          variant="body2"
+          sx={{
+            color: "text.secondary",
+          }}
+        >
+          {projects.toLocaleString()} projects
+        </Typography>
+      </CardActionArea>
+    </Card>
+  );
+}
+
+export default CategoryCard;

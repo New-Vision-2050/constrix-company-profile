@@ -8,12 +8,7 @@ function RhomusCards() {
       <Grid size={{ xs: 12, md: 3, lg: 2 }}>
         <SmallCard />
       </Grid>
-      <Grid
-        size={{ xs: 12, md: 8, lg: 6 }}
-        container
-        spacing={4}
-        alignItems="center"
-      >
+      <Grid size={{ xs: 12, lg: 8 }} container spacing={4} alignItems="center">
         <Grid container spacing={4} alignItems="end" sx={{ width: "100%" }}>
           <Grid size={{ xs: 12, md: 3 }}>
             <SmallCard ratio={1} />

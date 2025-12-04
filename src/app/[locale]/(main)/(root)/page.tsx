@@ -6,6 +6,7 @@ import AboutUsView from "@/sections/home/about-us/about-us-view";
 import ProjectsView from "@/sections/home/projects/projects-view";
 import DividerView from "@/sections/home/divider/divider-view";
 import { LayoutSection } from "@/layouts/core";
+import SwiperView from "@/components/main-swiper/swiper-view";
 
 function HomePage() {
   return (
@@ -17,6 +18,7 @@ function HomePage() {
       <CompanyProfileView />
       <AboutUsView />
       <ProjectsView />
+      <SwiperView />
     </LayoutSection>
   );
 }

@@ -84,7 +84,6 @@ export default function TeamView() {
           sx={{
             flexShrink: 0,
             width: { xs: "100%", lg: "350px", xl: "400px" },
-            pb: 4,
           }}
         >
           {/* Label */}
@@ -225,7 +224,7 @@ export default function TeamView() {
                 spaceBetween: 28,
               },
               1536: {
-                slidesPerView: 6,
+                slidesPerView: 5,
                 spaceBetween: 32,
               },
             }}

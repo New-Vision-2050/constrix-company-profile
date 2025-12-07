@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Box, Typography, Card, Button } from "@mui/material";
+import { Box, Typography, Card, Button, alpha } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import PageSection from "@/layouts/main/page-section";
@@ -121,14 +121,15 @@ export default function SwiperView() {
                   height: "220px",
                   borderRadius: 3,
                   overflow: "hidden",
-                  boxShadow: "0 8px 24px rgba(107, 63, 160, 0.25)",
+                  boxShadow: (t) =>
+                    `0 8px 24px ${alpha(t.palette.secondary.main, 0.25)}`,
                   position: "relative",
                   display: "flex",
                   flexDirection: "row",
                   justifyContent: "space-between",
                   alignItems: "center",
-                  background:
-                    "linear-gradient(135deg, #6b3fa0 0%, #8b5fc9 100%)",
+                  background: (t) =>
+                    `linear-gradient(135deg, ${t.palette.secondary.dark} 0%, ${t.palette.secondary.main} 100%)`,
                   p: 3.5,
                   transition: "all 0.4s ease",
                 }}
@@ -138,7 +139,7 @@ export default function SwiperView() {
                   sx={{
                     position: "relative",
                     zIndex: 2,
-                    color: "#ffffff",
+                    color: "common.white",
                     maxWidth: "60%",
                   }}
                 >
@@ -176,8 +177,8 @@ export default function SwiperView() {
                     variant="outlined"
                     startIcon={<DownloadIcon />}
                     sx={{
-                      color: "#ffffff",
-                      borderColor: "rgba(255, 255, 255, 0.8)",
+                      color: "common.white",
+                      borderColor: (t) => alpha(t.palette.common.white, 0.8),
                       borderRadius: "50px",
                       px: 3,
                       py: 1,
@@ -208,7 +209,8 @@ export default function SwiperView() {
                     sx={{
                       width: { xs: 80, md: 110 },
                       height: { xs: 70, md: 90 },
-                      border: "5px solid #ffffff",
+                      border: 5,
+                      borderColor: "common.white",
                       borderRadius: "16px",
                       position: "relative",
                       mb: 1,
@@ -219,11 +221,12 @@ export default function SwiperView() {
                         left: -5,
                         width: 35,
                         height: 35,
-                        background:
-                          "linear-gradient(135deg, #6b3fa0 0%, #8b5fc9 100%)",
+                        background: (t) =>
+                          `linear-gradient(135deg, ${t.palette.secondary.dark} 0%, ${t.palette.secondary.main} 100%)`,
                         borderTopLeftRadius: "16px",
                         borderBottomRightRadius: "16px",
-                        border: "5px solid #ffffff",
+                        border: 5,
+                        borderColor: "common.white",
                         borderRight: "none",
                         borderBottom: "none",
                       },
@@ -233,7 +236,7 @@ export default function SwiperView() {
                     sx={{
                       fontSize: { xs: "2rem", md: "2.8rem" },
                       fontWeight: 800,
-                      color: "#ffffff",
+                      color: "common.white",
                       letterSpacing: "6px",
                       fontFamily: "Arial, sans-serif",
                     }}
@@ -257,19 +260,21 @@ export default function SwiperView() {
             width: 44,
             height: 44,
             borderRadius: "50%",
-            background: "#ffffff",
+            bgcolor: "common.white",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             cursor: "pointer",
             zIndex: 10,
-            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+            boxShadow: (t) =>
+              `0 4px 12px ${alpha(t.palette.common.black, 0.1)}`,
             transition: "all 0.3s ease",
             "&:hover": {
-              background: "#6b3fa0",
-              color: "#ffffff",
+              bgcolor: "secondary.dark",
+              color: "common.white",
               transform: "translateY(-50%) scale(1.1)",
-              boxShadow: "0 6px 20px rgba(107, 63, 160, 0.4)",
+              boxShadow: (t) =>
+                `0 6px 20px ${alpha(t.palette.secondary.main, 0.4)}`,
             },
             "&::after": {
               content: '"‹"',
@@ -289,19 +294,21 @@ export default function SwiperView() {
             width: 44,
             height: 44,
             borderRadius: "50%",
-            background: "#ffffff",
+            bgcolor: "common.white",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             cursor: "pointer",
             zIndex: 10,
-            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+            boxShadow: (t) =>
+              `0 4px 12px ${alpha(t.palette.common.black, 0.1)}`,
             transition: "all 0.3s ease",
             "&:hover": {
-              background: "#6b3fa0",
-              color: "#ffffff",
+              bgcolor: "secondary.dark",
+              color: "common.white",
               transform: "translateY(-50%) scale(1.1)",
-              boxShadow: "0 6px 20px rgba(107, 63, 160, 0.4)",
+              boxShadow: (t) =>
+                `0 6px 20px ${alpha(t.palette.secondary.main, 0.4)}`,
             },
             "&::after": {
               content: '"›"',

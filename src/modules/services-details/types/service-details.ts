@@ -1,3 +1,5 @@
+import { PreviousWork } from "./previous-work";
+
 /**
  * Service detail data structure
  * Centralized type definition for service details page
@@ -12,5 +14,6 @@ export interface ServiceDetail {
   price: number;
   imageUrl: string;
   imageAlt: string;
+  previousWorks?: PreviousWork[];
 }
 

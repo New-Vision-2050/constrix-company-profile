@@ -1,5 +1,5 @@
 import ServiceHeader from "./components/ServiceHeader";
-import ServiceImage from "./components/ServiceImage";
+import OurPreviousWorks from "./components/OurPreviousWorks";
 import { ServiceDetail } from "./types/service-details";
 import LayoutStack from "@/layouts/main/layout-stack";
 import ServiceDescription from "./components/ServiceDescription";
@@ -26,10 +26,8 @@ export default function ServicesDetailsView({
       <ServiceHeader title={serviceData.title} />
       {/* Service Description */}
       <ServiceDescription label={t("serviceDescription")} description={serviceData.description} />
-      {/* image */}
-      <ServiceImage src={serviceData.imageUrl} alt={serviceData.imageAlt} />
-      {/* Service Content */}
-      <ServiceDescription label={t("description")} description={serviceData.content} />
+      {/* Previous Work Slider */}
+      <OurPreviousWorks previousWorks={serviceData.previousWorks} />
     </LayoutStack>
   );
 }

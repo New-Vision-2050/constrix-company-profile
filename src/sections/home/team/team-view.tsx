@@ -1,12 +1,19 @@
 "use client";
 
 import React, { useRef } from "react";
-import { Box, Typography, Stack, IconButton } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Stack,
+  IconButton,
+  useTheme,
+  alpha,
+} from "@mui/material";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
-import { ArrowLeft2, ArrowRight2, Facebook, Instagram } from "iconsax-reactjs";
+import { ArrowLeft2, ArrowRight2 } from "iconsax-reactjs";
 import { Icon } from "@iconify/react";
 
 // Import Swiper styles
@@ -15,6 +22,7 @@ import "swiper/css/navigation";
 import PageSection from "@/layouts/main/page-section";
 
 export default function TeamView() {
+  const theme = useTheme();
   const swiperRef = useRef<SwiperType | null>(null);
 
   // Team members data
@@ -67,8 +75,7 @@ export default function TeamView() {
     <Box
       sx={{
         py: { xs: 8, md: 12 },
-        background:
-          "linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%)",
+        bgcolor: "grey.900",
         overflow: "hidden",
       }}
     >
@@ -89,7 +96,7 @@ export default function TeamView() {
           {/* Label */}
           <Typography
             sx={{
-              color: "#ff6b35",
+              color: "primary.main",
               fontWeight: 600,
               fontSize: "0.875rem",
               letterSpacing: "0.1em",
@@ -108,8 +115,8 @@ export default function TeamView() {
               fontSize: { xs: "2rem", md: "2.5rem", lg: "3rem" },
               lineHeight: 1.2,
               mb: 3,
-              background:
-                "linear-gradient(90deg, #ff6b35 0%, #f7931e 30%, #e040fb 70%, #ab47bc 100%)",
+              background: (t) =>
+                `linear-gradient(90deg, ${t.palette.primary.main} 0%, ${t.palette.primary.light} 30%, ${t.palette.secondary.main} 70%, ${t.palette.secondary.dark} 100%)`,
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -121,7 +128,7 @@ export default function TeamView() {
           {/* Description */}
           <Typography
             sx={{
-              color: "rgba(255, 255, 255, 0.7)",
+              color: "text.secondary",
               fontSize: { xs: "0.9rem", md: "1rem" },
               lineHeight: 1.7,
               mb: 4,
@@ -141,7 +148,8 @@ export default function TeamView() {
                 width: 44,
                 height: 44,
                 borderRadius: "50%",
-                border: "1px solid rgba(255, 255, 255, 0.2)",
+                border: 1,
+                borderColor: "grey.700",
                 backgroundColor: "transparent",
                 display: "flex",
                 alignItems: "center",
@@ -149,12 +157,16 @@ export default function TeamView() {
                 cursor: "pointer",
                 transition: "all 0.3s ease",
                 "&:hover": {
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
-                  borderColor: "rgba(255, 255, 255, 0.4)",
+                  bgcolor: (t) => alpha(t.palette.common.white, 0.1),
+                  borderColor: "grey.500",
                 },
               }}
             >
-              <ArrowLeft2 variant="Outline" size={20} color="#fff" />
+              <ArrowLeft2
+                variant="Outline"
+                size={20}
+                color={theme.palette.common.white}
+              />
             </Box>
             <Box
               component="button"
@@ -163,7 +175,8 @@ export default function TeamView() {
                 width: 44,
                 height: 44,
                 borderRadius: "50%",
-                border: "1px solid #ff6b35",
+                border: 1,
+                borderColor: "primary.main",
                 backgroundColor: "transparent",
                 display: "flex",
                 alignItems: "center",
@@ -171,11 +184,15 @@ export default function TeamView() {
                 cursor: "pointer",
                 transition: "all 0.3s ease",
                 "&:hover": {
-                  backgroundColor: "rgba(255, 107, 53, 0.2)",
+                  bgcolor: (t) => alpha(t.palette.primary.main, 0.2),
                 },
               }}
             >
-              <ArrowRight2 variant="Outline" size={20} color="#ff6b35" />
+              <ArrowRight2
+                variant="Outline"
+                size={20}
+                color={theme.palette.primary.main}
+              />
             </Box>
           </Stack>
         </Box>
@@ -234,9 +251,7 @@ export default function TeamView() {
                 <Box
                   sx={{
                     overflow: "hidden",
-
                     transition: "transform 0.3s ease, box-shadow 0.3s ease",
-
                     "&:hover .social-overlay": {
                       opacity: 1,
                     },
@@ -250,8 +265,7 @@ export default function TeamView() {
                       aspectRatio: "3 / 4",
                       borderRadius: 2,
                       overflow: "hidden",
-                      background:
-                        "linear-gradient(180deg, #e8eef2 0%, #c5d0d8 100%)",
+                      bgcolor: "grey.300",
                     }}
                   >
                     <Image
@@ -277,8 +291,8 @@ export default function TeamView() {
                         alignItems: "center",
                         gap: 1,
                         py: 2,
-                        background:
-                          "linear-gradient(to top, rgba(26, 37, 53, 0.95) 0%, rgba(26, 37, 53, 0.8) 60%, transparent 100%)",
+                        background: (t) =>
+                          `linear-gradient(to top, ${alpha(t.palette.grey[900], 0.95)} 0%, ${alpha(t.palette.grey[900], 0.8)} 60%, transparent 100%)`,
                         opacity: 0,
                         transition: "opacity 0.3s ease",
                       }}
@@ -287,30 +301,34 @@ export default function TeamView() {
                         component="a"
                         href={member.socials.facebook}
                         size="small"
+                        sx={{ color: "info.main" }}
                       >
-                        <Facebook size="24" color="#1877f2" variant="Bold" />
+                        <Icon icon="mdi:facebook" width={24} />
                       </IconButton>
                       <IconButton
                         component="a"
                         href={member.socials.instagram}
                         size="small"
+                        sx={{ color: "error.main" }}
                       >
-                        <Instagram size="24" color="#e4405f" variant="Linear" />
+                        <Icon icon="mdi:instagram" width={24} />
                       </IconButton>
-                      {/* <IconButton component="a" href={member.socials.linkedin}>
-                        <Facebook size="24" color="#0a66c2" variant="Linear" />
+                      <IconButton
+                        component="a"
+                        href={member.socials.linkedin}
+                        size="small"
+                        sx={{ color: "info.dark" }}
+                      >
+                        <Icon icon="mdi:linkedin" width={24} />
                       </IconButton>
                       <IconButton
                         component="a"
                         href={member.socials.twitter}
                         size="small"
-                        sx={{
-                          color: "#fff",
-                          "&:hover": { color: "#000" },
-                        }}
+                        sx={{ color: "common.white" }}
                       >
-                        <Facebook icon="ri:twitter-x-fill" width={18} />
-                      </IconButton> */}
+                        <Icon icon="ri:twitter-x-fill" width={20} />
+                      </IconButton>
                     </Box>
                   </Box>
 
@@ -325,7 +343,7 @@ export default function TeamView() {
                       sx={{
                         fontWeight: 600,
                         fontSize: "1.1rem",
-                        color: "#fff",
+                        color: "common.white",
                         mb: 0.5,
                       }}
                     >
@@ -334,7 +352,7 @@ export default function TeamView() {
                     <Typography
                       sx={{
                         fontSize: "0.875rem",
-                        color: "#fff",
+                        color: "text.secondary",
                       }}
                     >
                       {member.role}

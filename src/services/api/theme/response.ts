@@ -12,6 +12,13 @@ export interface Common {
   white?: string;
 }
 
+export interface Text {
+  primary?: string;
+  secondary?: string;
+  disabled?: string;
+  divider?: string;
+}
+
 export interface SocialMediaLinks {
   facebook?: BE_SocialLink;
   youtube?: BE_SocialLink;

@@ -7,12 +7,17 @@ import { _langs } from "@/_mock";
 import ReactQueryClientProvider from "@/lib/providers/react-query";
 import { Metadata } from "next";
 import withBE_ThemeProvider from "@/lib/theme/server/with-theme-provider";
+import { ThemeResponse } from "@/services/api/theme/response";
 
 export const metadata: Metadata = {
   title: { default: "Constrix", template: "%s - Constrix" },
 };
 
-async function LocaleLayout({ children, params }: LayoutProps<"/[locale]">) {
+async function LocaleLayout({
+  children,
+  params,
+  theme,
+}: LayoutProps<"/[locale]"> & { theme: ThemeResponse["payload"] }) {
   // Ensure that the incoming `locale` is valid
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) {
@@ -24,7 +29,9 @@ async function LocaleLayout({ children, params }: LayoutProps<"/[locale]">) {
       <html lang={locale} dir={direction}>
         <body>
           <ReactQueryClientProvider>
-            <ThemeProvider direction={direction}>{children}</ThemeProvider>
+            <ThemeProvider direction={direction} theme={theme}>
+              {children}
+            </ThemeProvider>
           </ReactQueryClientProvider>
         </body>
       </html>

@@ -6,15 +6,13 @@ import { routing } from "@/i18n/routing";
 import { _langs } from "@/_mock";
 import ReactQueryClientProvider from "@/lib/providers/react-query";
 import { Metadata } from "next";
+import withBE_ThemeProvider from "@/lib/theme/server/with-theme-provider";
 
 export const metadata: Metadata = {
   title: { default: "Constrix", template: "%s - Constrix" },
 };
 
-export default async function LocaleLayout({
-  children,
-  params,
-}: LayoutProps<"/[locale]">) {
+async function LocaleLayout({ children, params }: LayoutProps<"/[locale]">) {
   // Ensure that the incoming `locale` is valid
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) {
@@ -33,3 +31,5 @@ export default async function LocaleLayout({
     </NextIntlClientProvider>
   );
 }
+
+export default withBE_ThemeProvider(LocaleLayout);

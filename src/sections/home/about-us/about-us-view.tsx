@@ -152,8 +152,8 @@ export default function AboutUsView({ data }: AboutUsViewProps) {
                       <Box
                         sx={{
                           position: "relative",
-                          minWidth: "300px",
-                          minHeight: "300px",
+                          width: "300px",
+                          height: "300px",
                           m: 3,
                           borderRadius: 2,
                           overflow: "hidden",

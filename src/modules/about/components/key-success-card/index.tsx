@@ -1,4 +1,5 @@
 "use client";
+import DarkGradiantBgCard from "@/components/ui/others/card/dark-gradiant-bg";
 import {
   Box,
   Card,
@@ -17,13 +18,13 @@ function KeySuccessCard() {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
     hover: {
-      scale: 1.03,
+      scale: 1.05,
       boxShadow: `0 0 25px 0 ${palette.primary.lighter}`,
     },
   };
 
   return (
-    <Card
+    <DarkGradiantBgCard
       component={motion.div}
       variants={variants}
       whileInView="visible"
@@ -69,7 +70,7 @@ function KeySuccessCard() {
           </Box>
         </Stack>
       </CardContent>
-    </Card>
+    </DarkGradiantBgCard>
   );
 }
 

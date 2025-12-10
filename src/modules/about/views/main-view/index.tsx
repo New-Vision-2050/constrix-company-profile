@@ -4,8 +4,11 @@ import PageSection from "@/layouts/main/page-section";
 import { Grid } from "@mui/material";
 import KeySuccessCard from "../../components/key-success-card";
 import FeaturedCategories from "../../components/featured-categories";
+import { useTranslations } from "next-intl";
 
 function AboutMainView() {
+  const t = useTranslations("about");
+
   return (
     <MainPageContent title="About">
       <LayoutStack>

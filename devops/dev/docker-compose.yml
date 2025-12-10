@@ -1,0 +1,33 @@
+services:
+  company-profile:
+    build:
+      context: ../..
+      dockerfile: devops/Dockerfile
+      args:
+        - DEPLOYMENT_ID=${DEPLOYMENT_ID}
+        - NODE_ENV=${NODE_ENV}
+        - CACHEBUST=${CACHEBUST}
+    container_name: company-profile-${DEPLOYMENT_ID}
+    restart: always
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - NEXT_PUBLIC_API_BASE_URL=${BE_URL}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - NEXT_PUBLIC_API_PATH=api
+      - NEXT_PUBLIC_API_VERSION=v1
+      - NEXT_PUBLIC_CACHE_BUST=${CACHEBUST}
+      - DEPLOYMENT_ID=${DEPLOYMENT_ID}
+    labels:
+      - "traefik.enable=true"
+      # Different subdomain pattern to avoid conflicts
+      - "traefik.http.routers.company-profile-${DEPLOYMENT_ID}.rule=HostRegexp(`(?i)^company-${DEPLOYMENT_ID}(-[a-z0-9-]+)?\\.constrix-nv\\.com$`)"
+      - "traefik.http.routers.company-profile-${DEPLOYMENT_ID}.entrypoints=https"
+      - "traefik.http.routers.company-profile-${DEPLOYMENT_ID}.tls.certresolver=letsencrypt"
+      - "traefik.http.services.company-profile-${DEPLOYMENT_ID}.loadbalancer.server.port=3000"
+    networks:
+      - traefik_network
+
+networks:
+  traefik_network:
+    external: true
+

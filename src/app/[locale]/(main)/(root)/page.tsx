@@ -15,16 +15,16 @@ async function HomePage() {
   return (
     <LayoutSection>
       <HeroView data={payload?.home_page_setting} />
-      {payload?.company_icons && (
+      {payload?.company_icons && payload?.company_icons.length > 0 && (
         <PartnersView data={payload?.company_icons} titleKey="partners" />
       )}
-      {payload?.certificate_icons && (
+      {payload?.certificate_icons && payload?.certificate_icons.length > 0 && (
         <PartnersView
           data={payload?.certificate_icons}
           titleKey="certificates"
         />
       )}
-      {payload?.approval_icons && (
+      {payload?.approval_icons && payload?.approval_icons.length > 0 && (
         <PartnersView data={payload?.approval_icons} titleKey="approvals" />
       )}
       <DividerView />

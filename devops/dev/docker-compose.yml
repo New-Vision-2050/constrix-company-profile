@@ -23,7 +23,7 @@ services:
       - "traefik.http.routers.company-profile-${DEPLOYMENT_ID}.rule=HostRegexp(`(?i)^company-${DEPLOYMENT_ID}(-[a-z0-9-]+)?\\.constrix-nv\\.com$`)"
       - "traefik.http.routers.company-profile-${DEPLOYMENT_ID}.entrypoints=https"
       - "traefik.http.routers.company-profile-${DEPLOYMENT_ID}.tls.certresolver=letsencrypt"
-      - "traefik.http.services.company-profile-${DEPLOYMENT_ID}.loadbalancer.server.port=3000"
+      - "traefik.http.services.company-profile-${DEPLOYMENT_ID}.loadbalancer.server.port=3001"
     networks:
       - traefik_network
 

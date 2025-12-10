@@ -6,14 +6,12 @@ import { useTranslations } from "next-intl";
 import PageSection from "@/layouts/main/page-section";
 import { DocumentDownload } from "iconsax-reactjs";
 
-export default function CompanyProfileView() {
+interface CompanyProfileViewProps {
+  data?: string;
+}
+
+export default function CompanyProfileView({ data }: CompanyProfileViewProps) {
   const t = useTranslations("home");
-
-  const handleDownload = () => {
-    // Add download functionality here
-    // For example: window.open('/path/to/company-profile.pdf', '_blank');
-  };
-
   return (
     <Box
       sx={{
@@ -47,7 +45,7 @@ export default function CompanyProfileView() {
             <Button
               variant="contained"
               endIcon={<DocumentDownload size={24} />}
-              onClick={handleDownload}
+              onClick={() => window.open(data, "_blank")}
               fullWidth={true}
               sx={{
                 px: { xs: 3, md: 6 },

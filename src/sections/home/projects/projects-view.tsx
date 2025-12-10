@@ -12,8 +12,12 @@ import NavigationContainer from "@/components/SwiperNavigation";
 import "swiper/css";
 import "swiper/css/navigation";
 import PageSection from "@/layouts/main/page-section";
+import { BE_FeaturedProject } from "@/types/api/base/project";
+interface ProjectsViewProps {
+  data?: BE_FeaturedProject[];
+}
 
-export default function ProjectsView() {
+export default function ProjectsView({ data }: ProjectsViewProps) {
   const t = useTranslations("home");
   const theme = useTheme();
   const isTabletOrMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -48,33 +52,9 @@ export default function ProjectsView() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Calculate spaceBetween (similar to useResponsiveSpaceBetween)
   const spaceBetween = 10;
 
-  // Projects data with translations
-  const projects = [
-    {
-      id: 1,
-      title: t("projects.project1.title"),
-      description: t("projects.project1.description"),
-      location: t("projects.project1.location"),
-      image: "/assets/images/cover/cover-1.webp",
-    },
-    {
-      id: 2,
-      title: t("projects.project2.title"),
-      description: t("projects.project2.description"),
-      location: t("projects.project2.location"),
-      image: "/assets/images/cover/cover-6.webp",
-    },
-    {
-      id: 3,
-      title: t("projects.project3.title"),
-      description: t("projects.project3.description"),
-      location: t("projects.project3.location"),
-      image: "/assets/images/cover/cover-8.webp",
-    },
-  ];
+  const projects = data || [];
 
   return (
     <Box>
@@ -112,7 +92,7 @@ export default function ProjectsView() {
                 pauseOnMouseEnter: false,
               }}
               speed={1000}
-              loop={true}
+              loop={projects.length > 1}
               slidesPerView={1.2}
               spaceBetween={spaceBetween}
               breakpoints={{
@@ -167,7 +147,7 @@ export default function ProjectsView() {
                         lg: "450px",
                       },
                       aspectRatio: isTabletOrMobile ? "4 / 3" : "16 / 9",
-                      backgroundImage: `url(${project.image})`,
+                      backgroundImage: `url(${project.main_image})`,
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                       backgroundRepeat: "no-repeat",
@@ -196,7 +176,7 @@ export default function ProjectsView() {
                         fontWeight={700}
                         sx={{ color: "#fff", mb: 0.5 }}
                       >
-                        {project.title}
+                        {project.name}
                       </Typography>
                       <Typography
                         variant="body1"
@@ -225,9 +205,9 @@ export default function ProjectsView() {
                   </Box>
                 </SwiperSlide>
               ))}
-              <NavigationContainer />
             </Swiper>
           </Box>
+          <NavigationContainer />
         </PageSection>
       </Box>
     </Box>

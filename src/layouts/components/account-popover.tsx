@@ -13,7 +13,6 @@ import IconButton from "@mui/material/IconButton";
 import MenuItem, { menuItemClasses } from "@mui/material/MenuItem";
 
 import { useRouter, usePathname } from "@/routes/hooks";
-import { LogoutButton } from "@/lib/auth/components/logout-button";
 
 import { _myAccount } from "@/_mock";
 
@@ -142,11 +141,7 @@ export function AccountPopover({
 
         <Divider sx={{ borderStyle: "dashed" }} />
 
-        <Box sx={{ p: 1 }}>
-          <LogoutButton fullWidth color="error" size="medium" variant="text">
-            Logout
-          </LogoutButton>
-        </Box>
+        <Box sx={{ p: 1 }}></Box>
       </Popover>
     </>
   );

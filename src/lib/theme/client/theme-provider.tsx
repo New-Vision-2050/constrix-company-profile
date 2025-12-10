@@ -4,7 +4,7 @@ import { createContext, PropsWithChildren, useContext } from "react";
 import { ThemeResponse } from "@/services/api/theme/response";
 
 export const BE_ThemeContext = createContext<{
-  data: ThemeResponse["data"];
+  data: ThemeResponse["payload"];
 } | null>(null);
 
 export const useBE_Theme = () => {
@@ -19,7 +19,7 @@ function BE_ThemeProvider({
   children,
   data,
 }: PropsWithChildren<{
-  data: ThemeResponse["data"];
+  data: ThemeResponse["payload"];
 }>) {
   return (
     <BE_ThemeContext.Provider

@@ -132,6 +132,8 @@ export default function AboutUsView({ data }: AboutUsViewProps) {
                         width: "100%",
                         height: "100%",
                         objectFit: "contain",
+                        width: "100%",
+                        height: "100%",
                       }}
                     />
                   </Box>
@@ -166,6 +168,8 @@ export default function AboutUsView({ data }: AboutUsViewProps) {
                             width: "100%",
                             height: "100%",
                             objectFit: "cover",
+                            width: "100%",
+                            height: "100%",
                           }}
                         />
                       </Box>

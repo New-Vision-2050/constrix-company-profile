@@ -2,7 +2,6 @@
 
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
@@ -98,12 +97,13 @@ export default function PartnersView({
                     aspectRatio: "2 / 1",
                   }}
                 >
-                  <Image
+                  <img
                     src={partner.icon}
                     alt={partner.name}
-                    fill
                     style={{
                       objectFit: "contain",
+                      width: "100%",
+                      height: "100%",
                     }}
                   />
                 </Box>

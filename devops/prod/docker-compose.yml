@@ -20,13 +20,13 @@ services:
     labels:
       - "traefik.enable=true"
       # Option 1: Use a different domain
-      - "traefik.http.routers.company-profile.rule=Host(`company.constrix-nv.com`)"
+      - "traefik.http.routers.constrix-shop-prod.rule=HostRegexp(`^website(-[a-z0-9-]+)?\\.constrix-nv\\.com$$`)"
       # Option 2: Use a path prefix (uncomment and comment line above)
       # - "traefik.http.routers.company-profile.rule=PathPrefix(`/company`)"
       - "traefik.http.routers.company-profile.entrypoints=https"
       - "traefik.http.routers.company-profile.tls.certresolver=letsencrypt"
       - "traefik.http.services.company-profile.loadbalancer.server.port=3001"
-      - "traefik.http.routers.company-profile.priority=10"
+      - "traefik.http.routers.company-profile.priority=100"
     networks:
       - traefik_network
 

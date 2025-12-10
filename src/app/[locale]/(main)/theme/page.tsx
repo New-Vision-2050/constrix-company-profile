@@ -1,22 +1,20 @@
 "use client";
 
 import { useCompanyTheme } from "@/hooks/use-company-theme";
-import { 
-  Box, 
-  Button, 
-  Card, 
-  CardContent, 
-  Container, 
-  Grid, 
-  Paper, 
-  Stack, 
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Container,
+  Paper,
+  Stack,
   Typography,
-  useTheme 
 } from "@mui/material";
+import Grid from "@mui/material/Grid";
 
 function ThemePage() {
   const { data: theme } = useCompanyTheme();
-  const muiTheme = useTheme();
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
@@ -27,7 +25,8 @@ function ThemePage() {
             Company Theme Preview
           </Typography>
           <Typography variant="body1" color="text.secondary">
-            This page demonstrates the dynamic theme system with backend configuration
+            This page demonstrates the dynamic theme system with backend
+            configuration
           </Typography>
         </Box>
 
@@ -38,7 +37,7 @@ function ThemePage() {
               Company Branding
             </Typography>
             <Grid container spacing={2} alignItems="center">
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <Box
                   component="img"
                   src={theme.icon_url}
@@ -46,14 +45,22 @@ function ThemePage() {
                   sx={{ maxWidth: 200, height: "auto" }}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <Typography variant="body2" color="text.secondary">
                   <strong>URL:</strong> {theme.url}
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ mt: 1 }}
+                >
                   <strong>Email:</strong> {theme.contact_info.email}
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ mt: 1 }}
+                >
                   <strong>Phone:</strong> {theme.contact_info.phone}
                 </Typography>
               </Grid>
@@ -69,42 +76,82 @@ function ThemePage() {
             </Typography>
             <Grid container spacing={2}>
               {/* Primary */}
-              <Grid item xs={12} sm={6} md={4}>
-                <Paper sx={{ p: 2, bgcolor: "primary.main", color: "primary.contrastText" }}>
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    bgcolor: "primary.main",
+                    color: "primary.contrastText",
+                  }}
+                >
                   <Typography variant="subtitle2">Primary</Typography>
-                  <Typography variant="caption">{theme.color_palettes.primary.primary}</Typography>
+                  <Typography variant="caption">
+                    {theme.color_palettes.primary.primary}
+                  </Typography>
                 </Paper>
               </Grid>
 
               {/* Secondary */}
-              <Grid item xs={12} sm={6} md={4}>
-                <Paper sx={{ p: 2, bgcolor: "secondary.main", color: "secondary.contrastText" }}>
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    bgcolor: "secondary.main",
+                    color: "secondary.contrastText",
+                  }}
+                >
                   <Typography variant="subtitle2">Secondary</Typography>
-                  <Typography variant="caption">{theme.color_palettes.secondary.primary}</Typography>
+                  <Typography variant="caption">
+                    {theme.color_palettes.secondary.primary}
+                  </Typography>
                 </Paper>
               </Grid>
 
               {/* Error */}
-              <Grid item xs={12} sm={6} md={4}>
-                <Paper sx={{ p: 2, bgcolor: "error.main", color: "error.contrastText" }}>
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    bgcolor: "error.main",
+                    color: "error.contrastText",
+                  }}
+                >
                   <Typography variant="subtitle2">Error</Typography>
-                  <Typography variant="caption">{theme.color_palettes.error.primary}</Typography>
+                  <Typography variant="caption">
+                    {theme.color_palettes.error.primary}
+                  </Typography>
                 </Paper>
               </Grid>
 
               {/* Warning */}
-              <Grid item xs={12} sm={6} md={4}>
-                <Paper sx={{ p: 2, bgcolor: "warning.main", color: "warning.contrastText" }}>
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    bgcolor: "warning.main",
+                    color: "warning.contrastText",
+                  }}
+                >
                   <Typography variant="subtitle2">Warning</Typography>
-                  <Typography variant="caption">{theme.color_palettes.warning.primary}</Typography>
+                  <Typography variant="caption">
+                    {theme.color_palettes.warning.primary}
+                  </Typography>
                 </Paper>
               </Grid>
 
               {/* Info */}
-              <Grid item xs={12} sm={6} md={4}>
-                <Paper sx={{ p: 2, bgcolor: "info.main", color: "info.contrastText" }}>
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    bgcolor: "info.main",
+                    color: "info.contrastText",
+                  }}
+                >
                   <Typography variant="subtitle2">Info</Typography>
-                  <Typography variant="caption">{theme.color_palettes.info.primary}</Typography>
+                  <Typography variant="caption">
+                    {theme.color_palettes.info.primary}
+                  </Typography>
                 </Paper>
               </Grid>
             </Grid>
@@ -124,8 +171,12 @@ function ThemePage() {
               <Typography variant="h4">Heading 4</Typography>
               <Typography variant="h5">Heading 5</Typography>
               <Typography variant="h6">Heading 6</Typography>
-              <Typography variant="body1">Body 1 - {theme.font_family}</Typography>
-              <Typography variant="body2">Body 2 - Font Size: {theme.font_size}px</Typography>
+              <Typography variant="body1">
+                Body 1 - {theme.font_family}
+              </Typography>
+              <Typography variant="body2">
+                Body 2 - Font Size: {theme.font_size}px
+              </Typography>
               <Typography variant="caption">Caption text</Typography>
             </Stack>
           </CardContent>
@@ -162,30 +213,53 @@ function ThemePage() {
                 Social Media Links
               </Typography>
               <Grid container spacing={2}>
-                {Object.entries(theme.social_media_links).map(([platform, data]) => (
-                  data && (
-                    <Grid item xs={12} sm={6} md={4} key={platform}>
-                      <Paper sx={{ p: 2 }}>
-                        <Stack direction="row" spacing={2} alignItems="center">
-                          <Box
-                            component="img"
-                            src={data.icon_url}
-                            alt={platform}
-                            sx={{ width: 40, height: 40, objectFit: "contain" }}
-                          />
-                          <Box>
-                            <Typography variant="subtitle2" textTransform="capitalize">
-                              {platform}
-                            </Typography>
-                            <Typography variant="caption" color="text.secondary" noWrap>
-                              {data.link}
-                            </Typography>
-                          </Box>
-                        </Stack>
-                      </Paper>
-                    </Grid>
-                  )
-                ))}
+                {Object.entries(theme.social_media_links).map(
+                  ([platform, data]) => {
+                    const socialData = data as
+                      | { icon_url?: string; link?: string }
+                      | null
+                      | undefined;
+                    return (
+                      socialData && (
+                        <Grid size={{ xs: 12, sm: 6, md: 4 }} key={platform}>
+                          <Paper sx={{ p: 2 }}>
+                            <Stack
+                              direction="row"
+                              spacing={2}
+                              alignItems="center"
+                            >
+                              <Box
+                                component="img"
+                                src={socialData.icon_url}
+                                alt={platform}
+                                sx={{
+                                  width: 40,
+                                  height: 40,
+                                  objectFit: "contain",
+                                }}
+                              />
+                              <Box>
+                                <Typography
+                                  variant="subtitle2"
+                                  textTransform="capitalize"
+                                >
+                                  {platform}
+                                </Typography>
+                                <Typography
+                                  variant="caption"
+                                  color="text.secondary"
+                                  noWrap
+                                >
+                                  {socialData.link}
+                                </Typography>
+                              </Box>
+                            </Stack>
+                          </Paper>
+                        </Grid>
+                      )
+                    );
+                  }
+                )}
               </Grid>
             </CardContent>
           </Card>
@@ -207,10 +281,18 @@ function ThemePage() {
               <strong>Font Weights:</strong>
             </Typography>
             <Box sx={{ ml: 2 }}>
-              <Typography variant="body2">Light: {theme.font_weight_light}</Typography>
-              <Typography variant="body2">Regular: {theme.font_weight_regular}</Typography>
-              <Typography variant="body2">Medium: {theme.font_weight_medium}</Typography>
-              <Typography variant="body2">Bold: {theme.font_weight_bold}</Typography>
+              <Typography variant="body2">
+                Light: {theme.font_weight_light}
+              </Typography>
+              <Typography variant="body2">
+                Regular: {theme.font_weight_regular}
+              </Typography>
+              <Typography variant="body2">
+                Medium: {theme.font_weight_medium}
+              </Typography>
+              <Typography variant="body2">
+                Bold: {theme.font_weight_bold}
+              </Typography>
             </Box>
           </CardContent>
         </Card>

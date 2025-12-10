@@ -1,4 +1,4 @@
-import { NewsDetail } from "../types/types";
+import { NewsDetail } from "@/modules/news-details/types/news-details";
 
 /**
  * Fetches news detail data by ID
@@ -24,5 +24,3 @@ export async function getNewsData(id: string): Promise<NewsDetail> {
 الأسماء المستعارة لحسابات المجموعات وإعداد السياسات للإشراف على محتوى البريد الإلكتروني الخاص بالأعمال والكثير غير ذلك،الذي يأخذ ايه المسؤول الوصول إلى كل الإعدادات وعمليات التكوين والتضمين، أعمد إلى إضافة المستخدمين وإدارة الأسماء المستعارة لحسابات المجموعات وإعداد السياسات للإشراف على محتوى البريد الإلكتروني الخاص بالأعمال والكثير غير ذلك.`,
   };
 }
-
-

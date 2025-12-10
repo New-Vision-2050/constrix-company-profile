@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set default values if not already set
-: "${NEXT_PUBLIC_API_BASE_URL:=https://core-be-stage.constrix-nv.com}"
+: "${NEXT_PUBLIC_API_BASE_URL:=https://core-be-dev.constrix-nv.com}"
 : "${NEXT_PUBLIC_API_PATH:=api}"
 : "${NEXT_PUBLIC_API_VERSION:=v1}"
 : "${NODE_ENV:=development}"

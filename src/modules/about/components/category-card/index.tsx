@@ -1,4 +1,5 @@
 import { Box, Card, CardActionArea, Typography, alpha } from "@mui/material";
+import { useTranslations } from "next-intl";
 
 type Props = {
   title: string;
@@ -6,6 +7,7 @@ type Props = {
 };
 
 function CategoryCard({ title, projects }: Props) {
+  const t = useTranslations("about");
   return (
     <Card
       sx={{
@@ -35,7 +37,7 @@ function CategoryCard({ title, projects }: Props) {
             color: "text.primary",
           }}
         >
-          {title}
+          {projects.toLocaleString()} {t("projects")}
         </Typography>
         <Typography
           variant="body2"
@@ -43,7 +45,7 @@ function CategoryCard({ title, projects }: Props) {
             color: "text.secondary",
           }}
         >
-          {projects.toLocaleString()} projects
+          {title}
         </Typography>
       </CardActionArea>
     </Card>

@@ -1,7 +1,11 @@
 import AboutMainView from "@/modules/about/views/main-view";
+import { AboutPageApi } from "@/services/api/about-page";
 
-function AboutPage() {
-  return <AboutMainView />;
+async function AboutPage() {
+  const aboutPageData = await AboutPageApi.getData();
+  const payload = aboutPageData.data.payload;
+
+  return <AboutMainView data={payload} />;
 }
 
 export default AboutPage;

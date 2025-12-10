@@ -12,9 +12,13 @@ import { BE_WebsiteIcon } from "@/types/api/base/icon";
 
 interface PartnersViewProps {
   data?: BE_WebsiteIcon[];
+  titleKey?: "partners" | "certificates" | "approvals";
 }
 
-export default function PartnersView({ data }: PartnersViewProps) {
+export default function PartnersView({
+  data,
+  titleKey = "partners",
+}: PartnersViewProps) {
   const t = useTranslations("home");
 
   const partners = data || [];
@@ -30,7 +34,7 @@ export default function PartnersView({ data }: PartnersViewProps) {
           fontWeight: 700,
         }}
       >
-        {t("partners")}
+        {t(titleKey)}
       </Typography>
 
       {/* Swiper Carousel */}

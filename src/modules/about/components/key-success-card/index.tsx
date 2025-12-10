@@ -11,7 +11,13 @@ import {
 import { Variants, motion } from "framer-motion";
 import { Arrow } from "iconsax-reactjs";
 
-function KeySuccessCard() {
+type Props = {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+};
+
+function KeySuccessCard({ title, description, icon }: Props) {
   const { palette } = useTheme();
 
   const variants: Variants = {
@@ -59,14 +65,11 @@ function KeySuccessCard() {
               },
             }}
           >
-            <Arrow color={palette.primary.main} size={32} />
+            {icon}
           </Box>
           <Box>
-            <Typography variant="h5">Something</Typography>
-            <Typography variant="subtitle2">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque
-              porro suscipit, beatae corporis expedita natus sapiente provident!
-            </Typography>
+            <Typography variant="h5">{title}</Typography>
+            <Typography variant="subtitle2">{description}</Typography>
           </Box>
         </Stack>
       </CardContent>

@@ -3,6 +3,8 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { Iconify } from "@/components/iconify";
 import CategoryCard from "../category-card";
+import { AboutPageProjectType } from "@/types/api/base/about-page";
+import { useTranslations } from "next-intl";
 
 const categories = [
   { id: 1, title: "Technology", students: 497 },
@@ -16,20 +18,16 @@ const categories = [
   { id: 9, title: "Sports", students: 425 },
 ];
 
-function FeaturedCategories() {
+type Props = {
+  projects: AboutPageProjectType[];
+};
+
+function FeaturedCategories({ projects }: Props) {
+  const t = useTranslations("about");
   return (
     <Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: { xs: "column", sm: "row" },
-          justifyContent: "space-between",
-          alignItems: { xs: "flex-start", sm: "flex-end" },
-          gap: 3,
-          mb: 5,
-        }}
-      >
-        <Box sx={{ maxWidth: 480 }}>
+      <Grid container spacing={3}>
+        <Grid size={{ xs: 12, lg: 4 }}>
           <Typography
             variant="h2"
             sx={{
@@ -38,7 +36,9 @@ function FeaturedCategories() {
               fontSize: { xs: "2rem", md: "2.5rem" },
             }}
           >
-            Featured category
+            {projects
+              ?.reduce((acc, project) => acc + project.count, 0)
+              .toLocaleString()}
           </Typography>
           <Typography
             variant="body1"
@@ -47,36 +47,19 @@ function FeaturedCategories() {
               lineHeight: 1.8,
             }}
           >
-            Since wire-frame renderings are relatively simple and fast to
-            calculate, they are often used in cases
+            {t("totalProjects")}
           </Typography>
-        </Box>
-
-        <Button
-          variant="contained"
-          size="large"
-          endIcon={<Iconify icon="eva:arrow-ios-forward-fill" />}
-          sx={{
-            bgcolor: "grey.900",
-            color: "common.white",
-            px: 3,
-            py: 1.5,
-            borderRadius: 1,
-            "&:hover": {
-              bgcolor: "grey.800",
-            },
-          }}
-        >
-          Explore more
-        </Button>
-      </Box>
-
-      <Grid container spacing={3}>
-        {categories.map((category) => (
-          <Grid key={category.id} size={{ xs: 12, sm: 6, md: 4 }}>
-            <CategoryCard title={category.title} projects={category.students} />
-          </Grid>
-        ))}
+        </Grid>
+        <Grid size={{ xs: 12, lg: 8 }} container spacing={3}>
+          {projects.map((project) => (
+            <Grid
+              key={`${project.id}-${project.title}`}
+              size={{ xs: 12, sm: 6, md: 4 }}
+            >
+              <CategoryCard title={project.title} projects={project.count} />
+            </Grid>
+          ))}
+        </Grid>
       </Grid>
     </Box>
   );

@@ -205,9 +205,9 @@ export default function ProjectsView({ data }: ProjectsViewProps) {
                   </Box>
                 </SwiperSlide>
               ))}
+              <NavigationContainer />
             </Swiper>
           </Box>
-          <NavigationContainer />
         </PageSection>
       </Box>
     </Box>

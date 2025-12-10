@@ -15,7 +15,7 @@ function SwiperNavigation() {
   const PrevIcon = isRTL ? ArrowLeft2 : ArrowRight2;
 
   return (
-    <Container maxWidth={"xl"}>
+    <Box>
       <Stack direction={"row"} spacing={2} py={6} alignItems={"center"}>
         <Stack direction="row" spacing={2}>
           <Box
@@ -52,7 +52,7 @@ function SwiperNavigation() {
           </Box>
         </Stack>
       </Stack>
-    </Container>
+    </Box>
   );
 }
 

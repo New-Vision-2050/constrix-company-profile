@@ -16,8 +16,6 @@ import { RouterLink } from "@/routes/components";
 import { Logo } from "@/components/logo";
 import { Scrollbar } from "@/components/scrollbar";
 
-import { WorkspacesPopover } from "../components/workspaces-popover";
-
 import type { NavItem } from "../nav-config-dashboard";
 import { useTranslations } from "next-intl";
 
@@ -115,8 +113,6 @@ export function NavContent({ data, slots, sx }: NavContentProps) {
       <Logo />
 
       {slots?.topArea}
-
-      <WorkspacesPopover sx={{ my: 2 }} />
 
       <Scrollbar fillContent>
         <Box

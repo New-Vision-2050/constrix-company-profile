@@ -2,7 +2,6 @@
 
 import React from "react";
 import { Box, Typography, Card, Stack } from "@mui/material";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectCoverflow } from "swiper/modules";
@@ -126,12 +125,13 @@ export default function AboutUsView({ data }: AboutUsViewProps) {
                       opacity: 0.2,
                     }}
                   >
-                    <Image
+                    <img
                       src="/assets/logos/base/image.png"
                       alt="Constrix Logo"
-                      fill
                       style={{
                         objectFit: "contain",
+                        width: "100%",
+                        height: "100%",
                       }}
                     />
                   </Box>
@@ -159,12 +159,13 @@ export default function AboutUsView({ data }: AboutUsViewProps) {
                           overflow: "hidden",
                         }}
                       >
-                        <Image
+                        <img
                           src={founder.personal_photo}
                           alt={founder.name}
-                          fill
                           style={{
                             objectFit: "cover",
+                            width: "100%",
+                            height: "100%",
                           }}
                         />
                       </Box>

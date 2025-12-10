@@ -4,6 +4,8 @@ export const homeMessages = new MessagesGroup({
   more: _m("More", "المزيد"),
   tagline: _m("ENGINEERING & PROJECT MANAGEMENT", "الهندسة وإدارة المشاريع"),
   partners: _m("Partners", "الشركاء"),
+  certificates: _m("Certificates", "الشهادات"),
+  approvals: _m("Approvals", "الاعتمادات"),
   servicesTitle: _m("Our Services", "ابرز خدماتنا"),
   services: new MessagesGroup({
     service1: new MessagesGroup({

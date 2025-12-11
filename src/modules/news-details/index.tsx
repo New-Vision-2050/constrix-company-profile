@@ -16,8 +16,9 @@ interface NewsDetailsModuleProps {
  * Server component by default for better performance
  */
 export default function NewsDetailsView({ newsData }: NewsDetailsModuleProps) {
+  
   return (
-    <Stack spacing={2}>
+    <>
       <PageSection>
         <Stack spacing={2}>
           <NewsTitle title={newsData.title} />
@@ -29,11 +30,11 @@ export default function NewsDetailsView({ newsData }: NewsDetailsModuleProps) {
         </Stack>
       </PageSection>
       <PageSection>
-        <NewsImage src={newsData.main_image || ""} alt={newsData.title} />
+        <NewsImage src={newsData.main_image || ""} alt={newsData.title || ""} />
       </PageSection>
       <PageSection>
         <NewsContent content={newsData.content} />
       </PageSection>
-    </Stack>
+    </>
   );
 }

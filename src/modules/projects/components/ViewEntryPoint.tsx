@@ -12,13 +12,21 @@ export default function ViewEntryPoint() {
     // projects filters
     const [filters, setFilters] = useState<FilterTypes>({})
     // get projects data
-    const { data, isLoading, isError } = useProjectsData(filters);
+    const { data, isLoading, isError, refetch } = useProjectsData(filters);
     const projects = useMemo(() => data?.data.payload, [data]);
     const pagenation = useMemo(() => data?.data.pagination, [data]);
 
     // handle page change
     const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setFilters({ ...filters, page: value });
+    }
+    // handle category change
+    const handleCategoryChange = (categoryId: string) => {
+        setFilters({ ...filters, category_website_cms_id: categoryId });
+    }
+    // handle search change
+    const handleSearchChange = (search: string) => {
+        setFilters({ ...filters, name: search.trim() || undefined });
     }
 
     return (
@@ -27,7 +35,7 @@ export default function ViewEntryPoint() {
             <Grid size={{ xs: 12, lg: 8 }}>
                 <Stack spacing={4}>
                     {/* projects grid */}
-                    <ProjectsGrid projects={projects} isLoading={isLoading} isError={isError} />
+                    <ProjectsGrid projects={projects} isLoading={isLoading} isError={isError} onRetry={() => refetch()} />
                     {/* pagination */}
                     {pagenation && pagenation?.last_page > 1 &&
                         <CenteredPagination
@@ -42,7 +50,7 @@ export default function ViewEntryPoint() {
             </Grid>
 
             {/* Sidebar */}
-            <ProjectsFilters />
+            <ProjectsFilters onCategoryChange={handleCategoryChange} onSearchChange={handleSearchChange} />
         </Grid>
     );
 }

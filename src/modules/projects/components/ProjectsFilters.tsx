@@ -1,23 +1,19 @@
-import AdBanner from "@/modules/news-v2/components/ad-banner";
 import { Grid, Stack } from "@mui/material";
-import { mockCategories, mockRecentPosts, mockTags } from "../constants/dummy";
-import PopularTags from "@/modules/news-v2/components/popular-tags";
-import RecentPosts from "@/modules/news-v2/components/recent-posts";
-import Categories from "@/modules/news-v2/components/categories";
+import { mockCategories } from "../constants/dummy";
 import SearchBar from "@/modules/news-v2/components/search-bar";
+import CategoriesFilters from "./CategoriesFilters";
 
-export default function ProjectsFilters() {
+
+type PropsT = {
+    onCategoryChange: (categoryId: string) => void
+    onSearchChange: (search: string) => void
+}
+export default function ProjectsFilters({ onCategoryChange, onSearchChange }: PropsT) {
     return (
         <Grid size={{ xs: 12, lg: 4 }}>
             <Stack spacing={3}>
-                <SearchBar onSearchChange={() => { }} />
-                <Categories
-                    categories={mockCategories}
-                    onCategoryChange={() => { }}
-                />
-                <RecentPosts posts={mockRecentPosts} />
-                <PopularTags tags={mockTags} />
-                <AdBanner />
+                <SearchBar onSearchChange={onSearchChange} />
+                <CategoriesFilters categories={mockCategories} onCategoryChange={onCategoryChange} />
             </Stack>
         </Grid>
     );

@@ -7,6 +7,7 @@ export interface ProjectsFilters {
   title?: string;
   name?: string;
   status?: 0 | 1;
+  category_website_cms_id?: string;
 }
 
 export const ProjectsApi = {

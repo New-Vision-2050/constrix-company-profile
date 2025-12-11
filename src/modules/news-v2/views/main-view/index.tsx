@@ -11,91 +11,11 @@ import Categories from "../../components/categories";
 import RecentPosts from "../../components/recent-posts";
 import PopularTags from "../../components/popular-tags";
 import AdBanner from "../../components/ad-banner";
-
-// Mock data - replace with actual API data
-const mockNews = [
-  {
-    id: "1",
-    image: "/assets/images/cover/cover-1.webp",
-    date: "12 Aug 2024",
-    readTime: "8 min read",
-    title: "Understanding Blockchain Technology: Beyond Cryptocurrency",
-    excerpt:
-      "Nihil ea sunt facilis praesentium atque. Ab animi alias sequi molestias aut velit no. Sed et aliquid sit voluptatem",
-    author: {
-      name: "Reece Chung",
-      avatar: "/assets/images/avatar/avatar-1.webp",
-    },
-    category: "Technology",
-  },
-  {
-    id: "2",
-    image: "/assets/images/cover/cover-2.webp",
-    date: "12 Aug 2024",
-    readTime: "8 min read",
-    title: "The Future of Renewable Energy: Innovations and Challenges Ahead",
-    excerpt:
-      "At aut sunt eum dignissim accusamus aut. Inciduet at molestiae ut facere aut. Est aut error consequatur quaerat omnis nihil tenetur facilis",
-    author: {
-      name: "Jaydon Simon",
-      avatar: "/assets/images/avatar/avatar-2.webp",
-    },
-  },
-  {
-    id: "3",
-    image: "/assets/images/cover/cover-3.webp",
-    date: "12 Aug 2024",
-    readTime: "8 min read",
-    title:
-      "Mental Health in the Digital Age: Navigating Social Media and Well-being",
-    excerpt:
-      "Non rerum modi. Accusamus voluptatem odit nihil in. Quidem ut vero numquam veniam culpa aperiam odio est nam. Quia ut dolores. Laboris",
-    author: {
-      name: "Lainey Davidson",
-      avatar: "/assets/images/avatar/avatar-3.webp",
-    },
-  },
-  {
-    id: "4",
-    image: "/assets/images/cover/cover-4.webp",
-    date: "12 Aug 2024",
-    readTime: "8 min read",
-    title:
-      "Exploring the Impact of Artificial Intelligence on Modern Healthcare",
-    excerpt:
-      "Aliquip aeque diacimus minima distinctio velit. Laborum ex veniam est laboriosam officia. Odit nostrum qui Laboris culpa commodi",
-    author: {
-      name: "Lucian Obrien",
-      avatar: "/assets/images/avatar/avatar-4.webp",
-    },
-  },
-  {
-    id: "5",
-    image: "/assets/images/cover/cover-5.webp",
-    date: "12 Aug 2024",
-    readTime: "8 min read",
-    title: "Climate Change and Its Effects on Global Food Security",
-    excerpt:
-      "Rerum eius velit dolores. Explicabo ea nemo quisquam veniam curpa. Totan molestias et coneequatur aperiam quam et consequatur eius fugit",
-    author: {
-      name: "Deja Brady",
-      avatar: "/assets/images/avatar/avatar-5.webp",
-    },
-  },
-  {
-    id: "6",
-    image: "/assets/images/cover/cover-6.webp",
-    date: "12 Aug 2024",
-    readTime: "8 min read",
-    title: "Sustainable Fashion: How the Industry is Going Green",
-    excerpt:
-      "Eat enim et si non impedit aperiam curpe animi. Aut autem numquam veniam culpa. Totan molestias ut consequatur eius fugit doleres moeliores",
-    author: {
-      name: "Cristopher Cardenas",
-      avatar: "/assets/images/avatar/avatar-6.webp",
-    },
-  },
-];
+import { useQuery } from "@tanstack/react-query";
+import { NewsApi, NewsFilters } from "@/services/api/news";
+import { GridCardsSkeleton } from "@/components/ui/interactions";
+import { useState } from "react";
+import CenteredPagination from "@/components/ui/others/centered-pagination";
 
 const mockCategories = [
   { id: "1", name: "Marketing", count: 5 },
@@ -151,6 +71,43 @@ const mockTags = [
 
 function NewsV2MainView() {
   const t = useTranslations("newsV2");
+  const [filters, setFilters] = useState<NewsFilters>({
+    page: 1,
+    per_page: 15,
+  });
+
+  const newsQuery = useQuery({
+      queryKey: ["newsList", filters],
+      queryFn: async () => {
+        return await NewsApi.list(filters);
+      },
+    }),
+    { data, isLoading } = newsQuery;
+
+  const handleSearchChange = (search: string) => {
+    setFilters((prev) => ({
+      ...prev,
+      search: search.trim() || undefined,
+      page: 1,
+    }));
+  };
+
+  const handleCategoryChange = (categoryId: string | null) => {
+    setFilters((prev) => ({
+      ...prev,
+      category_website_cms_id: categoryId || undefined,
+      page: 1,
+    }));
+  };
+
+  const handlePageChange = (
+    _event: React.ChangeEvent<unknown>,
+    page: number
+  ) => {
+    setFilters((prev) => ({ ...prev, page }));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <MainPageContent title={t("title")}>
       <LayoutStack spacing={8}>
@@ -158,20 +115,41 @@ function NewsV2MainView() {
           <Grid container spacing={4}>
             {/* Main Content */}
             <Grid size={{ xs: 12, lg: 8 }}>
-              <Grid container spacing={3}>
-                {mockNews.map((news) => (
-                  <Grid key={news.id} size={{ xs: 12, sm: 6 }}>
-                    <NewsCard {...news} />
-                  </Grid>
-                ))}
-              </Grid>
+              <Stack spacing={4}>
+                {isLoading ? (
+                  <GridCardsSkeleton items={8} size={{ xs: 12, sm: 6 }} />
+                ) : (
+                  <>
+                    <Grid container spacing={3}>
+                      {data?.data.payload.map((newsItem) => (
+                        <Grid key={newsItem.id} size={{ xs: 12, sm: 6 }}>
+                          <NewsCard newsItem={newsItem} />
+                        </Grid>
+                      ))}
+                    </Grid>
+                    {data?.data.pagination &&
+                      data.data.pagination.last_page > 1 && (
+                        <CenteredPagination
+                          count={data.data.pagination.last_page}
+                          page={filters.page || 1}
+                          onChange={handlePageChange}
+                          color="primary"
+                          size="large"
+                        />
+                      )}
+                  </>
+                )}
+              </Stack>
             </Grid>
 
             {/* Sidebar */}
             <Grid size={{ xs: 12, lg: 4 }}>
               <Stack spacing={3}>
-                <SearchBar />
-                <Categories categories={mockCategories} />
+                <SearchBar onSearchChange={handleSearchChange} />
+                <Categories
+                  categories={mockCategories}
+                  onCategoryChange={handleCategoryChange}
+                />
                 <RecentPosts posts={mockRecentPosts} />
                 <PopularTags tags={mockTags} />
                 <AdBanner />

@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { ArrowRight2 } from "iconsax-reactjs";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 
 interface Category {
   id: string;
@@ -21,10 +22,19 @@ interface Category {
 
 interface CategoriesProps {
   categories: Category[];
+  onCategoryChange?: (categoryId: string | null) => void;
 }
 
-function Categories({ categories }: CategoriesProps) {
+function Categories({ categories, onCategoryChange }: CategoriesProps) {
   const t = useTranslations("newsV2");
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  const handleCategoryClick = (categoryId: string) => {
+    const newCategory = selectedCategory === categoryId ? null : categoryId;
+    setSelectedCategory(newCategory);
+    onCategoryChange?.(newCategory);
+  };
+
   return (
     <Paper sx={{ p: 3, borderRadius: 2 }}>
       <Typography variant="h6" fontWeight={600} mb={2}>
@@ -34,6 +44,8 @@ function Categories({ categories }: CategoriesProps) {
         {categories.map((category, index) => (
           <ListItem key={category.id} disablePadding>
             <ListItemButton
+              selected={selectedCategory === category.id}
+              onClick={() => handleCategoryClick(category.id)}
               sx={{
                 borderRadius: 1,
                 mb: index !== categories.length - 1 ? 0.5 : 0,

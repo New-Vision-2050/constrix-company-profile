@@ -1,5 +1,6 @@
 "use client";
 
+import { BE_NewsItem } from "@/types/api/base/news";
 import {
   Avatar,
   Box,
@@ -10,30 +11,13 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { Calendar, Clock } from "iconsax-reactjs";
+import { Calendar } from "iconsax-reactjs";
 
 interface NewsCardProps {
-  image: string;
-  date: string;
-  readTime: string;
-  title: string;
-  excerpt: string;
-  author: {
-    name: string;
-    avatar: string;
-  };
-  category?: string;
+  newsItem: BE_NewsItem;
 }
 
-function NewsCard({
-  image,
-  date,
-  readTime,
-  title,
-  excerpt,
-  author,
-  category,
-}: NewsCardProps) {
+function NewsCard({ newsItem }: NewsCardProps) {
   return (
     <Card
       sx={{
@@ -50,8 +34,8 @@ function NewsCard({
       <CardMedia
         component="img"
         height="240"
-        image={image}
-        alt={title}
+        image={newsItem.thumbnail}
+        alt={newsItem.title}
         sx={{ objectFit: "cover" }}
       />
       <CardContent
@@ -61,21 +45,15 @@ function NewsCard({
           <Stack direction="row" spacing={0.5} alignItems="center">
             <Calendar size={16} variant="Bold" />
             <Typography variant="caption" color="text.secondary">
-              {date}
-            </Typography>
-          </Stack>
-          <Stack direction="row" spacing={0.5} alignItems="center">
-            <Clock size={16} variant="Bold" />
-            <Typography variant="caption" color="text.secondary">
-              {readTime}
+              {newsItem.publish_date}
             </Typography>
           </Stack>
         </Stack>
 
-        {category && (
+        {newsItem.category && (
           <Box>
             <Chip
-              label={category}
+              label={newsItem.category.name}
               size="small"
               sx={{
                 bgcolor: "primary.lighter",
@@ -87,11 +65,7 @@ function NewsCard({
         )}
 
         <Typography variant="h6" component="h3" fontWeight={600}>
-          {title}
-        </Typography>
-
-        <Typography variant="body2" color="text.secondary" sx={{ flexGrow: 1 }}>
-          {excerpt}
+          {newsItem.title}
         </Typography>
 
         {/* <Stack direction="row" spacing={1.5} alignItems="center" mt="auto">

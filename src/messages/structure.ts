@@ -8,6 +8,7 @@ import { homeMessages } from "./groups/home";
 import { newsPageMessages } from "./groups/pages/news";
 import { newsDetailsPageMessages } from "./groups/pages/news-details";
 import { aboutMessages } from "./groups/about";
+import { newsV2Messages } from "./groups/news-v2";
 
 // Main messages structure combining all groups
 export const messagesStructure = new MessagesGroup({
@@ -16,6 +17,7 @@ export const messagesStructure = new MessagesGroup({
   nav: publicNavMessages,
   home: homeMessages,
   about: aboutMessages,
+  newsV2: newsV2Messages,
   footer: footerMessages,
   services: new MessagesGroup({}),
   serviceCategories: new MessagesGroup({}),

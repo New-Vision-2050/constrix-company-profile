@@ -12,6 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Calendar } from "iconsax-reactjs";
+import Link from "next/link";
 
 interface NewsCardProps {
   newsItem: BE_NewsItem;
@@ -30,6 +31,8 @@ function NewsCard({ newsItem }: NewsCardProps) {
           boxShadow: (theme) => theme.shadows[8],
         },
       }}
+      component={Link}
+      href={`/news/${newsItem.id}`}
     >
       <CardMedia
         component="img"

@@ -43,6 +43,7 @@ export type MainLayoutProps = LayoutBaseProps & {
 // Public navigation items
 const publicNavItems = [
   { title: "nav.home", path: "/" },
+  { title: "nav.projects", path: "/projects" },
   { title: "nav.services", path: "/services" },
   { title: "nav.news", path: "/news" },
   { title: "nav.about", path: "/about" },

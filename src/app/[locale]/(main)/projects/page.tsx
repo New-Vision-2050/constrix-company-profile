@@ -1,11 +1,15 @@
 import LayoutStack from "@/layouts/main/layout-stack";
 import MainPageContent from "@/layouts/main/page-content";
-import PageSection from "@/layouts/main/page-section";
-import ServicesView from "@/modules/services";
-import { useTranslations } from "next-intl";
+import ProjectsView from "@/modules/projects/view";
 
-function ServicesPage() {
-  return <ServicesView />;
+function ProjectsPage() {
+  return (
+    <MainPageContent title="Projects">
+      <LayoutStack>
+        <ProjectsView />
+      </LayoutStack>
+    </MainPageContent>
+  );
 }
 
-export default ServicesPage;
+export default ProjectsPage;

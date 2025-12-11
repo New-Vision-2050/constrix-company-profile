@@ -1,7 +1,7 @@
 import MainPageContent from "@/layouts/main/page-content";
 import NewsDetailsView from "@/modules/news-details";
-import { getNewsData } from "./getNewsData";
 import LayoutStack from "@/layouts/main/layout-stack";
+import { NewsApi } from "@/services/api/news";
 
 // enable dynamic params 
 export const dynamicParams = true;
@@ -17,12 +17,13 @@ export default async function NewsDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const {id} = await params;
-  const newsData = await getNewsData(id);
+  const newsData = await NewsApi.show(id);
+  const newsItem = newsData.data.payload;
 
   return (
-    <MainPageContent title={newsData.title}>
+    <MainPageContent title={newsItem.title}>
       <LayoutStack>
-          <NewsDetailsView newsData={newsData} />
+          <NewsDetailsView newsData={newsItem} />
       </LayoutStack>
     </MainPageContent>
   );

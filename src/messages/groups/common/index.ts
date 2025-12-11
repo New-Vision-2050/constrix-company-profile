@@ -17,6 +17,7 @@ export const commonMessages = new MessagesGroup({
   hello: _m(" Hello!", " مرحباً!"),
   welcome: _m("Welcome to Minimal UI", "مرحباً بك في Minimal UI"),
   about: _m("About", "حول"),
+  retry: _m("Retry", "إعادة المحاولة"),
   createdAt: _m("Created at", "تم الإنشاء في"),
   days: new MessagesGroup({
     mon: _m("Monday", "الإثنين"),

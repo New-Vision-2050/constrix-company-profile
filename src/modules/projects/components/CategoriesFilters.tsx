@@ -1,5 +1,6 @@
 import { List, ListItem, ListItemText, Stack, Typography } from "@mui/material";
 import { BE_NewsCategory } from "@/types/api/base/news";
+import { useTranslations } from "next-intl";
 
 type PropsT = {
     categories: BE_NewsCategory[]
@@ -7,6 +8,9 @@ type PropsT = {
 }
 
 export default function CategoriesFilters({ categories, onCategoryChange }: PropsT) {
+    // get translations
+    const t = useTranslations("pages.projects");
+    
     // handle category change
     const handleCategoryChange = (categoryId: string) => {
         onCategoryChange(categoryId);
@@ -14,7 +18,7 @@ export default function CategoriesFilters({ categories, onCategoryChange }: Prop
     
     return (
         <Stack spacing={2}>
-            <Typography variant="h6">Categories</Typography>
+            <Typography variant="h6">{t("categories")}</Typography>
             <List 
                 sx={{ 
                     py: 0,
@@ -54,6 +58,7 @@ export default function CategoriesFilters({ categories, onCategoryChange }: Prop
                                     variant: 'body2',
                                     color: 'text.secondary',
                                     sx: { 
+                                        cursor: 'pointer',
                                         transition: 'color 0.2s ease',
                                     },
                                 }}

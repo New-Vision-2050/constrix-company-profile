@@ -8,6 +8,7 @@ type PropsT = {
     onCategoryChange: (categoryId: string) => void
     onSearchChange: (search: string) => void
 }
+
 export default function ProjectsFilters({ onCategoryChange, onSearchChange }: PropsT) {
     return (
         <Grid size={{ xs: 12, lg: 4 }}>

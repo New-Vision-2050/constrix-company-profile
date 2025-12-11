@@ -6,7 +6,7 @@ function ProjectsPage() {
   return (
     <MainPageContent title="Projects">
       <LayoutStack>
-        <ProjectsView data={[]} pagination={{ last_page: 1, page: 1 }} handlePageChange={() => {}} />
+        <ProjectsView />
       </LayoutStack>
     </MainPageContent>
   );

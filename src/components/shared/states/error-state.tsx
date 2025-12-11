@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { SxProps, Theme } from "@mui/material/styles";
 import { Iconify } from "@/components/iconify";
+import { useTranslations } from "next-intl";
 
 export interface ErrorStateProps {
   /** Main title shown in the error state */
@@ -39,6 +40,8 @@ export const ErrorState: React.FC<ErrorStateProps> = ({
   onRetry,
   sx,
 }) => {
+  // get translations
+  const t = useTranslations("common");
   return (
     <Box
       sx={{
@@ -116,7 +119,7 @@ export const ErrorState: React.FC<ErrorStateProps> = ({
                   px: 3,
                 }}
               >
-                Try Again
+                {t("retry")}
               </Button>
             )}
             {actions}

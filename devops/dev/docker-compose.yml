@@ -24,6 +24,7 @@ services:
       - "traefik.http.routers.company-profile-${DEPLOYMENT_ID}.entrypoints=https"
       - "traefik.http.routers.company-profile-${DEPLOYMENT_ID}.tls.certresolver=letsencrypt"
       - "traefik.http.services.company-profile-${DEPLOYMENT_ID}.loadbalancer.server.port=3001"
+      - "traefik.http.services.company-profile-${DEPLOYMENT_ID}.priority=10"
     networks:
       - traefik_network
 

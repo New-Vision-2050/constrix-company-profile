@@ -1,0 +1,10 @@
+# Deployment artifacts
+deployments/
+.env
+.env.*
+*.log
+
+# Docker
+*.tar
+*.tar.gz
+

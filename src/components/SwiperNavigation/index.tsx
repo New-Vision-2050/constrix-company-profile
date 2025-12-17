@@ -3,12 +3,19 @@
 import { Box, Container, Stack } from "@mui/material";
 import { ArrowLeft2, ArrowRight2 } from "iconsax-reactjs";
 import { useSwiper } from "swiper/react";
+import { useLocale } from "next-intl";
 
 function SwiperNavigation() {
   const swiper = useSwiper();
+  const locale = useLocale();
+  const isRTL = locale === "ar";
+
+  // In RTL: swap the arrow icons (right becomes left, left becomes right)
+  const NextIcon = isRTL ? ArrowRight2 : ArrowLeft2;
+  const PrevIcon = isRTL ? ArrowLeft2 : ArrowRight2;
 
   return (
-    <Container maxWidth={"xl"}>
+    <Box>
       <Stack direction={"row"} spacing={2} py={6} alignItems={"center"}>
         <Stack direction="row" spacing={2}>
           <Box
@@ -25,7 +32,7 @@ function SwiperNavigation() {
               cursor: "pointer",
             }}
           >
-            <ArrowRight2 variant="Outline" size={30} color="#000" />
+            <NextIcon variant="Outline" size={30} color="#000" />
           </Box>
           <Box
             component="button"
@@ -41,11 +48,11 @@ function SwiperNavigation() {
               cursor: "pointer",
             }}
           >
-            <ArrowLeft2 variant="Outline" size={30} color="#000" />
+            <PrevIcon variant="Outline" size={30} color="#000" />
           </Box>
         </Stack>
       </Stack>
-    </Container>
+    </Box>
   );
 }
 

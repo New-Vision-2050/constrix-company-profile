@@ -1,7 +1,8 @@
 "use client";
-import { Container, darken, lighten, Stack, Typography } from "@mui/material";
+import { Container, Stack, Typography } from "@mui/material";
 import { PropsWithChildren, ReactNode } from "react";
 import PageSection from "./page-section";
+import DarkGradiantBgBox from "@/components/ui/others/box/dark-gradiant-bg";
 
 type Props = PropsWithChildren<{
   title?: ReactNode;
@@ -11,13 +12,12 @@ type Props = PropsWithChildren<{
 function MainPageContent({ title, description, children }: Props) {
   return (
     <Stack>
-      <Stack
+      <DarkGradiantBgBox
         py={14}
-        spacing={4}
+        gap={4}
         alignItems="center"
-        sx={({ palette }) => ({
-          background: `linear-gradient(90deg,${darken(palette.primary.main, 0.4)} 0%, ${darken(palette.primary.main, 0.5)} 100%)`,
-        })}
+        display="flex"
+        flexDirection="column"
       >
         {title && (
           <PageSection>
@@ -44,7 +44,7 @@ function MainPageContent({ title, description, children }: Props) {
             </Typography>
           </Container>
         )}
-      </Stack>
+      </DarkGradiantBgBox>
       {children}
     </Stack>
   );

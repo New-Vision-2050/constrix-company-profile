@@ -3,11 +3,25 @@
 import React from "react";
 import { Box, Button, Stack } from "@mui/material";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import PageSection from "@/layouts/main/page-section";
-import { ArrowCircleLeft } from "iconsax-reactjs";
-export default function HeroView() {
+import { ArrowCircleLeft, ArrowCircleRight } from "iconsax-reactjs";
+import { BE_HomePageSetting } from "@/types/api/base/home-page";
+import { useRouter } from "next/navigation";
+
+interface HeroViewProps {
+  data?: BE_HomePageSetting;
+}
+
+export default function HeroView({ data }: HeroViewProps) {
   const t = useTranslations("home");
+  const locale = useLocale();
+  const isRTL = locale === "ar";
+  const ArrowIcon = isRTL ? ArrowCircleLeft : ArrowCircleRight;
+  const router = useRouter();
+  const videoSrc = data?.web_video_link
+    ? data?.web_video_link
+    : data?.web_video_file;
 
   return (
     <Box
@@ -16,12 +30,34 @@ export default function HeroView() {
         minHeight: { xs: "70vh", md: "100vh" },
         display: "flex",
         alignItems: "center",
-        background:
-          "linear-gradient(135deg, rgba(168, 85, 247, 0.8) 0%, rgba(20, 184, 166, 0.8) 50%, rgba(168, 85, 247, 0.7) 100%)",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
-      <PageSection>
-        {/* Logo and Button Container */}
+      {/* Video Background */}
+      {videoSrc && (
+        <Box
+          component="video"
+          autoPlay
+          muted
+          loop
+          playsInline
+          sx={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            zIndex: 0,
+          }}
+        >
+          <source src={videoSrc} type="video/mp4" />
+        </Box>
+      )}
+
+      {/* Content */}
+      <PageSection sx={{ position: "relative", zIndex: 2 }}>
         <Stack
           spacing={5}
           sx={{
@@ -47,11 +83,12 @@ export default function HeroView() {
             />
           </Box>
 
-          {/* More Button - Same Width as Image */}
+          {/* More Button */}
           <Button
             variant="contained"
             fullWidth
-            endIcon={<ArrowCircleLeft size={24} />}
+            endIcon={<ArrowIcon size={24} />}
+            onClick={() => router.push("/about")}
             sx={{
               py: { xs: 0.75, md: 1 },
               fontSize: { xs: 14, sm: 15, md: 16 },

@@ -1,5 +1,4 @@
 import { darken, type CommonColors, lighten } from "@mui/material/styles";
-import colorString from "color-string";
 
 import type { ThemeCssVariables } from "./types";
 import type { PaletteColorNoChannels } from "./core/palette";

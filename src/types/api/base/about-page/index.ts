@@ -1,4 +1,4 @@
-import { Nullable } from "node_modules/nuqs/dist/defs-BxjUD_70";
+import { Nullable } from "@/types/common/nullable";
 
 export interface AboutPagePayload {
   id: string;

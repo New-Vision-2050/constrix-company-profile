@@ -6,17 +6,34 @@ import AboutUsView from "@/sections/home/about-us/about-us-view";
 import ProjectsView from "@/sections/home/projects/projects-view";
 import DividerView from "@/sections/home/divider/divider-view";
 import { LayoutSection } from "@/layouts/core";
+import { HomePageApi } from "@/services/api/home-page";
 
-function HomePage() {
+async function HomePage() {
+  const homePageData = await HomePageApi.getData();
+  const payload = homePageData.data.payload;
+
   return (
     <LayoutSection>
-      <HeroView />
-      <PartnersView />
+      <HeroView data={payload?.home_page_setting} />
+      {payload?.company_icons && payload?.company_icons.length > 0 && (
+        <PartnersView data={payload?.company_icons} titleKey="partners" />
+      )}
+      {payload?.certificate_icons && payload?.certificate_icons.length > 0 && (
+        <PartnersView
+          data={payload?.certificate_icons}
+          titleKey="certificates"
+        />
+      )}
+      {payload?.approval_icons && payload?.approval_icons.length > 0 && (
+        <PartnersView data={payload?.approval_icons} titleKey="approvals" />
+      )}
       <DividerView />
       <ServicesView />
-      <CompanyProfileView />
-      <AboutUsView />
-      <ProjectsView />
+      <CompanyProfileView
+        data={payload?.home_page_setting?.video_profile_file || ""}
+      />
+      <AboutUsView data={payload?.founders} />
+      <ProjectsView data={payload?.featured_projects} />
     </LayoutSection>
   );
 }

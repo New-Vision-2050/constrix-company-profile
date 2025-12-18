@@ -1,9 +1,11 @@
 "use client";
 
 import React from "react";
-import { Box } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 
 export default function DividerView() {
+  const { palette } = useTheme();
+
   return (
     <Box
       sx={{
@@ -34,7 +36,7 @@ export default function DividerView() {
           width="2025.79"
           height="66"
           transform="rotate(-6.92943 -49.4792 244.406)"
-          fill="#610531"
+          fill={palette.primary.main}
         />
         <rect
           x="-50"
@@ -42,10 +44,9 @@ export default function DividerView() {
           width="2025.79"
           height="46.1332"
           transform="rotate(-6.92943 -50 307.406)"
-          fill="#F42589"
+          fill={palette.primary.darker}
         />
       </Box>
     </Box>
   );
 }
-

@@ -1,0 +1,36 @@
+services:
+  company-profile:
+    build:
+      context: ../..
+      dockerfile: devops/Dockerfile
+      args:
+        - DEPLOYMENT_ID=${DEPLOYMENT_ID}
+        - NODE_ENV=${NODE_ENV}
+        - CACHEBUST=${CACHEBUST}
+    container_name: company-profile-router
+    restart: always
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - NEXT_PUBLIC_API_BASE_URL=${BE_URL}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - NEXT_PUBLIC_API_PATH=api
+      - NEXT_PUBLIC_API_VERSION=v1
+      - NEXT_PUBLIC_CACHE_BUST=${CACHEBUST}
+      - DEPLOYMENT_ID=${DEPLOYMENT_ID}
+    labels:
+      - "traefik.enable=true"
+      # Option 1: Use a different domain
+      - "traefik.http.routers.company-profile-router.rule=HostRegexp(`^website(-[a-z0-9-]+)?\\.constrix-nv\\.com$`)"
+      # Option 2: Use a path prefix (uncomment and comment line above)
+      # - "traefik.http.routers.company-profile-router.rule=PathPrefix(`/company`)"
+      - "traefik.http.routers.company-profile-router.entrypoints=https"
+      - "traefik.http.routers.company-profile-router.tls.certresolver=letsencrypt"
+      - "traefik.http.services.company-profile-router.loadbalancer.server.port=3001"
+      - "traefik.http.routers.company-profile-router.priority=9"
+    networks:
+      - traefik_network
+
+networks:
+  traefik_network:
+    external: true
+

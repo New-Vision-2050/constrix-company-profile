@@ -5,19 +5,17 @@ import { Box, Button, Typography, Stack } from "@mui/material";
 import { useTranslations } from "next-intl";
 import PageSection from "@/layouts/main/page-section";
 import { DocumentDownload } from "iconsax-reactjs";
+import DarkGradiantBgBox from "@/components/ui/others/box/dark-gradiant-bg";
 
-export default function CompanyProfileView() {
+interface CompanyProfileViewProps {
+  data?: string;
+}
+
+export default function CompanyProfileView({ data }: CompanyProfileViewProps) {
   const t = useTranslations("home");
-
-  const handleDownload = () => {
-    // Add download functionality here
-    // For example: window.open('/path/to/company-profile.pdf', '_blank');
-  };
-
   return (
-    <Box
+    <DarkGradiantBgBox
       sx={{
-        background: "#8B1F7A",
         py: { xs: 4, md: 8 },
       }}
     >
@@ -47,7 +45,7 @@ export default function CompanyProfileView() {
             <Button
               variant="contained"
               endIcon={<DocumentDownload size={24} />}
-              onClick={handleDownload}
+              onClick={() => window.open(data, "_blank")}
               fullWidth={true}
               sx={{
                 px: { xs: 3, md: 6 },
@@ -62,6 +60,6 @@ export default function CompanyProfileView() {
           </Box>
         </Stack>
       </PageSection>
-    </Box>
+    </DarkGradiantBgBox>
   );
 }

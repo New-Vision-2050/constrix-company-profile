@@ -1,4 +1,5 @@
 "use client";
+import DarkGradiantBgCard from "@/components/ui/others/card/dark-gradiant-bg";
 import {
   Box,
   Card,
@@ -10,20 +11,26 @@ import {
 import { Variants, motion } from "framer-motion";
 import { Arrow } from "iconsax-reactjs";
 
-function KeySuccessCard() {
+type Props = {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+};
+
+function KeySuccessCard({ title, description, icon }: Props) {
   const { palette } = useTheme();
 
   const variants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
     hover: {
-      scale: 1.03,
+      scale: 1.05,
       boxShadow: `0 0 25px 0 ${palette.primary.lighter}`,
     },
   };
 
   return (
-    <Card
+    <DarkGradiantBgCard
       component={motion.div}
       variants={variants}
       whileInView="visible"
@@ -58,18 +65,15 @@ function KeySuccessCard() {
               },
             }}
           >
-            <Arrow color={palette.primary.main} size={32} />
+            {icon}
           </Box>
           <Box>
-            <Typography variant="h5">Something</Typography>
-            <Typography variant="subtitle2">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque
-              porro suscipit, beatae corporis expedita natus sapiente provident!
-            </Typography>
+            <Typography variant="h5">{title}</Typography>
+            <Typography variant="subtitle2">{description}</Typography>
           </Box>
         </Stack>
       </CardContent>
-    </Card>
+    </DarkGradiantBgCard>
   );
 }
 

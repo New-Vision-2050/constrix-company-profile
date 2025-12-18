@@ -1,0 +1,163 @@
+name: Production Deployment - Company Profile
+
+on:
+  push:
+    branches:
+      - master
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set Deployment ID
+        id: set_deployment_id
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            echo "DEPLOYMENT_ID=pr${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+          else
+            BRANCH_NAME="${{ github.ref_name }}"
+            echo "DEPLOYMENT_ID=${BRANCH_NAME}" >> $GITHUB_ENV
+          fi
+
+      - name: Echo Deployment ID
+        run: |
+          echo "Deployment ID: $DEPLOYMENT_ID"
+
+      - name: Extract BE_URL
+        id: extract_be_url
+        run: |
+          #!/bin/bash
+          set -e  # Exit immediately if a command exits with a non-zero status
+
+          # Production backend URL
+          BE_URL="https://core-be-production.constrix-nv.com"
+          echo "BE_URL=${BE_URL}" >> $GITHUB_ENV
+
+      - name: Echo BE URL
+        run: |
+          echo "BE URL: $BE_URL"
+
+      - name: Clean Old Data
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            DEPLOY_DIR=/home/deployer/company-profile/deployments/${{env.DEPLOYMENT_ID}}
+            rm -rf $DEPLOY_DIR
+
+      - name: Transfer Repo Files to Server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          source: "."
+          target: "/home/deployer/company-profile/deployments/${{ env.DEPLOYMENT_ID }}/"
+
+      - name: Set Environment Variables Based on Branch
+        id: set_env
+        run: |
+          if [[ "${GITHUB_REF}" == "refs/heads/main" || "${GITHUB_REF}" == "refs/heads/master" ]]; then
+            echo "NODE_ENV=production" >> $GITHUB_ENV
+          elif [[ "${GITHUB_REF}" == "refs/heads/dev" ]]; then
+            echo "NODE_ENV=development" >> $GITHUB_ENV
+          elif [[ "${GITHUB_REF}" == "refs/heads/staging" ]]; then
+            echo "NODE_ENV=staging" >> $GITHUB_ENV
+          elif [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+            echo "NODE_ENV=pr" >> $GITHUB_ENV
+          else
+            echo "NODE_ENV=production" >> $GITHUB_ENV
+          fi
+
+      - name: Echo Environment Variables
+        run: |
+          echo "BE_URL: $BE_URL"
+          echo "NODE_ENV: $NODE_ENV"
+          echo "DEPLOYMENT_ID: $DEPLOYMENT_ID"
+
+      - name: Deploy to Server via SSH
+        uses: appleboy/ssh-action@v0.1.10
+        env:
+          BE_URL: ${{ env.BE_URL }}
+          NODE_ENV: ${{ env.NODE_ENV }}
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            #!/bin/bash
+            set -e
+            set -x
+            export BE_URL=${{env.BE_URL}}
+            export DEPLOYMENT_ID=${{env.DEPLOYMENT_ID}}
+            export NODE_ENV=${{env.NODE_ENV}}
+            DEPLOY_DIR=/home/deployer/company-profile/deployments/${{env.DEPLOYMENT_ID}}
+            mkdir -p $DEPLOY_DIR
+            cd $DEPLOY_DIR
+            echo "Deploying from: $DEPLOY_DIR"
+            chmod +x ./devops/deploy.sh
+            ./devops/deploy.sh
+            rm -rf $DEPLOY_DIR
+            echo "Production deployment of company-profile completed successfully."
+
+      - name: Deployment Success Notification
+        if: success()
+        run: |
+          echo "🎉 Production deployment successful!"
+          echo "🌐 Company Profile is now live at: https://company.constrix-nv.com"
+
+  cleanup:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && (github.event.action == 'merged' || github.event.action == 'closed')
+    steps:
+      - name: Set Deployment ID for Cleanup
+        id: set_cleanup_deployment_id
+        run: |
+          if [ "${{ github.event.pull_request.merged }}" == "false" ]; then
+            echo "DEPLOYMENT_ID=pr${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+          else
+            # Optionally handle merged PRs if you have separate deployments for them
+            echo "DEPLOYMENT_ID=pr${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+          fi
+
+      - name: Echo Deployment ID for Cleanup
+        run: |
+          echo "Cleanup Deployment ID: $DEPLOYMENT_ID"
+
+      - name: Cleanup Deployment on Server via SSH
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            DEPLOYMENT_ID=${{ env.DEPLOYMENT_ID }}
+            PROJECT_NAME=company-profile-$DEPLOYMENT_ID
+
+            echo "Starting cleanup for Deployment ID: $DEPLOYMENT_ID"
+
+            # Stop and remove Docker container
+            if docker ps -a | grep -q $PROJECT_NAME; then
+              echo "Stopping and removing Docker container: $PROJECT_NAME"
+              docker stop $PROJECT_NAME || true
+              docker rm -f $PROJECT_NAME || true
+            else
+              echo "Container $PROJECT_NAME does not exist."
+            fi
+
+            # Remove the deployment directory
+            echo "Removing deployment directory: /home/deployer/company-profile/deployments/$DEPLOYMENT_ID"
+            rm -rf /home/deployer/company-profile/deployments/$DEPLOYMENT_ID/
+
+            echo "Cleanup for $DEPLOYMENT_ID completed successfully."

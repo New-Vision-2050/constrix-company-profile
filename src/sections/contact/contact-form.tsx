@@ -7,9 +7,12 @@ import { useTranslations } from "next-intl";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { isValidPhoneNumber } from "libphonenumber-js";
+import { useSnackbar } from "notistack";
+import { ContactApi } from "@/services/api/contact";
 
 export default function ContactForm() {
   const t = useTranslations("contactForm");
+  const { enqueueSnackbar } = useSnackbar();
 
   const contactSchema = z.object({
     name: z.string().min(3, t("errors.name")),
@@ -49,9 +52,14 @@ export default function ContactForm() {
   });
 
   const onSubmit = async (data: ContactFormValues) => {
-    // Replace this with API call
-    console.log("submit", data);
-    reset();
+    try {
+      await ContactApi.create(data);
+      enqueueSnackbar(t("success"), { variant: "success" });
+      reset();
+    } catch (error) {
+      console.error("Failed to submit contact form:", error);
+      enqueueSnackbar(t("error"), { variant: "error" });
+    }
   };
 
   return (

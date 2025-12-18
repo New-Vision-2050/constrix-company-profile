@@ -27,6 +27,14 @@ export const contactMessages = new MessagesGroup({
       "اكتب رسالة أطول (10 أحرف على الأقل)"
     ),
   }),
+  success: _m(
+    "Message sent successfully! We'll get back to you soon.",
+    "تم إرسال رسالتك بنجاح! سنتواصل معك قريباً."
+  ),
+  error: _m(
+    "Failed to send message. Please try again.",
+    "فشل إرسال الرسالة. يرجى المحاولة مرة أخرى."
+  ),
 });
 
 export const contactInfoMessages = new MessagesGroup({

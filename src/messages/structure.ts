@@ -7,6 +7,7 @@ import { servicesPageMessages } from "./groups/pages/services";
 import { homeMessages } from "./groups/home";
 import { newsPageMessages } from "./groups/pages/news";
 import { newsDetailsPageMessages } from "./groups/pages/news-details";
+import { serviceDetailsPageMessages } from "./groups/pages/service-details";
 import { aboutMessages } from "./groups/about";
 import { newsV2Messages } from "./groups/news-v2";
 
@@ -27,5 +28,6 @@ export const messagesStructure = new MessagesGroup({
     services: servicesPageMessages,
     news: newsPageMessages,
     newsDetails: newsDetailsPageMessages,
+    serviceDetails: serviceDetailsPageMessages,
   }),
 });

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { Typography, Stack, IconButton, Link } from "@mui/material";
 import {
   Facebook as FacebookIcon,
@@ -16,6 +16,8 @@ import { Logo } from "@/components/logo";
 import { RouterLink } from "@/routes/components";
 import LayoutStack from "../main/layout-stack";
 import PageSection from "../main/page-section";
+import useSocialLinks from "@/hooks/use-social-links";
+import Image from "next/image";
 
 const navLinks = [
   { key: "home", href: "/", highlight: true },
@@ -35,6 +37,10 @@ const socialLinks = [
 export default function FooterSection() {
   const tFooter = useTranslations("footer");
   const tNav = useTranslations("nav");
+
+  // get social links
+  const { data: socialLinksRes } = useSocialLinks();
+  const socialLinks = useMemo(()=>socialLinksRes?.data?.payload, [socialLinksRes])
 
   return (
     <LayoutStack sx={{ bgcolor: "primary.lighter" }}>
@@ -170,14 +176,14 @@ export default function FooterSection() {
                   {tFooter("contactLabel")}
                 </Typography>
                 <Stack direction="row" spacing={1}>
-                  {socialLinks.map(({ key, Icon, href }) => (
+                  {socialLinks?.map(({ id, link, icon_url }) => (
                     <IconButton
-                      key={key}
+                      key={id}
                       component="a"
-                      href={href}
+                      href={link}
                       target="_blank"
                       rel="noreferrer"
-                      aria-label={key}
+                      aria-label={link}
                       sx={{
                         width: { xs: 44, sm: 48 },
                         height: { xs: 44, sm: 48 },
@@ -186,7 +192,7 @@ export default function FooterSection() {
                         borderRadius: "50%",
                       }}
                     >
-                      <Icon sx={{ fontSize: { xs: 20, sm: 24 } }} />
+                      <Image src={icon_url} alt={link} width={20} height={20} objectFit="contain"  style={{ borderRadius: "50%" }} />
                     </IconButton>
                   ))}
                 </Stack>

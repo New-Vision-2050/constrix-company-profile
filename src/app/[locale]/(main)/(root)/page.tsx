@@ -11,6 +11,7 @@ import { HomePageApi } from "@/services/api/home-page";
 async function HomePage() {
   const homePageData = await HomePageApi.getData();
   const payload = homePageData.data.payload;
+  console.log(payload);
 
   return (
     <LayoutSection>
@@ -28,12 +29,21 @@ async function HomePage() {
         <PartnersView data={payload?.approval_icons} titleKey="approvals" />
       )}
       <DividerView />
-      <ServicesView />
-      <CompanyProfileView
-        data={payload?.home_page_setting?.video_profile_file || ""}
-      />
-      <AboutUsView data={payload?.founders} />
-      <ProjectsView data={payload?.featured_projects} />
+      {/* <ServicesView /> */}
+      {payload?.website_services && payload?.website_services.length > 0 && (
+        <ServicesView data={payload?.website_services} />
+      )}
+      {payload?.home_page_setting?.video_profile_file && (
+        <CompanyProfileView
+          data={payload?.home_page_setting?.video_profile_file || ""}
+        />
+      )}
+      {payload?.founders && payload?.founders.length > 0 && (
+        <AboutUsView data={payload?.founders} />
+      )}
+      {payload?.featured_projects && payload?.featured_projects.length > 0 && (
+        <ProjectsView data={payload?.featured_projects} />
+      )}
     </LayoutSection>
   );
 }

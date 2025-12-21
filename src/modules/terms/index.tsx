@@ -1,18 +1,24 @@
 import PageSection from "@/layouts/main/page-section";
+import { TermsAndCondition } from "@/types/api/base/terms";
 import { Typography } from "@mui/material";
 
-export default function TermsAndConditionsView() {
+
+type PropsT = {
+    termsData: TermsAndCondition
+}
+
+export default function TermsAndConditionsView({ termsData }: PropsT) {
     return <PageSection>
         {/* Title */}
-        <Typography variant="subtitle1" fontWeight={700}>
+        {/* <Typography variant="subtitle1" fontWeight={700}>
             Title
-        </Typography>
+        </Typography> */}
         {/* Description */}
         <Typography
             variant="body2"
             component="div"
             color="text.secondary"
-            dangerouslySetInnerHTML={{ __html: "<p>محتوى HTML جاهز</p>" }}
+            dangerouslySetInnerHTML={{ __html: termsData?.content ?? '' }}
         />
 
     </PageSection>

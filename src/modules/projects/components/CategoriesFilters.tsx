@@ -46,7 +46,7 @@ export default function CategoriesFilters({ categories, onCategoryChange }: Prop
                 }}
             >
                 {
-                    categories.map((category) => (
+                    categories?.map((category) => (
                         <ListItem 
                             key={category.id} 
                             disablePadding

@@ -35,6 +35,14 @@ export const contactMessages = new MessagesGroup({
     "Failed to send message. Please try again.",
     "فشل إرسال الرسالة. يرجى المحاولة مرة أخرى."
   ),
+  successMessage: new MessagesGroup({
+    title: _m("Message Received Successfully!", "تم استلام رسالتك بنجاح!"),
+    description: _m(
+      "Thank you for contacting us. We have received your message successfully and will get back to you as soon as possible.",
+      "شكراً لتواصلك معنا. لقد استلمنا رسالتك بنجاح وسنتواصل معك في أقرب وقت ممكن."
+    ),
+    newMessageButton: _m("Send Another Message", "إرسال رسالة أخرى"),
+  }),
 });
 
 export const contactInfoMessages = new MessagesGroup({

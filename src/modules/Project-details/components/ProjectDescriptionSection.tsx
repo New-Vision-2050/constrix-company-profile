@@ -17,7 +17,7 @@ export default function ProjectDescriptionSection({ description }: PropsT) {
             {/* description */}
             <Typography variant="body1">
                 {description}
-            </Typography>
+            </Typography> 
         </Stack>
     )
 }

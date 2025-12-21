@@ -22,7 +22,7 @@ export default function ViewEntryPoint({ categories }: { categories: BE_Category
         setFilters({ ...filters, page: value });
     }
     // handle category change
-    const handleCategoryChange = (categoryId: string) => {
+    const handleCategoryChange = (categoryId: string | undefined) => {
         setFilters({ ...filters, website_project_setting_id: categoryId });
     }
     // handle search change
@@ -51,7 +51,7 @@ export default function ViewEntryPoint({ categories }: { categories: BE_Category
             </Grid>
 
             {/* Sidebar */}
-            <ProjectsFilters categories={categories} onCategoryChange={handleCategoryChange} onSearchChange={handleSearchChange} />
+            <ProjectsFilters filters={filters} categories={categories} onCategoryChange={handleCategoryChange} onSearchChange={handleSearchChange} />
         </Grid>
     );
 }

@@ -1,14 +1,13 @@
 import MainPageContent from "@/layouts/main/page-content";
 import AboutView from "@/modules/about";
 import AboutMainView from "@/modules/about/views/main-view";
-import { useTranslations } from "next-intl";
+import { AboutPageApi } from "@/services/api/about-page";
 
-export default function AboutPage() {
-    const t = useTranslations("pages.about");
-    return (
-        <MainPageContent title={t("title")} description={t("description")}>
-            <AboutView />
-            {/* <AboutMainView /> */}
-        </MainPageContent>
-    );
+async function AboutPage() {
+  const aboutPageData = await AboutPageApi.getData();
+  const payload = aboutPageData.data.payload;
+
+  return <AboutMainView data={payload} />;
 }
+
+export default AboutPage;

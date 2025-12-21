@@ -7,16 +7,27 @@ import RTLProvider from "@/theme/rtl";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { ThemeResponse } from "@/services/api/theme/response";
+import { convertBackendTheme } from "@/theme/convert-backend-theme";
 
 function ThemeProvider({
   children,
   direction,
-}: PropsWithChildren<{ direction?: "ltr" | "rtl" }>) {
+  theme,
+}: PropsWithChildren<{
+  direction?: "ltr" | "rtl";
+  theme?: ThemeResponse["payload"];
+}>) {
+  // Convert backend theme to MUI theme format
+  const themeOverrides = theme
+    ? { ...convertBackendTheme(theme), direction }
+    : { direction };
+
   return (
     <NuqsAdapter>
       <AppRouterCacheProvider>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <MuiThemeProvider themeOverrides={{ direction }}>
+          <MuiThemeProvider themeOverrides={themeOverrides}>
             <RTLProvider direction={direction || "ltr"}>
               <NotistackProvider>{children}</NotistackProvider>
             </RTLProvider>

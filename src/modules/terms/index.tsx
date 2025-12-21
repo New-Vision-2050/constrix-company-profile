@@ -17,7 +17,6 @@ export default function TermsAndConditionsView({ termsData }: PropsT) {
         <Typography
             variant="body2"
             component="div"
-            color="text.secondary"
             dangerouslySetInnerHTML={{ __html: termsData?.content ?? '' }}
         />
 

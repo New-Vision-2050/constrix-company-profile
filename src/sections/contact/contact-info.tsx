@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { Box, Typography, Stack, IconButton, MenuItem } from "@mui/material";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import {
   Facebook,
@@ -10,6 +9,7 @@ import {
   Whatsapp,
   Notification,
   Location,
+  Sms,
 } from "iconsax-reactjs";
 
 export default function ContactInfo() {
@@ -66,24 +66,15 @@ export default function ContactInfo() {
           <Box
             sx={{
               width: 26,
-              height: 20,
+              height: 26,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               mt: 0.5,
-              position: "relative",
+              color: "primary.main",
             }}
           >
-            <Image
-              src="/Email.svg"
-              alt="Email"
-              width={26}
-              height={20}
-              style={{
-                width: "100%",
-                height: "auto",
-              }}
-            />
+            <Sms size={26} variant="Outline" />
           </Box>
           <Stack>
             <Typography

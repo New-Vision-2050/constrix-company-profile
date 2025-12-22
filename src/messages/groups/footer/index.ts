@@ -6,6 +6,7 @@ export const footerMessages = new MessagesGroup({
   contactLabel: _m("Connect", "التواصل"),
   phoneLabel: _m("Contact number", "رقم التواصل"),
   phoneValue: _m("+965 593 543 56", "+965 593 543 56"),
+  emailLabel: _m("Email", "البريد الالكتروني"),
   terms: _m("Terms & Conditions", "الشروط والأحكام"),
   rights: _m("All rights reserved to Constrix", "جميع الحقوق محفوظة لـ Constrix"),
   youtubeLabel: _m("YouTube", "يوتيوب"),

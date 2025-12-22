@@ -10,7 +10,7 @@ import "swiper/css";
 import { BE_WebsiteIcon } from "@/types/api/base/icon";
 
 interface PartnersViewProps {
-  data?: BE_WebsiteIcon[];
+  data?: Pick<BE_WebsiteIcon, "icon" | "id" | "name">[];
   titleKey?: "partners" | "certificates" | "approvals";
 }
 

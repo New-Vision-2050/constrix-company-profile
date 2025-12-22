@@ -11,6 +11,7 @@ import { useTranslations } from "next-intl";
 import { AboutPagePayload } from "@/types/api/base/about-page";
 import { Eye, MessageSquare, Diagram } from "iconsax-reactjs";
 import DescriptionSection from "../../components/description-section";
+import PartnersView from "@/sections/home/partners/partners-view";
 
 function AboutMainView({ data }: { data: AboutPagePayload }) {
   const t = useTranslations("about");
@@ -19,6 +20,17 @@ function AboutMainView({ data }: { data: AboutPagePayload }) {
     <MainPageContent title={t("title")} description={data.description}>
       <LayoutStack spacing={8}>
         <DescriptionSection data={data} />
+        <PageSection>
+          {data?.company_icons && data?.company_icons.length > 0 && (
+            <PartnersView
+              data={data?.company_icons?.map((i) => ({
+                ...i,
+                icon: i.icon_url,
+              }))}
+              titleKey="partners"
+            />
+          )}
+        </PageSection>
         <PageSection>
           <Grid container spacing={4}>
             <Grid size={{ xs: 12, md: 6, lg: 4 }}>

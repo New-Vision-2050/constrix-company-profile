@@ -1,6 +1,7 @@
 import MainPageContent from "@/layouts/main/page-content";
 import ServicesDetailsView from "@/modules/services-details";
 import { getServiceData } from "./getServiceData";
+import ServiceDetailsContactBtn from "@/modules/services-details/components/ContactButton";
 
 // Enable dynamic params for service details
 export const dynamicParams = true;
@@ -18,7 +19,7 @@ export default async function ServiceDetailsPage({
     const serviceData = await getServiceData(id);
 
     return (
-        <MainPageContent title={serviceData.title}>
+        <MainPageContent title={serviceData.title} description={<ServiceDetailsContactBtn />}>
             <ServicesDetailsView serviceData={serviceData} />
         </MainPageContent>
     );

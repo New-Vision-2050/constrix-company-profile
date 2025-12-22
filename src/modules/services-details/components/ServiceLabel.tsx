@@ -16,8 +16,8 @@ export default function ServiceLabel({ label }: ServiceLabelProps) {
       variant="subtitle1"
       sx={({ palette }) => ({
         fontWeight: 500,
-        mb: 2,
-        fontSize: "1.5rem",
+        mb: 1,
+        fontSize: "1.3rem",
         color: darken(palette.primary.main, 0.4),
         textAlign: { xs: "center", md: "start" },
       })}

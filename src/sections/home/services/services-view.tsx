@@ -11,8 +11,9 @@ import PageSection from "@/layouts/main/page-section";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-coverflow";
+import { BE_OurServices } from "@/types/api/base/home-page";
 
-export default function ServicesView() {
+export default function ServicesView({ data }: { data: BE_OurServices[] }) {
   const t = useTranslations("home");
 
   // Services data with translations

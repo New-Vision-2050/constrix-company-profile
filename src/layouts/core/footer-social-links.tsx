@@ -1,7 +1,9 @@
+'use client'
 import { SocialMediaLinks } from "@/services/api/theme/response";
 import { IconButton, Stack, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { useMemo } from "react";
 
 
 type PropsT = {
@@ -10,6 +12,9 @@ type PropsT = {
 
 export default function FooterSocialLinks({ socialLinks }: PropsT) {
     const tFooter = useTranslations("footer");
+    const socialLinksObj = useMemo(() => {
+        return Boolean(socialLinks) ? socialLinks : {}
+    }, [socialLinks])
 
     return (
         <Stack
@@ -22,7 +27,7 @@ export default function FooterSocialLinks({ socialLinks }: PropsT) {
                 {tFooter("contactLabel")}
             </Typography>
             <Stack direction="row" spacing={1}>
-                {Object.entries(socialLinks).map(([key, value]) => (
+                {Object.entries(socialLinksObj)?.map(([key, value]) => (
                     <IconButton
                         key={key}
                         component="a"

@@ -7,5 +7,6 @@ export const serviceDetailsPageMessages = new MessagesGroup({
   description: _m("The Description", "الوصف"),
   content: _m("Service Description", "وصف الخدمة"),
   previousWord: _m("Previous Word", "الاعمال السابقة"),
+  contactViaWhatsapp: _m("Contact us via WhatsApp", "تواصل معانا من خلال ال Whatsapp")
 });
 

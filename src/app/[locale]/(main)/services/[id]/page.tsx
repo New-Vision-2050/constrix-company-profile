@@ -1,7 +1,8 @@
 import MainPageContent from "@/layouts/main/page-content";
 import ServicesDetailsView from "@/modules/services-details";
-import { getServiceData } from "./getServiceData";
 import ServiceDetailsContactBtn from "@/modules/services-details/components/ContactButton";
+import { ServicesApi } from "@/services/api/services";
+import { notFound } from "next/navigation";
 
 // Enable dynamic params for service details
 export const dynamicParams = true;
@@ -16,10 +17,15 @@ export default async function ServiceDetailsPage({
     params: Promise<{ id: string }>;
 }) {
     const { id } = await params;
-    const serviceData = await getServiceData(id);
+    const serviceRes = await ServicesApi.show(id);
+    const serviceData = serviceRes.data.payload;
+
+    if (!serviceData) {
+        notFound()
+    }
 
     return (
-        <MainPageContent title={serviceData.title} description={<ServiceDetailsContactBtn />}>
+        <MainPageContent title={serviceData.name} description={<ServiceDetailsContactBtn />}>
             <ServicesDetailsView serviceData={serviceData} />
         </MainPageContent>
     );

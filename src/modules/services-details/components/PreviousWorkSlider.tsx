@@ -7,6 +7,7 @@ import { Autoplay, EffectCoverflow } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import ServiceLabel from "./ServiceLabel";
+import { BE_WebsiteServicePreviousWork } from "@/types/api/base/services";
 
 interface PreviousWork {
   id: number;
@@ -16,7 +17,7 @@ interface PreviousWork {
 }
 
 interface PreviousWorkSliderProps {
-  works: PreviousWork[];
+  works: BE_WebsiteServicePreviousWork[]
 }
 
 /**
@@ -46,9 +47,9 @@ export default function PreviousWorkSlider({ works }: PreviousWorkSliderProps) {
       >
         {works.map((work) => (
           <SwiperSlide key={work.id} style={{ width: "80%" }}>
-            <Card 
-              sx={{ 
-                borderRadius: 2.5, 
+            <Card
+              sx={{
+                borderRadius: 2.5,
                 boxShadow: 3,
                 height: "100%",
                 width: "100%",
@@ -57,10 +58,10 @@ export default function PreviousWorkSlider({ works }: PreviousWorkSliderProps) {
               }}
             >
               <Box sx={{ position: "relative", width: "100%", aspectRatio: "16 / 10" }}>
-                <Image src={work.image} alt={work.title} fill style={{ objectFit: "cover" }} />
+                <Image src={work.image} alt={work.description} fill style={{ objectFit: "cover" }} />
               </Box>
               <Box sx={{ p: { xs: 2, sm: 2.5, md: 3 } }}>
-                <ServiceLabel label={work.title} />
+                <ServiceLabel label={work.description} />
                 <Typography variant="body1">
                   {work.description}
                 </Typography>

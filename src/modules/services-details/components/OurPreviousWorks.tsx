@@ -3,9 +3,10 @@ import { useTranslations } from "next-intl";
 import ServiceLabel from "./ServiceLabel";
 import PreviousWorkSlider from "./PreviousWorkSlider";
 import { PreviousWork } from "../types/previous-work";
+import { BE_WebsiteServicePreviousWork } from "@/types/api/base/services";
 
 interface OurPreviousWorksProps {
-  previousWorks?: PreviousWork[];
+  previousWorks?: BE_WebsiteServicePreviousWork[]
 }
 
 /**

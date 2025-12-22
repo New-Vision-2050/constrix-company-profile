@@ -6,9 +6,10 @@ import ProjectsFilters from "./ProjectsFilters";
 import useProjectsData from "../hooks/useProjectsData";
 import { useMemo, useState } from "react";
 import { ProjectsFilters as FilterTypes } from "@/services/api/projects";
+import { BE_Category } from "@/types/api/base/categories";
 
 
-export default function ViewEntryPoint() {
+export default function ViewEntryPoint({ categories }: { categories: BE_Category[] }) {
     // projects filters
     const [filters, setFilters] = useState<FilterTypes>({})
     // get projects data
@@ -21,8 +22,8 @@ export default function ViewEntryPoint() {
         setFilters({ ...filters, page: value });
     }
     // handle category change
-    const handleCategoryChange = (categoryId: string) => {
-        setFilters({ ...filters, category_website_cms_id: categoryId });
+    const handleCategoryChange = (categoryId: string | undefined) => {
+        setFilters({ ...filters, website_project_setting_id: categoryId });
     }
     // handle search change
     const handleSearchChange = (search: string) => {
@@ -50,7 +51,7 @@ export default function ViewEntryPoint() {
             </Grid>
 
             {/* Sidebar */}
-            <ProjectsFilters onCategoryChange={handleCategoryChange} onSearchChange={handleSearchChange} />
+            <ProjectsFilters filters={filters} categories={categories} onCategoryChange={handleCategoryChange} onSearchChange={handleSearchChange} />
         </Grid>
     );
 }

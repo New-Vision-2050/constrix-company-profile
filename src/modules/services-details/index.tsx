@@ -4,10 +4,11 @@ import { ServiceDetail } from "./types/service-details";
 import LayoutStack from "@/layouts/main/layout-stack";
 import ServiceDescription from "./components/ServiceDescription";
 import { useTranslations } from "next-intl";
+import { BE_WebsiteService } from "@/types/api/base/services";
 
 
 interface ServicesDetailsModuleProps {
-  serviceData: ServiceDetail;
+  serviceData: BE_WebsiteService
 }
 
 /**
@@ -23,11 +24,11 @@ export default function ServicesDetailsView({
   return (
     <LayoutStack>
       {/* Service Header */}
-      <ServiceHeader title={serviceData.title} />
+      <ServiceHeader title={serviceData.name} />
       {/* Service Description */}
       <ServiceDescription label={t("serviceDescription")} description={serviceData.description} />
       {/* Previous Work Slider */}
-      <OurPreviousWorks previousWorks={serviceData.previousWorks} />
+      <OurPreviousWorks previousWorks={serviceData.previous_work} />
     </LayoutStack>
   );
 }

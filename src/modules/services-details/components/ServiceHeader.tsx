@@ -25,7 +25,7 @@ export default function ServiceHeader({
           variant="h3"
           sx={{
             fontWeight: 700,
-            mb: 2,
+            mb: 1,
             textAlign: { xs: "center", md: "start" },
           }}
         >

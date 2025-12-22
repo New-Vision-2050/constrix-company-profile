@@ -1,6 +1,13 @@
 "use client";
 
-import { Typography, Stack, Box, Button, useTheme } from "@mui/material";
+import {
+  Typography,
+  Stack,
+  Box,
+  Button,
+  useTheme,
+  styled,
+} from "@mui/material";
 import { useTranslations } from "next-intl";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
@@ -16,6 +23,10 @@ import "swiper/css/navigation";
 interface FilesSliderProps {
   files: AboutPageAttachmentType[];
 }
+
+const FileIcon = styled(DocumentDownload)(({ theme }) => ({
+  color: theme.palette.primary.lighter,
+}));
 
 export default function FilesSlider({ files }: FilesSliderProps) {
   const t = useTranslations("about");
@@ -48,22 +59,23 @@ export default function FilesSlider({ files }: FilesSliderProps) {
           <Swiper
             modules={[Navigation, Autoplay]}
             autoplay={{
-              delay: 3000,
+              delay: 6000,
               disableOnInteraction: false,
               stopOnLastSlide: false,
               pauseOnMouseEnter: false,
             }}
-            speed={1000}
+            speed={1250}
             loop={files.length > 3}
             slidesPerView={1}
             spaceBetween={20}
+            centeredSlides
             breakpoints={{
               640: {
-                slidesPerView: 2,
+                slidesPerView: 1.1,
                 spaceBetween: 20,
               },
               1024: {
-                slidesPerView: 3,
+                slidesPerView: 1.4,
                 spaceBetween: 30,
               },
             }}
@@ -88,14 +100,12 @@ export default function FilesSlider({ files }: FilesSliderProps) {
                   <Box
                     sx={{
                       position: "absolute",
-                      right: -20,
-                      top: "50%",
-                      transform: "translateY(-50%)",
-                      opacity: 0.1,
-                      fontSize: "200px",
+                      right: 20,
+                      bottom: "0%",
+                      opacity: 0.2,
                     }}
                   >
-                    <DocumentDownload size={200} />
+                    <FileIcon size={250} />
                   </Box>
 
                   {/* Content */}

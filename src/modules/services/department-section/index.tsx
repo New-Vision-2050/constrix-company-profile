@@ -10,11 +10,12 @@ type DepartmentSectionProps = {
 export default function DepartmentSection({
   department,
 }: DepartmentSectionProps) {
+  console.log("department", department);
   const renderServices = () => {
     switch (department.type) {
       case "cards":
         return <ServicesList sectionData={department} />;
-      case "rhombus":
+      case "hexa":
         return <RhombusCards services={department.website_services} />;
       default:
         return <ServicesList sectionData={department} />;

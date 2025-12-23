@@ -43,11 +43,11 @@ export type MainLayoutProps = LayoutBaseProps & {
 // Public navigation items
 const publicNavItems = [
   { title: "nav.home", path: "/" },
-  { title: "nav.projects", path: "/projects" },
-  { title: "nav.services", path: "/services" },
-  { title: "nav.news", path: "/news" },
   { title: "nav.about", path: "/about" },
+  { title: "nav.services", path: "/services" },
+  { title: "nav.projects", path: "/projects" },
   { title: "nav.contact", path: "/contact" },
+  { title: "nav.news", path: "/news" },
 ];
 
 export function MainLayout({
@@ -135,21 +135,6 @@ export function MainLayout({
         >
           {/** @slot Language popover */}
           <LanguagePopover data={_langs} />
-
-          {/** @slot Subscribe button */}
-          <Button
-            variant="contained"
-            color="primary"
-            sx={{
-              px: 3,
-              py: 1,
-              borderRadius: 1,
-              textTransform: "none",
-              fontWeight: 600,
-            }}
-          >
-            {t("nav.subscribe")}
-          </Button>
         </Box>
       ),
     };

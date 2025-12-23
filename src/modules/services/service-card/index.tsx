@@ -17,7 +17,7 @@ export default function ServiceCard({ service }: ServiceCardProps) {
         position: "relative",
         height: "375px",
         width: "100%",
-        backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(255, 255, 255, 0.2)), url(${service.main_image})`,
+        backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(120, 120, 120, 0.3)), url(${service.main_image})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -25,10 +25,6 @@ export default function ServiceCard({ service }: ServiceCardProps) {
       href={`/services/${service.id}`}
     >
       <CardContent sx={{ p: 4 }}>
-        {/* header & title */}
-        <div className="card-header">
-          <ServiceCardHeader />
-        </div>
         <Typography variant="h5" color="white" className="card-title">
           {service.name}
         </Typography>
@@ -45,8 +41,6 @@ export default function ServiceCard({ service }: ServiceCardProps) {
           </Typography>
         )}
       </CardContent>
-      {/* description */}
-      {/* footer */}
     </Card>
   );
 }

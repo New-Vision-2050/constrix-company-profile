@@ -2,12 +2,14 @@
 
 import AspectRatio from "@/components/ui/others/aspect-ratio";
 import BlackOverlay from "@/components/ui/others/overlay";
+import { BE_ServicePageItem } from "@/types/api/base/services";
 import { Box, Stack, Typography } from "@mui/material";
 
 type SmallCardProps = {
   ratio?: number;
+  service: BE_ServicePageItem;
 };
-function SmallCard({ ratio = 0.75 }: SmallCardProps) {
+function SmallCard({ ratio = 0.75, service }: SmallCardProps) {
   return (
     <AspectRatio ratio={ratio} boxProps={{ sx: { borderRadius: 2 } }}>
       <Stack
@@ -22,7 +24,7 @@ function SmallCard({ ratio = 0.75 }: SmallCardProps) {
           borderRadius: 1,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          backgroundImage: `url(https://zone-ui.vercel.app/assets/images/marketing/marketing-6.webp)`,
+          backgroundImage: `url(${service.main_image})`,
         }}
       >
         <BlackOverlay
@@ -42,10 +44,10 @@ function SmallCard({ ratio = 0.75 }: SmallCardProps) {
             textAlign="center"
             textTransform="uppercase"
           >
-            Category Name
+            {service.category?.name}
           </Typography>
           <Typography variant="h6" color="common.white" textAlign="center">
-            Service Name
+            {service.name}
           </Typography>
         </Stack>
       </Stack>

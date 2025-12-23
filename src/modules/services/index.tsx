@@ -1,24 +1,22 @@
 import MainPageContent from "@/layouts/main/page-content";
-import ServicesSearchBar from "./search-bar";
-import ServicesList from "./services-list";
-import { Stack } from "@mui/material";
 import LayoutStack from "@/layouts/main/layout-stack";
 import PageSection from "@/layouts/main/page-section";
-import RhomusCards from "./services-viewers/rhomus-cards";
+import { BE_ServicePageData } from "@/types/api/base/services";
+import DepartmentSection from "./department-section";
 
-export default function ServicesView() {
+type Props = {
+  data: BE_ServicePageData;
+};
+
+export default function ServicesView({ data }: Props) {
   return (
     <MainPageContent title="Services">
       <LayoutStack>
-        <PageSection>
-          <Stack gap={4}>
-            <ServicesSearchBar />
-            <ServicesList />
-          </Stack>
-        </PageSection>
-        <PageSection>
-          <RhomusCards />
-        </PageSection>
+        {data.departments?.map((department) => (
+          <PageSection key={department.id}>
+            <DepartmentSection department={department} />
+          </PageSection>
+        ))}
       </LayoutStack>
     </MainPageContent>
   );

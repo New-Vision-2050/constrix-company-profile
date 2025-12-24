@@ -26,7 +26,6 @@ WORKDIR /app
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/messages ./messages
 
 ENV PORT=3001
 EXPOSE 3001

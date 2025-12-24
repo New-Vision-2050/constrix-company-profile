@@ -10,6 +10,7 @@ import type {
 
 import { useScrollOffsetTop } from "minimal-shared/hooks";
 import { varAlpha, mergeClasses } from "minimal-shared/utils";
+import { useScrollThreshold } from "@/hooks/use-scroll-threshold";
 
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
@@ -48,12 +49,14 @@ export function HeaderSection({
   ...other
 }: HeaderSectionProps) {
   const { offsetTop: isOffset } = useScrollOffsetTop();
+  const isScrolled = useScrollThreshold(50);
 
   return (
     <HeaderRoot
       position="sticky"
       color="transparent"
       isOffset={isOffset}
+      isScrolled={isScrolled}
       disableOffset={disableOffset}
       disableElevation={disableElevation}
       className={mergeClasses([layoutClasses.header, className])}
@@ -95,12 +98,25 @@ type HeaderRootProps = Pick<
   "disableOffset" | "disableElevation"
 > & {
   isOffset: boolean;
+  isScrolled: boolean;
 };
 
 const HeaderRoot = styled(AppBar, {
   shouldForwardProp: (prop: string) =>
-    !["isOffset", "disableOffset", "disableElevation", "sx"].includes(prop),
-})<HeaderRootProps>(({ isOffset, disableOffset, disableElevation, theme }) => {
+    ![
+      "isOffset",
+      "isScrolled",
+      "disableOffset",
+      "disableElevation",
+      "sx",
+    ].includes(prop),
+})<HeaderRootProps>(({
+  isOffset,
+  isScrolled,
+  disableOffset,
+  disableElevation,
+  theme,
+}) => {
   const pauseZindex = { top: -1, bottom: -2 };
 
   const pauseStyles: CSSObject = {
@@ -150,6 +166,16 @@ const HeaderRoot = styled(AppBar, {
   return {
     boxShadow: "none",
     zIndex: "var(--layout-header-zIndex)",
+    top: isScrolled ? 16 : 0,
+    left: 0,
+    right: 0,
+    marginLeft: isScrolled ? "auto" : 0,
+    marginRight: isScrolled ? "auto" : 0,
+    width: isScrolled ? theme.breakpoints.values.xl : "100%",
+    // maxWidth: isScrolled ? theme.breakpoints.values.xl : "none",
+    borderRadius: isScrolled ? theme.shape.borderRadius : 0,
+    overflow: "hidden",
+
     ...(!disableOffset && { "&::before": bgStyles }),
     ...(!disableElevation && { "&::after": shadowStyles }),
   };

@@ -1,7 +1,3 @@
-import { BE_Service } from "../services";
-import { BE_ProjectDetail } from "./project-details";
-
-// Featured Project
 export interface BE_FeaturedProject {
   id: string;
   name: string;
@@ -17,6 +13,4 @@ export interface BE_FeaturedProject {
   main_image: string;
   secondary_images: string[];
   secondary_image: string;
-  project_details: BE_ProjectDetail[];
-  service: BE_Service[];
 }

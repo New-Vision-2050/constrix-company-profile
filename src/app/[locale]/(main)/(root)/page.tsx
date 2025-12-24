@@ -11,7 +11,6 @@ import { HomePageApi } from "@/services/api/home-page";
 async function HomePage() {
   const homePageData = await HomePageApi.getData();
   const payload = homePageData.data.payload;
-  console.log(payload);
 
   return (
     <LayoutSection>

@@ -8,8 +8,11 @@ export interface CategoriesFilters {
 
 export const CategoriesApi = {
   list: (filters?: CategoriesFilters) =>
-    baseApi.get<ListCategoriesResponse>("/categories-website", { params: filters }),
+    baseApi.get<ListCategoriesResponse>("/categories-website", {
+      params: filters,
+    }),
   projectsCategories: () =>
     baseApi.get<ListCategoriesResponse>("/website-project-settings/all"),
+  newsCategories: () =>
+    baseApi.get<ListCategoriesResponse>("/categories-website/all"),
 };
-

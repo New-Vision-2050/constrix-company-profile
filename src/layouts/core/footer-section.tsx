@@ -1,10 +1,8 @@
 "use client";
 
 import React from "react";
-import { Typography, Stack, Link } from "@mui/material";
-import {
-  Language as LanguageIcon,
-} from "@mui/icons-material";
+import { Typography, Stack, Link, styled, alpha } from "@mui/material";
+import { Language as LanguageIcon } from "@mui/icons-material";
 import { useTranslations } from "next-intl";
 
 import LayoutStack from "../main/layout-stack";
@@ -16,6 +14,9 @@ import FooterSocialLinks from "./footer-social-links";
 import FooterBottom from "./footer-bottom";
 import FooterNavigation from "./footer-navigation";
 
+const FooterStack = styled(LayoutStack)(({ theme }) => ({
+  background: alpha(theme.palette.primary.main, 0.125),
+}));
 
 export default function FooterSection() {
   const tFooter = useTranslations("footer");
@@ -26,7 +27,7 @@ export default function FooterSection() {
   const contactInfo = themeData?.contact_info;
 
   return (
-    <LayoutStack sx={{ bgcolor: "primary.lighter" }}>
+    <FooterStack>
       <PageSection>
         <Stack spacing={{ xs: 4, md: 5 }}>
           {/* Main Footer Content */}
@@ -80,9 +81,7 @@ export default function FooterSection() {
               </Stack>
 
               {/* Social Media */}
-              <FooterSocialLinks
-                socialLinks={socialLinks}
-              />
+              <FooterSocialLinks socialLinks={socialLinks} />
             </Stack>
           </Stack>
 
@@ -90,6 +89,6 @@ export default function FooterSection() {
           <FooterBottom />
         </Stack>
       </PageSection>
-    </LayoutStack>
+    </FooterStack>
   );
 }

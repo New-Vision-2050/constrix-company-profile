@@ -1,4 +1,5 @@
 import AspectRatio from "@/components/ui/others/aspect-ratio";
+import { BE_ServicePageItem } from "@/types/api/base/services";
 import {
   Box,
   Button,
@@ -10,8 +11,13 @@ import {
   Typography,
 } from "@mui/material";
 import Image from "next/image";
+import Link from "next/link";
 
-function DetailedCard() {
+type DetailedCardProps = {
+  service: BE_ServicePageItem;
+};
+
+function DetailedCard({ service }: DetailedCardProps) {
   return (
     <Card sx={{ display: "flex", flexDirection: "row" }}>
       <Grid
@@ -24,7 +30,7 @@ function DetailedCard() {
         <Grid size={5.5}>
           <AspectRatio ratio={0.85} boxProps={{ sx: { borderRadius: 1.5 } }}>
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/250px-Image_created_with_a_mobile_phone.png"
+              src={service.main_image}
               alt="Detailed Card"
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
@@ -39,12 +45,11 @@ function DetailedCard() {
                 color="primary.main"
                 fontWeight={900}
               >
-                Detailed Card
+                {service.name}
               </Typography>
               <Typography variant="h5">Technology Nixon</Typography>
               <Typography variant="body2" color="text.secondary">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Quisquam, quos.
+                {service.description}
               </Typography>
             </Stack>
             <Stack alignItems="flex-end">
@@ -52,6 +57,8 @@ function DetailedCard() {
                 sx={{ width: "fit-content" }}
                 variant="text"
                 color="inherit"
+                component={Link}
+                href={`/services/${service.id}`}
               >
                 Read More
               </Button>

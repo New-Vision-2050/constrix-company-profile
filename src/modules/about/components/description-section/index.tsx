@@ -17,12 +17,6 @@ export default function DescriptionSection({
           <Typography variant="body2" textAlign="center">
             {data.description}
           </Typography>
-          <img
-            src={"/assets/illustrations/analytics.png"}
-            style={{
-              width: "50%",
-            }}
-          />
         </Stack>
       </PageSection>
     </Paper>

@@ -16,9 +16,9 @@ export const navigationMessages = new MessagesGroup({
 export const publicNavMessages = new MessagesGroup({
   home: _m("Home", "الرئيسية"),
   projects: _m("Projects", "مشاريعنا"),
-  services: _m("Our Services", "خدماتنا"),
-  news: _m("Our News", "أخبارنا"),
-  about: _m("About Us", "من نحن"),
-  contact: _m("Contact Us", "تواصل معنا"),
+  services: _m("Services", "خدماتنا"),
+  news: _m("News", "أخبارنا"),
+  about: _m("About", "من نحن"),
+  contact: _m("Contact", "تواصل معنا"),
   subscribe: _m("Subscribe Now", "اشترك الآن"),
 });

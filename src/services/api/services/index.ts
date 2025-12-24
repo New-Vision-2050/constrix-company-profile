@@ -1,6 +1,7 @@
 import { baseApi } from "@/lib/axios/instances/base";
 import {
   ListServicesResponse,
+  OurServicesPageResponse,
   ShowServiceResponse,
 } from "./response";
 
@@ -13,12 +14,12 @@ export interface ServicesFilters {
 }
 
 export const ServicesApi = {
-  list: (filters?: ServicesFilters) =>
+  ourServicesPage: () =>
+    baseApi.get<OurServicesPageResponse>("/website-our-services/current"),
+  list: (params?: ServicesFilters) =>
     baseApi.get<ListServicesResponse>("/website-services", {
-      params: filters,
+      params,
     }),
   show: (id: string) =>
     baseApi.get<ShowServiceResponse>(`/website-services/${id}`),
 };
-
-

@@ -3,6 +3,7 @@ import type { Theme, SxProps, Breakpoint } from "@mui/material/styles";
 
 import { useEffect } from "react";
 import { varAlpha } from "minimal-shared/utils";
+import { useScrollThreshold } from "@/hooks/use-scroll-threshold";
 
 import Box from "@mui/material/Box";
 import ListItem from "@mui/material/ListItem";
@@ -42,13 +43,14 @@ export function NavDesktop({
   layoutQuery,
 }: NavContentProps & { layoutQuery: Breakpoint }) {
   const theme = useTheme();
+  const isScrolled = useScrollThreshold(50);
 
   return (
     <Box
       sx={{
-        pt: 2.5,
-        px: 2.5,
-        top: 0,
+        pt: isScrolled ? 1.5 : 2.5,
+        px: isScrolled ? 2 : 2.5,
+        top: isScrolled ? 16 : 0,
         left: 0,
         height: 1,
         display: "none",
@@ -60,6 +62,8 @@ export function NavDesktop({
           theme.vars.palette.grey["500Channel"],
           0.12
         )}`,
+        borderRadius: isScrolled ? 2 : 0,
+        transition: "all 0.3s ease-in-out",
         [theme.breakpoints.up(layoutQuery)]: {
           display: "flex",
         },

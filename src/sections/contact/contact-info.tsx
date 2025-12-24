@@ -1,7 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { Box, Typography, Stack, IconButton, MenuItem } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Stack,
+  IconButton,
+  MenuItem,
+  MenuList,
+} from "@mui/material";
 import { useTranslations } from "next-intl";
 import {
   Facebook,
@@ -11,33 +18,32 @@ import {
   Location,
   Sms,
 } from "iconsax-reactjs";
+import { useBE_Theme } from "@/lib/theme/client/theme-provider";
+import { useQuery } from "@tanstack/react-query";
+import { AddressesApi } from "@/services/api/addresses";
+import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import { useLocale } from "next-intl";
+
+const mapContainerStyle = {
+  width: "100%",
+  height: "100%",
+};
 
 export default function ContactInfo() {
   const t = useTranslations("contactInfo");
+  const locale = useLocale();
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const { data } = useQuery({
+    queryKey: ["ContactInfo", "addresses-list"],
+    queryFn: () => AddressesApi.getData(),
+  });
 
-  const locations = [
-    {
-      label: t("locations.jeddah"),
-      mapUrl:
-        "https://www.google.com/maps?q=جدة+حي+النهضة+شارع+الصفا&output=embed",
-    },
-    {
-      label: t("locations.cairo"),
-      mapUrl:
-        "https://www.google.com/maps?q=القاهرة+مدينة+نصر+26+شارع+محمد+المقريفي&output=embed",
-    },
-    {
-      label: t("locations.makkah"),
-      mapUrl:
-        "https://www.google.com/maps?q=مكة+المكرمة+24232+الطريق+الدائري+الثالث+الخالدية&output=embed",
-    },
-    {
-      label: t("locations.riyadh"),
-      mapUrl:
-        "https://www.google.com/maps?q=الرياض+13313+الطريق+الدائري+الوادي&output=embed",
-    },
-  ];
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",
+  });
+
+  const addresses = data?.data.payload || [];
+  const selectedAddress = addresses[selectedIndex];
 
   const socialMediaIcons = [
     { icon: Facebook, name: "Facebook", variant: "Bold" },
@@ -117,24 +123,22 @@ export default function ContactInfo() {
               {t("addresses")}
             </Typography>
           </Stack>
-          <Stack sx={{ pl: 0 }}>
-            {locations.map((location, index) => (
+          <MenuList sx={{ p: 0 }}>
+            {addresses.map((address, index) => (
               <MenuItem
-                key={index}
+                key={address.id}
                 selected={selectedIndex === index}
                 onClick={() => setSelectedIndex(index)}
                 sx={{
-                  px: 0,
-                  py: 0.75,
                   borderRadius: 1,
                   color: "primary.main",
                   fontWeight: 700,
                 }}
               >
-                {location.label}
+                {locale === "ar" ? address.title_ar : address.title_en}
               </MenuItem>
             ))}
-          </Stack>
+          </MenuList>
         </Stack>
 
         {/* Social Media Icons */}
@@ -166,28 +170,35 @@ export default function ContactInfo() {
         </Stack>
 
         {/* Map Display */}
-        <Box
-          sx={{
-            width: "100%",
-            height: 400,
-            borderRadius: 2,
-            overflow: "hidden",
-            border: 1,
-            borderColor: "divider",
-            mt: 2,
-          }}
-        >
-          <iframe
-            key={selectedIndex}
-            src={locations[selectedIndex].mapUrl}
-            width="100%"
-            height="100%"
-            style={{ border: 0 }}
-            allowFullScreen={true}
-            loading="lazy"
-            title={`map-${selectedIndex}`}
-          ></iframe>
-        </Box>
+        {selectedAddress && isLoaded && (
+          <Box
+            sx={{
+              width: "100%",
+              height: 400,
+              borderRadius: 2,
+              overflow: "hidden",
+              border: 1,
+              borderColor: "divider",
+              mt: 2,
+            }}
+          >
+            <GoogleMap
+              mapContainerStyle={mapContainerStyle}
+              center={{
+                lat: parseFloat(selectedAddress.latitude),
+                lng: parseFloat(selectedAddress.longitude),
+              }}
+              zoom={15}
+            >
+              <Marker
+                position={{
+                  lat: parseFloat(selectedAddress.latitude),
+                  lng: parseFloat(selectedAddress.longitude),
+                }}
+              />
+            </GoogleMap>
+          </Box>
+        )}
       </Stack>
     </Box>
   );

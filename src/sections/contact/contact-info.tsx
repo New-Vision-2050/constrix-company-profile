@@ -37,6 +37,7 @@ export default function ContactInfo() {
     queryKey: ["ContactInfo", "addresses-list"],
     queryFn: () => AddressesApi.getData(),
   });
+  const BE_Theme = useBE_Theme();
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",
@@ -68,32 +69,34 @@ export default function ContactInfo() {
 
       <Stack spacing={4}>
         {/* Email Section */}
-        <Stack direction="row" spacing={2} alignItems="flex-start">
-          <Box
-            sx={{
-              width: 26,
-              height: 26,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              mt: 0.5,
-              color: "primary.main",
-            }}
-          >
-            <Sms size={26} variant="Outline" />
-          </Box>
-          <Stack>
-            <Typography
-              variant="body1"
-              sx={{ color: "primary.main", fontWeight: 500, mb: 0.5 }}
+        {BE_Theme.data.contact_info.email && (
+          <Stack direction="row" spacing={2} alignItems="flex-start">
+            <Box
+              sx={{
+                width: 26,
+                height: 26,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                mt: 0.5,
+                color: "primary.main",
+              }}
             >
-              {t("email")}
-            </Typography>
-            <Typography variant="body1" sx={{ color: "primary.main" }}>
-              example@gmail.com
-            </Typography>
+              <Sms size={26} variant="Outline" />
+            </Box>
+            <Stack>
+              <Typography
+                variant="body1"
+                sx={{ color: "primary.main", fontWeight: 500, mb: 0.5 }}
+              >
+                {t("email")}
+              </Typography>
+              <Typography variant="body1" sx={{ color: "primary.main" }}>
+                {BE_Theme.data.contact_info.email}
+              </Typography>
+            </Stack>
           </Stack>
-        </Stack>
+        )}
 
         {/* Addresses Section */}
         <Stack>

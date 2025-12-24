@@ -11,6 +11,7 @@ import { RouterLink } from "@/routes/components";
 
 import { logoClasses } from "./classes";
 import { CONFIG } from "@/config-global";
+import { useBE_Theme } from "@/lib/theme/client/theme-provider";
 
 // ----------------------------------------------------------------------
 
@@ -36,9 +37,11 @@ export function Logo({
   const PRIMARY_MAIN = theme.vars.palette.primary.main;
   const PRIMARY_DARKER = theme.vars.palette.primary.dark;
 
+  const { data } = useBE_Theme();
+
   const singleLogo = (
     <img
-      src={CONFIG.logo}
+      src={data.icon_url}
       style={{ height: "100%", objectFit: "contain" }}
       alt={CONFIG.appName}
     />

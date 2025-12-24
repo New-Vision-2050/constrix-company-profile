@@ -5,11 +5,11 @@ import MainPageContent from "@/layouts/main/page-content";
 import PageSection from "@/layouts/main/page-section";
 import { Grid, Stack } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { NewsFilters } from "@/services/api/news";
+import { type NewsFilters } from "@/services/api/news";
 import { useMemo, useState } from "react";
 import CenteredPagination from "@/components/ui/others/centered-pagination";
 import NewsGrid from "../../components/news-grid";
-import NewsFilters from "../../components/news-filters";
+import NewsFiltersComponent from "../../components/news-filters";
 import useNewsData from "../../hooks/useNewsData";
 import { BE_Category } from "@/types/api/base/categories";
 
@@ -73,7 +73,7 @@ function NewsV2MainView({ categories }: PropsT) {
             </Grid>
 
             {/* Sidebar */}
-            <NewsFilters
+            <NewsFiltersComponent
               filters={filters}
               categories={categories}
               onCategoryChange={handleCategoryChange}

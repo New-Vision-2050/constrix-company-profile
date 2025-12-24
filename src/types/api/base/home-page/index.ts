@@ -1,5 +1,6 @@
 import { BE_WebsiteIcon } from "../icon";
 import { BE_FeaturedProject } from "../project";
+import { BE_WebsiteService } from "../services";
 
 // Home Page Setting
 export interface BE_HomePageSetting {
@@ -57,5 +58,5 @@ export interface BE_HomePageData {
   approval_icons: BE_WebsiteIcon[];
   company_icons: BE_WebsiteIcon[];
   certificate_icons: BE_WebsiteIcon[];
-  website_services: [];
+  website_services: BE_WebsiteService[];
 }

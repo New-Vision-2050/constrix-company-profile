@@ -92,7 +92,7 @@ export interface BE_WebsiteService {
   icon: string;
   category_website_cms_id: string;
   category: BE_Category;
-  reference_number: string;
+  reference_number: string | null;
   description: string;
   description_ar: string;
   description_en: string;

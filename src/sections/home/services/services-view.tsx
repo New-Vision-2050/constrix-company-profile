@@ -11,32 +11,13 @@ import PageSection from "@/layouts/main/page-section";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-coverflow";
-import { BE_OurServices } from "@/types/api/base/home-page";
+import { BE_WebsiteService } from "@/types/api/base/services";
 
-export default function ServicesView({ data }: { data: BE_OurServices[] }) {
+export default function ServicesView({ data }: { data: BE_WebsiteService[] }) {
   const t = useTranslations("home");
 
-  // Services data with translations
-  const services = [
-    {
-      id: 1,
-      title: t("services.service1.title"),
-      description: t("services.service1.description"),
-      image: "/assets/images/product/product-1.webp",
-    },
-    {
-      id: 2,
-      title: t("services.service2.title"),
-      description: t("services.service2.description"),
-      image: "/assets/images/product/product-2.webp",
-    },
-    {
-      id: 3,
-      title: t("services.service3.title"),
-      description: t("services.service3.description"),
-      image: "/assets/images/product/product-3.webp",
-    },
-  ];
+  // Use API data or fallback to empty array
+  const services = data || [];
 
   return (
     <PageSection sx={{ mb: 6 }}>
@@ -124,8 +105,8 @@ export default function ServicesView({ data }: { data: BE_OurServices[] }) {
                   }}
                 >
                   <Image
-                    src={service.image}
-                    alt={service.title}
+                    src={service.main_image}
+                    alt={service.name}
                     fill
                     style={{
                       objectFit: "cover",
@@ -165,7 +146,7 @@ export default function ServicesView({ data }: { data: BE_OurServices[] }) {
                       fontSize: { xs: "1.1rem", md: "1.25rem" },
                     }}
                   >
-                    {service.title}
+                    {service.name}
                   </Typography>
                   <Typography
                     variant="body2"

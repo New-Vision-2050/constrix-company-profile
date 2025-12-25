@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectCoverflow } from "swiper/modules";
 import PageSection from "@/layouts/main/page-section";
 import { BE_Founder } from "@/types/api/base/home-page";
+import { useBE_Theme } from "@/lib/theme/client/theme-provider";
 
 // Import Swiper styles
 import "swiper/css";
@@ -19,6 +20,7 @@ interface AboutUsViewProps {
 export default function AboutUsView({ data }: AboutUsViewProps) {
   const t = useTranslations("home");
   const founders = data || [];
+  const { data: themeData } = useBE_Theme();
 
   return (
     <Box
@@ -126,7 +128,7 @@ export default function AboutUsView({ data }: AboutUsViewProps) {
                     }}
                   >
                     <img
-                      src="/assets/logos/base/image.png"
+                      src={themeData?.icon_url}
                       alt="Constrix Logo"
                       style={{
                         width: "100%",

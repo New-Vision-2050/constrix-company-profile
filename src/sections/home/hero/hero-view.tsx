@@ -2,12 +2,13 @@
 
 import React from "react";
 import { Box, Button, Stack } from "@mui/material";
-import Image from "next/image";
 import { useTranslations, useLocale } from "next-intl";
 import PageSection from "@/layouts/main/page-section";
 import { ArrowCircleLeft, ArrowCircleRight } from "iconsax-reactjs";
 import { BE_HomePageSetting } from "@/types/api/base/home-page";
 import { useRouter } from "next/navigation";
+import { useBE_Theme } from "@/lib/theme/client/theme-provider";
+import Image from "next/image";
 
 interface HeroViewProps {
   data?: BE_HomePageSetting;
@@ -19,6 +20,7 @@ export default function HeroView({ data }: HeroViewProps) {
   const isRTL = locale === "ar";
   const ArrowIcon = isRTL ? ArrowCircleLeft : ArrowCircleRight;
   const router = useRouter();
+  const { data: themeData } = useBE_Theme();
   const videoSrc = data?.web_video_link
     ? data?.web_video_link
     : data?.web_video_file;
@@ -73,7 +75,7 @@ export default function HeroView({ data }: HeroViewProps) {
             }}
           >
             <Image
-              src="/assets/logos/base/image.png"
+              src={themeData?.icon_url}
               alt="CONSTRIX Logo"
               fill
               priority

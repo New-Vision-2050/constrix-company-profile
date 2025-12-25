@@ -14,10 +14,20 @@ import { useScrollThreshold } from "@/hooks/use-scroll-threshold";
 
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
-import { styled } from "@mui/material/styles";
+import { styled, useTheme } from "@mui/material/styles";
 import Container from "@mui/material/Container";
 
 import { layoutClasses } from "./classes";
+import { motion } from "framer-motion";
+import { Button, Grid, Typography } from "@mui/material";
+import { useState } from "react";
+import BaseMotionDiv from "@/components/motion/base-div";
+import { MotionBaseTransition } from "@/components/motion/base-transition";
+import PageSection from "../main/page-section";
+import { Logo } from "@/components/logo";
+import { useBE_Theme } from "@/lib/theme/client/theme-provider";
+
+const TOP_NAVBAR_HEIGHT = 84;
 
 // ----------------------------------------------------------------------
 
@@ -50,6 +60,99 @@ export function HeaderSection({
 }: HeaderSectionProps) {
   const { offsetTop: isOffset } = useScrollOffsetTop();
   const isScrolled = useScrollThreshold(50);
+  const theme = useTheme();
+  const BE_Theme = useBE_Theme();
+  return (
+    <motion.header
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1000,
+        width: "100vw",
+        maxWidth: "100vw",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        overflow: "hidden",
+      }}
+    >
+      <BaseMotionDiv
+        style={{
+          width: "100%",
+          height: TOP_NAVBAR_HEIGHT,
+          display: "flex",
+          alignItems: "center",
+        }}
+        animate={{ marginTop: isScrolled ? `-${TOP_NAVBAR_HEIGHT}px` : "0px" }}
+      >
+        <Container maxWidth="xl">
+          <Grid container spacing={2} alignItems="center">
+            <Grid size={4}>
+              <Logo sx={{ height: 46 }} />
+            </Grid>
+            <Grid size={4}>
+              <Typography>Phone</Typography>
+              <Typography>{BE_Theme.data.contact_info?.phone}</Typography>
+            </Grid>
+            <Grid size={4}>
+              <Typography>Email</Typography>
+              <Typography>{BE_Theme.data.contact_info?.email}</Typography>
+            </Grid>
+          </Grid>
+        </Container>
+      </BaseMotionDiv>
+      <BaseMotionDiv
+        style={{
+          backdropFilter: `blur(6px)`,
+          WebkitBackdropFilter: `blur(6px)`,
+          backgroundColor: varAlpha(
+            theme.vars.palette.background.defaultChannel,
+            0.8
+          ),
+          paddingLeft: theme.spacing(2),
+          paddingRight: theme.spacing(2),
+        }}
+        initial={{
+          paddingTop: theme.spacing(2.5),
+          paddingBottom: theme.spacing(2.5),
+          borderRadius: `${theme.shape.borderRadius}px`,
+          marginTop: theme.spacing(2),
+        }}
+        animate={{
+          paddingTop: isScrolled ? theme.spacing(2) : theme.spacing(2.5),
+          paddingBottom: isScrolled ? theme.spacing(2) : theme.spacing(2.5),
+          width: isScrolled ? "100%" : `${theme.breakpoints.values.xl}px`,
+          marginTop: isScrolled ? "0px" : theme.spacing(2),
+          borderRadius: isScrolled ? "0px" : `${theme.shape.borderRadius}px`,
+        }}
+      >
+        <PageSection>
+          <Grid container spacing={2} alignItems="center">
+            <Grid size={8}>
+              <HeaderCenterArea
+                layoutQuery={layoutQuery}
+                {...slotProps?.centerArea}
+              >
+                {slots?.centerArea}
+              </HeaderCenterArea>
+            </Grid>
+            <Grid
+              size={4}
+              display="flex"
+              flexDirection="column"
+              alignItems="end"
+            >
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                {slots?.rightArea}
+              </Box>
+            </Grid>
+          </Grid>
+        </PageSection>
+      </BaseMotionDiv>
+    </motion.header>
+  );
 
   return (
     <HeaderRoot
@@ -66,7 +169,7 @@ export function HeaderSection({
             "--color": `var(--offset-color, ${theme.vars.palette.text.primary})`,
           }),
         }),
-        ...(Array.isArray(sx) ? sx : [sx]),
+        ...(Array.isArray(sx) ? sx : ([sx] as any)),
       ]}
       {...other}
     >
@@ -204,7 +307,6 @@ const HeaderCenterArea = styled("div", {
   ({ layoutQuery = "md", theme }) => ({
     display: "none",
     flex: "1 1 auto",
-    justifyContent: "center",
     alignItems: "center",
     [theme.breakpoints.up(layoutQuery)]: {
       display: "flex",

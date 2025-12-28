@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Box, Typography, Stack, useTheme, Link } from "@mui/material";
+import { Box, Typography, Stack, useTheme } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
@@ -13,6 +13,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import PageSection from "@/layouts/main/page-section";
 import { BE_FeaturedProject } from "@/types/api/base/project";
+import Link from "next/link";
 interface ProjectsViewProps {
   data?: BE_FeaturedProject[];
 }
@@ -188,9 +189,11 @@ export default function ProjectsView({ data }: ProjectsViewProps) {
                       >
                         {project.description}
                       </Typography>
-                      <Link
-                        href="#"
+                      <Box
+                        component={Link}
+                        href={`/projects/${project.id}`}
                         sx={{
+                          color: "primary.main",
                           alignItems: "center",
                           gap: 0.5,
                           textDecoration: "none",
@@ -200,7 +203,7 @@ export default function ProjectsView({ data }: ProjectsViewProps) {
                         }}
                       >
                         {t("showMore")}
-                      </Link>
+                      </Box>
                     </Stack>
                   </Box>
                 </SwiperSlide>

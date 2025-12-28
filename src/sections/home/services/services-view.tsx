@@ -143,7 +143,6 @@ export default function ServicesView({ data }: { data: BE_WebsiteService[] }) {
                     sx={{
                       fontWeight: 700,
                       mb: 1.5,
-                      fontSize: { xs: "1.1rem", md: "1.25rem" },
                     }}
                   >
                     {service.name}
@@ -151,7 +150,6 @@ export default function ServicesView({ data }: { data: BE_WebsiteService[] }) {
                   <Typography
                     variant="body2"
                     sx={{
-                      fontSize: { xs: "0.875rem", md: "0.9375rem" },
                       lineHeight: 1.6,
                       opacity: 0.95,
                     }}

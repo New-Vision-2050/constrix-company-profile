@@ -172,18 +172,16 @@ export default function ProjectsView({ data }: ProjectsViewProps) {
                       }}
                     >
                       <Typography
-                        variant="h3"
+                        variant="h5"
                         fontWeight={700}
                         sx={{ color: "#fff", mb: 0.5 }}
                       >
                         {project.name}
                       </Typography>
                       <Typography
-                        variant="body1"
+                        variant="subtitle2"
                         sx={{
                           color: "#fff",
-                          fontSize: { xs: "0.875rem", md: "1rem" },
-                          lineHeight: 1.6,
                         }}
                       >
                         {project.description}
@@ -194,7 +192,6 @@ export default function ProjectsView({ data }: ProjectsViewProps) {
                           alignItems: "center",
                           gap: 0.5,
                           textDecoration: "none",
-                          fontSize: { xs: "0.875rem", md: "1rem" },
                           fontWeight: 500,
                           mt: 1,
                         }}

@@ -15,6 +15,8 @@ export default function DividerView() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        mt: -8,
+        mb: { xs: -12, md: -16 },
       }}
     >
       <Box

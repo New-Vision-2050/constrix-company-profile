@@ -22,11 +22,13 @@ import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import { RouterLink } from "@/routes/components";
 import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 
 import type { MainSectionProps } from "../core/main-section";
 import type { HeaderSectionProps } from "../core/header-section";
 import type { LayoutSectionProps } from "../core/layout-section";
 import FooterSection from "../core/footer-section";
+import { publicNavItems } from "../config-navigation";
 
 // ----------------------------------------------------------------------
 
@@ -40,16 +42,6 @@ export type MainLayoutProps = LayoutBaseProps & {
   };
 };
 
-// Public navigation items
-const publicNavItems = [
-  { title: "nav.home", path: "/" },
-  { title: "nav.about", path: "/about" },
-  { title: "nav.services", path: "/services" },
-  { title: "nav.projects", path: "/projects" },
-  { title: "nav.contact", path: "/contact" },
-  { title: "nav.news", path: "/news" },
-];
-
 export function MainLayout({
   sx,
   cssVars,
@@ -59,7 +51,11 @@ export function MainLayout({
 }: MainLayoutProps) {
   const theme = useTheme();
   const t = useTranslations();
+  const pathname = usePathname();
   const { value: open, onFalse: onClose, onTrue: onOpen } = useBoolean();
+
+  // Remove locale prefix from pathname (e.g., /en/about -> /about)
+  const pathWithoutLocale = pathname.replace(/^\/[a-z]{2}(\/|$)/, "/");
   const renderHeader = () => {
     const headerSlotProps: HeaderSectionProps["slotProps"] = {
       container: {
@@ -104,25 +100,31 @@ export function MainLayout({
             gap: 4,
           }}
         >
-          {publicNavItems.map((item) => (
-            <Link
-              key={item.path}
-              component={RouterLink}
-              href={item.path}
-              underline="none"
-              sx={{
-                typography: "subtitle2",
-                fontWeight: 600,
-                color: "text.primary",
-                transition: "color 0.2s",
-                "&:hover": {
-                  color: "primary.main",
-                },
-              }}
-            >
-              {t(item.title)}
-            </Link>
-          ))}
+          {publicNavItems.map((item) => {
+            const isActive =
+              pathWithoutLocale === item.path ||
+              (item.path !== "/" && pathWithoutLocale.startsWith(item.path));
+
+            return (
+              <Link
+                key={item.path}
+                component={RouterLink}
+                href={item.path}
+                underline="none"
+                sx={{
+                  typography: "subtitle2",
+                  fontWeight: 600,
+                  color: isActive ? "primary.main" : "text.primary",
+                  transition: "color 0.2s",
+                  "&:hover": {
+                    color: "primary.main",
+                  },
+                }}
+              >
+                {t(item.title)}
+              </Link>
+            );
+          })}
         </Box>
       ),
       rightArea: (

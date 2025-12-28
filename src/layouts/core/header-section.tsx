@@ -27,7 +27,7 @@ import PageSection from "../main/page-section";
 import { Logo } from "@/components/logo";
 import { useBE_Theme } from "@/lib/theme/client/theme-provider";
 
-const TOP_NAVBAR_HEIGHT = 84;
+export const TOP_NAVBAR_HEIGHT = 84;
 
 // ----------------------------------------------------------------------
 

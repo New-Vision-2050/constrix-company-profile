@@ -14,7 +14,7 @@ import { NavMobile } from "./nav";
 import { mainLayoutVars } from "./css-vars";
 import { MainSection } from "../core/main-section";
 import { MenuButton } from "../components/menu-button";
-import { HeaderSection } from "../core/header-section";
+import { HeaderSection, TOP_NAVBAR_HEIGHT } from "../core/header-section";
 import { LayoutSection } from "../core/layout-section";
 import { LanguagePopover } from "../components/language-popover";
 import { Logo } from "@/components/logo";
@@ -171,7 +171,7 @@ export function MainLayout({
        * @Styles
        *************************************** */
       cssVars={{ ...mainLayoutVars(theme), ...cssVars }}
-      sx={sx}
+      sx={{ pt: `${TOP_NAVBAR_HEIGHT}px`, ...sx }}
     >
       {renderMain()}
     </LayoutSection>

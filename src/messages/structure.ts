@@ -3,6 +3,7 @@ import { commonMessages } from "./groups/common";
 import { navigationMessages, publicNavMessages } from "./groups/navigation";
 import { contactInfoMessages, contactMessages } from "./groups/contact";
 import { footerMessages } from "./groups/footer";
+import { headerMessages } from "./groups/header";
 import { servicesPageMessages } from "./groups/pages/services";
 import { homeMessages } from "./groups/home";
 import { newsPageMessages } from "./groups/pages/news";
@@ -23,6 +24,7 @@ export const messagesStructure = new MessagesGroup({
   home: homeMessages,
   about: aboutMessages,
   newsV2: newsV2Messages,
+  header: headerMessages,
   footer: footerMessages,
   services: new MessagesGroup({}),
   serviceCategories: new MessagesGroup({}),

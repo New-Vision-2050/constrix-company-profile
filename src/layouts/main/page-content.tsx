@@ -13,8 +13,8 @@ function MainPageContent({ title, description, children }: Props) {
   return (
     <Stack>
       <DarkGradiantBgBox
-        py={14}
-        gap={4}
+        py={18}
+        gap={3}
         alignItems="center"
         display="flex"
         flexDirection="column"
@@ -35,7 +35,7 @@ function MainPageContent({ title, description, children }: Props) {
         {description && (
           <Container maxWidth="md">
             <Typography
-              variant="body1"
+              variant="subtitle1"
               textAlign="center"
               color="primary.contrastText"
               {...(typeof description === "string" ? {} : { component: "div" })}

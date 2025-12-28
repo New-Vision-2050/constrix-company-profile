@@ -91,9 +91,11 @@ export default function HeroView({ data }: HeroViewProps) {
             fullWidth
             endIcon={<ArrowIcon size={24} />}
             onClick={() => router.push("/about")}
+            size="large"
             sx={{
+              mt: { xs: 0, md: 8 },
               py: { xs: 0.75, md: 1 },
-              fontSize: { xs: 14, sm: 15, md: 16 },
+              fontSize: { xs: 16, sm: 18, md: 20 },
               fontWeight: 600,
             }}
           >

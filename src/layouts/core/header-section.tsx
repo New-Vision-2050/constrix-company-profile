@@ -11,6 +11,7 @@ import type {
 import { useScrollOffsetTop } from "minimal-shared/hooks";
 import { varAlpha, mergeClasses } from "minimal-shared/utils";
 import { useScrollThreshold } from "@/hooks/use-scroll-threshold";
+import { useTranslations } from "next-intl";
 
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
@@ -19,7 +20,8 @@ import Container from "@mui/material/Container";
 
 import { layoutClasses } from "./classes";
 import { motion } from "framer-motion";
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography, Stack } from "@mui/material";
+import { Call, Sms } from "iconsax-reactjs";
 import { useState } from "react";
 import BaseMotionDiv from "@/components/motion/base-div";
 import { MotionBaseTransition } from "@/components/motion/base-transition";
@@ -62,6 +64,7 @@ export function HeaderSection({
   const isScrolled = useScrollThreshold(50);
   const theme = useTheme();
   const BE_Theme = useBE_Theme();
+  const t = useTranslations("header");
   return (
     <motion.header
       style={{
@@ -84,21 +87,79 @@ export function HeaderSection({
           height: TOP_NAVBAR_HEIGHT,
           display: "flex",
           alignItems: "center",
+          backgroundColor: theme.palette.background.paper,
+          borderBottom: `1px solid ${varAlpha(theme.vars.palette.grey["500Channel"], 0.12)}`,
         }}
         animate={{ marginTop: isScrolled ? `-${TOP_NAVBAR_HEIGHT}px` : "0px" }}
       >
         <Container maxWidth="xl">
-          <Grid container spacing={2} alignItems="center">
+          <Grid container spacing={3} alignItems="center">
             <Grid size={4}>
               <Logo sx={{ height: 46 }} />
             </Grid>
             <Grid size={4}>
-              <Typography>Phone</Typography>
-              <Typography>{BE_Theme.data.contact_info?.phone}</Typography>
+              <Stack direction="row" spacing={1.5} alignItems="center">
+                <Call
+                  size={36}
+                  variant="Bulk"
+                  color={theme.palette.primary.main}
+                />
+                <Stack spacing={0.25}>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      color: theme.palette.text.secondary,
+                      fontWeight: 500,
+                      textTransform: "uppercase",
+                      letterSpacing: 0.5,
+                      fontSize: "0.7rem",
+                    }}
+                  >
+                    {t("phone")}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      fontWeight: 600,
+                      color: theme.palette.text.primary,
+                    }}
+                  >
+                    {BE_Theme.data.contact_info?.phone}
+                  </Typography>
+                </Stack>
+              </Stack>
             </Grid>
             <Grid size={4}>
-              <Typography>Email</Typography>
-              <Typography>{BE_Theme.data.contact_info?.email}</Typography>
+              <Stack direction="row" spacing={1.5} alignItems="center">
+                <Sms
+                  size={36}
+                  variant="Bulk"
+                  color={theme.palette.primary.main}
+                />
+                <Stack spacing={0.25}>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      color: theme.palette.text.secondary,
+                      fontWeight: 500,
+                      textTransform: "uppercase",
+                      letterSpacing: 0.5,
+                      fontSize: "0.7rem",
+                    }}
+                  >
+                    {t("email")}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      fontWeight: 600,
+                      color: theme.palette.text.primary,
+                    }}
+                  >
+                    {BE_Theme.data.contact_info?.email}
+                  </Typography>
+                </Stack>
+              </Stack>
             </Grid>
           </Grid>
         </Container>

@@ -16,6 +16,8 @@ import PartnersView from "@/sections/home/partners/partners-view";
 function AboutMainView({ data }: { data: AboutPagePayload }) {
   const t = useTranslations("about");
   const { palette } = useTheme();
+
+  console.log("data", data);
   return (
     <MainPageContent title={t("title")} description={data.description}>
       <LayoutStack spacing={8}>

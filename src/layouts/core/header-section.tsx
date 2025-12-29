@@ -19,12 +19,8 @@ import { styled, useTheme } from "@mui/material/styles";
 import Container from "@mui/material/Container";
 
 import { layoutClasses } from "./classes";
-import { motion } from "framer-motion";
 import { Button, Grid, Typography, Stack } from "@mui/material";
 import { Call, Sms } from "iconsax-reactjs";
-import { useState } from "react";
-import BaseMotionDiv from "@/components/motion/base-div";
-import { MotionBaseTransition } from "@/components/motion/base-transition";
 import PageSection from "../main/page-section";
 import { Logo } from "@/components/logo";
 import { useBE_Theme } from "@/lib/theme/client/theme-provider";
@@ -66,8 +62,9 @@ export function HeaderSection({
   const BE_Theme = useBE_Theme();
   const t = useTranslations("header");
   return (
-    <motion.header
-      style={{
+    <Box
+      component="header"
+      sx={{
         position: "fixed",
         top: 0,
         left: 0,
@@ -81,16 +78,20 @@ export function HeaderSection({
         overflow: "hidden",
       }}
     >
-      <BaseMotionDiv
-        style={{
+      <Box
+        sx={{
           width: "100%",
           height: TOP_NAVBAR_HEIGHT,
           display: "flex",
           alignItems: "center",
           backgroundColor: theme.palette.background.paper,
           borderBottom: `1px solid ${varAlpha(theme.vars.palette.grey["500Channel"], 0.12)}`,
+          marginTop: isScrolled ? `-${TOP_NAVBAR_HEIGHT}px` : "0px",
+          transition: theme.transitions.create(["margin-top"], {
+            duration: theme.transitions.duration.standard,
+            easing: theme.transitions.easing.easeInOut,
+          }),
         }}
-        animate={{ marginTop: isScrolled ? `-${TOP_NAVBAR_HEIGHT}px` : "0px" }}
       >
         <Container maxWidth="xl">
           <Grid container spacing={3} alignItems="center">
@@ -163,9 +164,9 @@ export function HeaderSection({
             </Grid>
           </Grid>
         </Container>
-      </BaseMotionDiv>
-      <BaseMotionDiv
-        style={{
+      </Box>
+      <Box
+        sx={{
           backdropFilter: `blur(6px)`,
           WebkitBackdropFilter: `blur(6px)`,
           backgroundColor: varAlpha(
@@ -174,19 +175,34 @@ export function HeaderSection({
           ),
           paddingLeft: theme.spacing(2),
           paddingRight: theme.spacing(2),
-        }}
-        initial={{
-          paddingTop: theme.spacing(2.5),
-          paddingBottom: theme.spacing(2.5),
-          borderRadius: `${theme.shape.borderRadius}px`,
-          marginTop: theme.spacing(2),
-        }}
-        animate={{
           paddingTop: isScrolled ? theme.spacing(2) : theme.spacing(2.5),
           paddingBottom: isScrolled ? theme.spacing(2) : theme.spacing(2.5),
           width: isScrolled ? "100%" : `${theme.breakpoints.values.xl}px`,
-          marginTop: isScrolled ? "0px" : theme.spacing(2),
-          borderRadius: isScrolled ? "0px" : `${theme.shape.borderRadius}px`,
+          marginTop: isScrolled ? "0px" : { xs: 0, md: theme.spacing(2) },
+          borderRadius: isScrolled
+            ? "0px"
+            : { xs: 0, md: `${theme.shape.borderRadius}px` },
+          maxWidth: isScrolled
+            ? "100%"
+            : {
+                xs: "100%",
+                md: "90%",
+                xl: `${theme.breakpoints.values.xl}px`,
+              },
+          transition: theme.transitions.create(
+            [
+              "padding-top",
+              "padding-bottom",
+              "width",
+              "max-width",
+              "margin-top",
+              "border-radius",
+            ],
+            {
+              duration: theme.transitions.duration.standard,
+              easing: theme.transitions.easing.easeInOut,
+            }
+          ),
         }}
       >
         <PageSection>
@@ -211,8 +227,8 @@ export function HeaderSection({
             </Grid>
           </Grid>
         </PageSection>
-      </BaseMotionDiv>
-    </motion.header>
+      </Box>
+    </Box>
   );
 
   return (

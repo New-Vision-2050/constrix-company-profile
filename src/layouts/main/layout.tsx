@@ -20,9 +20,8 @@ import { LanguagePopover } from "../components/language-popover";
 import { Logo } from "@/components/logo";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
-import { RouterLink } from "@/routes/components";
 import { useTranslations } from "next-intl";
-import { usePathname } from "next/navigation";
+import { usePathname, Link as RouterLink } from "@/i18n/navigation";
 
 import type { MainSectionProps } from "../core/main-section";
 import type { HeaderSectionProps } from "../core/header-section";

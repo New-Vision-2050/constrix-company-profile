@@ -20,7 +20,6 @@ import Container from "@mui/material/Container";
 
 import { layoutClasses } from "./classes";
 import {
-  Button,
   Grid,
   Typography,
   Stack,
@@ -36,9 +35,9 @@ import PageSection from "../main/page-section";
 import { Logo } from "@/components/logo";
 import { useBE_Theme } from "@/lib/theme/client/theme-provider";
 import { useState } from "react";
-import { usePathname } from "next/navigation";
 import { publicNavItems } from "../config-navigation";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { usePathname } from "@/i18n/navigation";
 
 export const TOP_NAVBAR_HEIGHT = 84;
 

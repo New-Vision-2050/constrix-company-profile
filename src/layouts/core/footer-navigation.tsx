@@ -1,7 +1,6 @@
-import { Link, Stack } from "@mui/material";
-import { RouterLink } from "@/routes/components";
+import { Link as MuiLink, Stack } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { usePathname } from "next/navigation";
+import { usePathname, Link } from "@/i18n/navigation";
 import { publicNavItems } from "../config-navigation";
 
 export default function FooterNavigation() {
@@ -30,9 +29,9 @@ export default function FooterNavigation() {
             (item.path !== "/" && pathWithoutLocale.startsWith(item.path));
 
           return (
-            <Link
+            <MuiLink
               key={item.path}
-              component={RouterLink}
+              component={Link}
               href={item.path}
               underline="none"
               sx={{
@@ -50,7 +49,7 @@ export default function FooterNavigation() {
               }}
             >
               {t(item.title)}
-            </Link>
+            </MuiLink>
           );
         })}
       </Stack>

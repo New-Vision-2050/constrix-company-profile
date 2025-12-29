@@ -74,7 +74,7 @@ export function HeaderSection({
   const isScrolled = useScrollThreshold(50);
   const theme = useTheme();
   const BE_Theme = useBE_Theme();
-  const t = useTranslations("nav");
+  const t = useTranslations("header");
   const tSrc = useTranslations();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -123,10 +123,10 @@ export function HeaderSection({
       >
         <Container maxWidth="xl">
           <Grid container spacing={3} alignItems="center">
-            <Grid size={4}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <Logo sx={{ height: 46 }} />
             </Grid>
-            <Grid size={4}>
+            <Grid size={4} display={{ xs: "none", md: "block" }}>
               <Stack direction="row" spacing={1.5} alignItems="center">
                 <Call
                   size={36}
@@ -158,7 +158,7 @@ export function HeaderSection({
                 </Stack>
               </Stack>
             </Grid>
-            <Grid size={4}>
+            <Grid size={4} display={{ xs: "none", md: "block" }}>
               <Stack direction="row" spacing={1.5} alignItems="center">
                 <Sms
                   size={36}

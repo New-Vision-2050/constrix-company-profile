@@ -19,11 +19,26 @@ import { styled, useTheme } from "@mui/material/styles";
 import Container from "@mui/material/Container";
 
 import { layoutClasses } from "./classes";
-import { Button, Grid, Typography, Stack } from "@mui/material";
-import { Call, Sms } from "iconsax-reactjs";
+import {
+  Button,
+  Grid,
+  Typography,
+  Stack,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+} from "@mui/material";
+import { Call, Sms, HamburgerMenu } from "iconsax-reactjs";
 import PageSection from "../main/page-section";
 import { Logo } from "@/components/logo";
 import { useBE_Theme } from "@/lib/theme/client/theme-provider";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { publicNavItems } from "../config-navigation";
+import Link from "next/link";
 
 export const TOP_NAVBAR_HEIGHT = 84;
 
@@ -60,7 +75,21 @@ export function HeaderSection({
   const isScrolled = useScrollThreshold(50);
   const theme = useTheme();
   const BE_Theme = useBE_Theme();
-  const t = useTranslations("header");
+  const t = useTranslations("nav");
+  const tSrc = useTranslations();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  const pathWithoutLocale = pathname.replace(/^\/[a-z]{2}(\/|$)/, "/");
+
+  const handleMobileMenuToggle = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  const handleMobileMenuClose = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
     <Box
       component="header"
@@ -207,7 +236,17 @@ export function HeaderSection({
       >
         <PageSection>
           <Grid container spacing={2} alignItems="center">
-            <Grid size={8}>
+            <Grid size={{ xs: 2, md: 8 }}>
+              <Box sx={{ display: { xs: "block", md: "none" } }}>
+                <IconButton
+                  onClick={handleMobileMenuToggle}
+                  sx={{
+                    color: theme.palette.text.primary,
+                  }}
+                >
+                  <HamburgerMenu size={28} />
+                </IconButton>
+              </Box>
               <HeaderCenterArea
                 layoutQuery={layoutQuery}
                 {...slotProps?.centerArea}
@@ -216,7 +255,7 @@ export function HeaderSection({
               </HeaderCenterArea>
             </Grid>
             <Grid
-              size={4}
+              size={{ xs: 10, md: 4 }}
               display="flex"
               flexDirection="column"
               alignItems="end"
@@ -227,6 +266,67 @@ export function HeaderSection({
             </Grid>
           </Grid>
         </PageSection>
+
+        <Drawer
+          anchor="left"
+          open={mobileMenuOpen}
+          onClose={handleMobileMenuClose}
+          sx={{
+            display: { xs: "block", md: "none" },
+            "& .MuiDrawer-paper": {
+              width: 280,
+              backgroundColor: theme.palette.background.paper,
+            },
+          }}
+        >
+          <Box sx={{ p: 2 }}>
+            <Logo sx={{ height: 40, mb: 3 }} />
+          </Box>
+          <List>
+            {publicNavItems.map((item) => {
+              const isActive =
+                pathWithoutLocale === item.path ||
+                (item.path !== "/" && pathWithoutLocale.startsWith(item.path));
+
+              return (
+                <ListItem key={item.path} disablePadding>
+                  <ListItemButton
+                    component={Link}
+                    href={item.path}
+                    onClick={handleMobileMenuClose}
+                    sx={{
+                      py: 1.5,
+                      px: 3,
+                      backgroundColor: isActive
+                        ? varAlpha(theme.vars.palette.primary.mainChannel, 0.08)
+                        : "transparent",
+                      borderLeft: isActive
+                        ? `3px solid ${theme.palette.primary.main}`
+                        : "3px solid transparent",
+                      "&:hover": {
+                        backgroundColor: varAlpha(
+                          theme.vars.palette.primary.mainChannel,
+                          0.12
+                        ),
+                      },
+                    }}
+                  >
+                    <ListItemText
+                      primary={tSrc(item.title)}
+                      primaryTypographyProps={{
+                        fontWeight: isActive ? 600 : 500,
+                        fontSize: "0.95rem",
+                        color: isActive
+                          ? theme.palette.primary.main
+                          : theme.palette.text.primary,
+                      }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              );
+            })}
+          </List>
+        </Drawer>
       </Box>
     </Box>
   );

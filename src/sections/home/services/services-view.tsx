@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Box, Typography, Card } from "@mui/material";
+import { Box, Typography, Card, Link } from "@mui/material";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -12,6 +12,7 @@ import PageSection from "@/layouts/main/page-section";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import { BE_WebsiteService } from "@/types/api/base/services";
+import { RouterLink } from "@/routes/components";
 
 export default function ServicesView({ data }: { data: BE_WebsiteService[] }) {
   const t = useTranslations("home");
@@ -138,7 +139,9 @@ export default function ServicesView({ data }: { data: BE_WebsiteService[] }) {
                     zIndex: 1,
                   }}
                 >
-                  <Typography
+                  <Link
+                    component={RouterLink}
+                    href={`/services/${service.id}`}
                     variant="h6"
                     sx={{
                       fontWeight: 700,
@@ -146,7 +149,7 @@ export default function ServicesView({ data }: { data: BE_WebsiteService[] }) {
                     }}
                   >
                     {service.name}
-                  </Typography>
+                  </Link>
                   <Typography
                     variant="body2"
                     sx={{

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Box, Typography, Card } from "@mui/material";
+import { Box, Typography, Card, Link } from "@mui/material";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -11,32 +11,14 @@ import PageSection from "@/layouts/main/page-section";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-coverflow";
-import { BE_OurServices } from "@/types/api/base/home-page";
+import { BE_WebsiteService } from "@/types/api/base/services";
+import { RouterLink } from "@/routes/components";
 
-export default function ServicesView({ data }: { data: BE_OurServices[] }) {
+export default function ServicesView({ data }: { data: BE_WebsiteService[] }) {
   const t = useTranslations("home");
 
-  // Services data with translations
-  const services = [
-    {
-      id: 1,
-      title: t("services.service1.title"),
-      description: t("services.service1.description"),
-      image: "/assets/images/product/product-1.webp",
-    },
-    {
-      id: 2,
-      title: t("services.service2.title"),
-      description: t("services.service2.description"),
-      image: "/assets/images/product/product-2.webp",
-    },
-    {
-      id: 3,
-      title: t("services.service3.title"),
-      description: t("services.service3.description"),
-      image: "/assets/images/product/product-3.webp",
-    },
-  ];
+  // Use API data or fallback to empty array
+  const services = data || [];
 
   return (
     <PageSection sx={{ mb: 6 }}>
@@ -124,8 +106,8 @@ export default function ServicesView({ data }: { data: BE_OurServices[] }) {
                   }}
                 >
                   <Image
-                    src={service.image}
-                    alt={service.title}
+                    src={service.main_image}
+                    alt={service.name}
                     fill
                     style={{
                       objectFit: "cover",
@@ -157,20 +139,20 @@ export default function ServicesView({ data }: { data: BE_OurServices[] }) {
                     zIndex: 1,
                   }}
                 >
-                  <Typography
+                  <Link
+                    component={RouterLink}
+                    href={`/services/${service.id}`}
                     variant="h6"
                     sx={{
                       fontWeight: 700,
                       mb: 1.5,
-                      fontSize: { xs: "1.1rem", md: "1.25rem" },
                     }}
                   >
-                    {service.title}
-                  </Typography>
+                    {service.name}
+                  </Link>
                   <Typography
                     variant="body2"
                     sx={{
-                      fontSize: { xs: "0.875rem", md: "0.9375rem" },
                       lineHeight: 1.6,
                       opacity: 0.95,
                     }}

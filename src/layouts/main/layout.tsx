@@ -14,19 +14,20 @@ import { NavMobile } from "./nav";
 import { mainLayoutVars } from "./css-vars";
 import { MainSection } from "../core/main-section";
 import { MenuButton } from "../components/menu-button";
-import { HeaderSection } from "../core/header-section";
+import { HeaderSection, TOP_NAVBAR_HEIGHT } from "../core/header-section";
 import { LayoutSection } from "../core/layout-section";
 import { LanguagePopover } from "../components/language-popover";
 import { Logo } from "@/components/logo";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
-import { RouterLink } from "@/routes/components";
 import { useTranslations } from "next-intl";
+import { usePathname, Link as RouterLink } from "@/i18n/navigation";
 
 import type { MainSectionProps } from "../core/main-section";
 import type { HeaderSectionProps } from "../core/header-section";
 import type { LayoutSectionProps } from "../core/layout-section";
 import FooterSection from "../core/footer-section";
+import { publicNavItems } from "../config-navigation";
 
 // ----------------------------------------------------------------------
 
@@ -40,16 +41,6 @@ export type MainLayoutProps = LayoutBaseProps & {
   };
 };
 
-// Public navigation items
-const publicNavItems = [
-  { title: "nav.home", path: "/" },
-  { title: "nav.projects", path: "/projects" },
-  { title: "nav.services", path: "/services" },
-  { title: "nav.news", path: "/news" },
-  { title: "nav.about", path: "/about" },
-  { title: "nav.contact", path: "/contact" },
-];
-
 export function MainLayout({
   sx,
   cssVars,
@@ -59,7 +50,11 @@ export function MainLayout({
 }: MainLayoutProps) {
   const theme = useTheme();
   const t = useTranslations();
+  const pathname = usePathname();
   const { value: open, onFalse: onClose, onTrue: onOpen } = useBoolean();
+
+  // Remove locale prefix from pathname (e.g., /en/about -> /about)
+  const pathWithoutLocale = pathname.replace(/^\/[a-z]{2}(\/|$)/, "/");
   const renderHeader = () => {
     const headerSlotProps: HeaderSectionProps["slotProps"] = {
       container: {
@@ -104,25 +99,31 @@ export function MainLayout({
             gap: 4,
           }}
         >
-          {publicNavItems.map((item) => (
-            <Link
-              key={item.path}
-              component={RouterLink}
-              href={item.path}
-              underline="none"
-              sx={{
-                typography: "subtitle2",
-                fontWeight: 600,
-                color: "text.primary",
-                transition: "color 0.2s",
-                "&:hover": {
-                  color: "primary.main",
-                },
-              }}
-            >
-              {t(item.title)}
-            </Link>
-          ))}
+          {publicNavItems.map((item) => {
+            const isActive =
+              pathWithoutLocale === item.path ||
+              (item.path !== "/" && pathWithoutLocale.startsWith(item.path));
+
+            return (
+              <Link
+                key={item.path}
+                component={RouterLink}
+                href={item.path}
+                underline="none"
+                sx={{
+                  typography: "subtitle2",
+                  fontWeight: 600,
+                  color: isActive ? "primary.main" : "text.primary",
+                  transition: "color 0.2s",
+                  "&:hover": {
+                    color: "primary.main",
+                  },
+                }}
+              >
+                {t(item.title)}
+              </Link>
+            );
+          })}
         </Box>
       ),
       rightArea: (
@@ -135,21 +136,6 @@ export function MainLayout({
         >
           {/** @slot Language popover */}
           <LanguagePopover data={_langs} />
-
-          {/** @slot Subscribe button */}
-          <Button
-            variant="contained"
-            color="primary"
-            sx={{
-              px: 3,
-              py: 1,
-              borderRadius: 1,
-              textTransform: "none",
-              fontWeight: 600,
-            }}
-          >
-            {t("nav.subscribe")}
-          </Button>
         </Box>
       ),
     };
@@ -186,7 +172,7 @@ export function MainLayout({
        * @Styles
        *************************************** */
       cssVars={{ ...mainLayoutVars(theme), ...cssVars }}
-      sx={sx}
+      sx={{ pt: `${TOP_NAVBAR_HEIGHT}px`, ...sx }}
     >
       {renderMain()}
     </LayoutSection>

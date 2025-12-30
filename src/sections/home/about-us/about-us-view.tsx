@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectCoverflow } from "swiper/modules";
 import PageSection from "@/layouts/main/page-section";
 import { BE_Founder } from "@/types/api/base/home-page";
+import { useBE_Theme } from "@/lib/theme/client/theme-provider";
 
 // Import Swiper styles
 import "swiper/css";
@@ -19,6 +20,7 @@ interface AboutUsViewProps {
 export default function AboutUsView({ data }: AboutUsViewProps) {
   const t = useTranslations("home");
   const founders = data || [];
+  const { data: themeData } = useBE_Theme();
 
   return (
     <Box
@@ -122,11 +124,11 @@ export default function AboutUsView({ data }: AboutUsViewProps) {
                       transform: "translate(-50%, -50%)",
                       width: "60%",
                       height: "60%",
-                      opacity: 0.2,
+                      opacity: 0.1,
                     }}
                   >
                     <img
-                      src="/assets/logos/base/image.png"
+                      src={themeData?.icon_url}
                       alt="Constrix Logo"
                       style={{
                         width: "100%",
@@ -181,14 +183,13 @@ export default function AboutUsView({ data }: AboutUsViewProps) {
                         flexDirection: "column",
                         justifyContent: "flex-start",
                         alignItems: "flex-start",
+                        gap: 1,
                       }}
                     >
                       <Typography
-                        variant="h6"
+                        variant="h5"
                         sx={{
                           fontWeight: 600,
-                          mb: 2,
-                          fontSize: { xs: "1.1rem", md: "1.3rem" },
                           color: "primary.main",
                         }}
                       >
@@ -197,12 +198,10 @@ export default function AboutUsView({ data }: AboutUsViewProps) {
 
                       {/* Job Title */}
                       <Typography
-                        variant="body2"
+                        variant="h6"
                         sx={{
-                          fontSize: { xs: "0.9rem", md: "1.2rem" },
                           fontWeight: 600,
-                          mb: 2,
-                          color: "secondary.main",
+                          color: "primary.darker",
                         }}
                       >
                         {founder.job_title}
@@ -210,9 +209,8 @@ export default function AboutUsView({ data }: AboutUsViewProps) {
 
                       {/* Description */}
                       <Typography
-                        variant="body1"
+                        variant="subtitle1"
                         sx={{
-                          fontSize: { xs: "0.95rem", md: "1.1rem" },
                           lineHeight: 1.8,
                         }}
                       >

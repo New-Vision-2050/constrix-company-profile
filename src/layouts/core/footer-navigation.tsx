@@ -1,55 +1,58 @@
-import { Link, Stack } from "@mui/material";
-import { RouterLink } from "@/routes/components";
+import { Link as MuiLink, Stack } from "@mui/material";
 import { useTranslations } from "next-intl";
-
-const navLinks = [
-    { key: "home", href: "/", highlight: true },
-    { key: "projects", href: "/projects", withDropdown: true },
-    { key: "services", href: "/services" },
-    { key: "about", href: "/about" },
-    { key: "contact", href: "/contact" },
-];
+import { usePathname, Link } from "@/i18n/navigation";
+import { publicNavItems } from "../config-navigation";
 
 export default function FooterNavigation() {
-    const tNav = useTranslations("nav");
+  const t = useTranslations();
+  const pathname = usePathname();
 
-    return (
-        <Stack
-            spacing={2}
-            alignItems="center"
-            justifyContent="center"
-            sx={{ flexGrow: 1, width: { xs: "100%", lg: "auto" } }}
-        >
-            <Stack
-                direction="row"
-                spacing={{ xs: 1.5, sm: 2, md: 3 }}
-                alignItems="center"
-                justifyContent="center"
+  // Remove locale prefix from pathname (e.g., /en/about -> /about)
+  const pathWithoutLocale = pathname.replace(/^\/[a-z]{2}(\/|$)/, "/");
+
+  return (
+    <Stack
+      spacing={2}
+      alignItems="center"
+      justifyContent="center"
+      sx={{ flexGrow: 1, width: { xs: "100%", lg: "auto" } }}
+    >
+      <Stack
+        direction="row"
+        spacing={{ xs: 1.5, sm: 2, md: 3 }}
+        alignItems="center"
+        justifyContent="center"
+      >
+        {publicNavItems.map((item) => {
+          const isActive =
+            pathWithoutLocale === item.path ||
+            (item.path !== "/" && pathWithoutLocale.startsWith(item.path));
+
+          return (
+            <MuiLink
+              key={item.path}
+              component={Link}
+              href={item.path}
+              underline="none"
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 0.5,
+                fontWeight: 600,
+                fontSize: { xs: 14, sm: 15 },
+                color: isActive ? "primary.main" : "text.primary",
+                textTransform: "none",
+                transition: "color 0.2s ease",
+                "&:hover": {
+                  color: "primary.main",
+                },
+              }}
             >
-                {navLinks.map((item) => (
-                    <Link
-                        key={item.key}
-                        component={RouterLink}
-                        href={item.href}
-                        underline="none"
-                        sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 0.5,
-                            fontWeight: 600,
-                            fontSize: { xs: 14, sm: 15 },
-                            color: item.highlight ? "primary.main" : "text.primary",
-                            textTransform: "none",
-                            transition: "color 0.2s ease",
-                            "&:hover": {
-                                color: "primary.main",
-                            },
-                        }}
-                    >
-                        {tNav(item.key)}
-                    </Link>
-                ))}
-            </Stack>
-        </Stack>
-    );
+              {t(item.title)}
+            </MuiLink>
+          );
+        })}
+      </Stack>
+    </Stack>
+  );
 }

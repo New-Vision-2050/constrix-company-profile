@@ -20,7 +20,7 @@ function SwiperNavigation() {
         <Stack direction="row" spacing={2}>
           <Box
             component="button"
-            onClick={() => swiper.slideNext()}
+            onClick={() => (isRTL ? swiper.slidePrev() : swiper.slideNext())}
             sx={{
               width: 48,
               height: 48,
@@ -36,7 +36,7 @@ function SwiperNavigation() {
           </Box>
           <Box
             component="button"
-            onClick={() => swiper.slidePrev()}
+            onClick={() => (isRTL ? swiper.slideNext() : swiper.slidePrev())}
             sx={{
               width: 48,
               height: 48,

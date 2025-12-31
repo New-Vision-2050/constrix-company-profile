@@ -20,6 +20,8 @@ export interface AboutPagePayload {
   project_types: AboutPageProjectType[];
   attachments: AboutPageAttachmentType[];
   company_icons?: AboutPageIcon[];
+  approval_icons?: AboutPageIcon[];
+  certificate_icons?: AboutPageIcon[];
 }
 
 interface AboutPageIcon {

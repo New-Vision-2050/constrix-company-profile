@@ -14,6 +14,7 @@ import DescriptionSection from "../../components/description-section";
 import PartnersView from "@/sections/home/partners/partners-view";
 
 function AboutMainView({ data }: { data: AboutPagePayload }) {
+  console.log("dataAbout", data);
   const t = useTranslations("about");
   const { palette } = useTheme();
   return (
@@ -28,6 +29,28 @@ function AboutMainView({ data }: { data: AboutPagePayload }) {
                 icon: i.icon_url,
               }))}
               titleKey="partners"
+            />
+          )}
+        </PageSection>
+        <PageSection>
+          {data?.certificate_icons && data?.certificate_icons.length > 0 && (
+            <PartnersView
+              data={data?.certificate_icons?.map((i) => ({
+                ...i,
+                icon: i.icon_url,
+              }))}
+              titleKey="certificates"
+            />
+          )}
+        </PageSection>
+        <PageSection>
+          {data?.approval_icons && data?.approval_icons.length > 0 && (
+            <PartnersView
+              data={data?.approval_icons?.map((i) => ({
+                ...i,
+                icon: i.icon_url,
+              }))}
+              titleKey="approvals"
             />
           )}
         </PageSection>

@@ -19,7 +19,6 @@ export default function ServicesView({ data }: { data: BE_WebsiteService[] }) {
 
   // Use API data or fallback to empty array
   const services = data || [];
-
   return (
     <PageSection sx={{ mb: 6 }}>
       {/* Title */}
@@ -41,6 +40,7 @@ export default function ServicesView({ data }: { data: BE_WebsiteService[] }) {
           effect="coverflow"
           centeredSlides={true}
           slidesPerView="auto"
+          loop={services.length > 3}
           coverflowEffect={{
             rotate: 0,
             stretch: 0,

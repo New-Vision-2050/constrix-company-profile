@@ -12,4 +12,10 @@ export const newsV2Messages = new MessagesGroup({
     "دويس ليو. دونيك أورسي ليكتوس، أليكوام أوت، فاوسيبوس نون"
   ),
   adButton: _m("Go now", "اذهب الآن"),
+  noNewsFound: _m("No news found", "لا يوجد أخبار"),
+  noNewsFoundDescription: _m("No news found description", "لا يوجد أخبار متوفرة"),
+  error: new MessagesGroup({
+    title: _m("Error", "خطأ"),
+    subtitle: _m("Error subtitle", "خطأ الوصف"),
+  }),
 });

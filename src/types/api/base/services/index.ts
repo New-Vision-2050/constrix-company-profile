@@ -59,6 +59,9 @@ export interface BE_ServiceDepartment {
 
 export interface BE_Service {
   id: string;
+  name: string;
+  name_ar: string;
+  name_en: string;
   category_website_cms_id: string;
   reference_number: string;
   company_id: string;

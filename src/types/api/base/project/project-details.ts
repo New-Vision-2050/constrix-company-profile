@@ -1,3 +1,4 @@
+import { BE_Service } from "../services";
 import { BE_ProjectTranslation } from "./project-translation";
 
 export interface BE_ProjectDetail {
@@ -7,5 +8,6 @@ export interface BE_ProjectDetail {
     website_service_id: string;
     created_at: string;
     updated_at: string;
+    website_service: BE_Service,
     translations: BE_ProjectTranslation[];
 }

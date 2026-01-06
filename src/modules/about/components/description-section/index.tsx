@@ -15,7 +15,7 @@ export default function DescriptionSection({
             {data.title}
           </Typography>
           <Typography variant="body2" textAlign="center">
-            {data.description}
+            {data.about_me}
           </Typography>
         </Stack>
       </PageSection>

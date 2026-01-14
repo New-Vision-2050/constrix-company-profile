@@ -17,7 +17,7 @@ interface PreviousWork {
 }
 
 interface PreviousWorkSliderProps {
-  works: BE_WebsiteServicePreviousWork[]
+  works: BE_WebsiteServicePreviousWork[];
 }
 
 /**
@@ -33,7 +33,13 @@ export default function PreviousWorkSlider({ works }: PreviousWorkSliderProps) {
         effect="coverflow"
         centeredSlides
         slidesPerView="auto"
-        coverflowEffect={{ rotate: 0, stretch: 0, depth: 300, modifier: 2, slideShadows: true }}
+        coverflowEffect={{
+          rotate: 0,
+          stretch: 0,
+          depth: 300,
+          modifier: 2,
+          slideShadows: true,
+        }}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
         speed={600}
         onInit={(swiper) => {
@@ -53,18 +59,32 @@ export default function PreviousWorkSlider({ works }: PreviousWorkSliderProps) {
                 boxShadow: 3,
                 height: "100%",
                 width: "100%",
-                maxWidth: { xs: "100%", sm: "500px", md: "650px", lg: "800px", xl: "1000px" },
+                maxWidth: {
+                  xs: "100%",
+                  sm: "500px",
+                  md: "650px",
+                  lg: "800px",
+                  xl: "1000px",
+                },
                 mx: "auto",
               }}
             >
-              <Box sx={{ position: "relative", width: "100%", aspectRatio: "16 / 10" }}>
-                <Image src={work.image} alt={work.description} fill style={{ objectFit: "cover" }} />
+              <Box
+                sx={{
+                  position: "relative",
+                  width: "100%",
+                  aspectRatio: "16 / 10",
+                }}
+              >
+                <Image
+                  src={work.image}
+                  alt={work.description}
+                  fill
+                  style={{ objectFit: "cover" }}
+                />
               </Box>
               <Box sx={{ p: { xs: 2, sm: 2.5, md: 3 } }}>
                 <ServiceLabel label={work.description} />
-                <Typography variant="body1">
-                  {work.description}
-                </Typography>
               </Box>
             </Card>
           </SwiperSlide>

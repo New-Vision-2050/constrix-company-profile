@@ -32,6 +32,28 @@ function AboutMainView({ data }: { data: AboutPagePayload }) {
           )}
         </PageSection>
         <PageSection>
+          {data?.approval_icons && data?.approval_icons.length > 0 && (
+            <PartnersView
+              data={data?.approval_icons?.map((i) => ({
+                ...i,
+                icon: i.icon_url,
+              }))}
+              titleKey="approvals"
+            />
+          )}
+        </PageSection>
+        <PageSection>
+          {data?.certificate_icons && data?.certificate_icons.length > 0 && (
+            <PartnersView
+              data={data?.certificate_icons?.map((i) => ({
+                ...i,
+                icon: i.icon_url,
+              }))}
+              titleKey="certificates"
+            />
+          )}
+        </PageSection>
+        <PageSection>
           <Grid container spacing={4}>
             <Grid size={{ xs: 12, md: 6, lg: 4 }}>
               <KeySuccessCard

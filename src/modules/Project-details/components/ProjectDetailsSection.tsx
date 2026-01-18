@@ -40,7 +40,7 @@ export default function ProjectDetailsSection({ projectData }: PropsT) {
                                             variant="body2"
                                             color="text.primary"
                                         >
-                                            {detail?.name || ''}
+                                            {detail?.website_service?.name || ''}
                                         </Typography>
                                     </Stack>
                                 </Box>
@@ -52,9 +52,7 @@ export default function ProjectDetailsSection({ projectData }: PropsT) {
                                     color="text.secondary"
                                     sx={{ whiteSpace: 'pre-line' }}
                                 >
-                                    {projectData?.description || ''}
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate illum a, reiciendis facere consectetur corrupti provident voluptatem neque quis vitae in repellat velit aperiam tempore sunt. Accusamus saepe est veniam?
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate illum a, reiciendis facere consectetur corrupti provident voluptatem neque quis vitae in repellat velit aperiam tempore sunt. Accusamus saepe est veniam?
+                                    {detail?.name || ''}
                                 </Typography>
                             </Grid>
                         </React.Fragment>

@@ -19,6 +19,7 @@ import { AboutPageAttachmentType } from "@/types/api/base/about-page";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
+import BaseOnViewDiv from "@/components/motion/on-view";
 
 interface FilesSliderProps {
   files: AboutPageAttachmentType[];
@@ -49,7 +50,7 @@ export default function FilesSlider({ files }: FilesSliderProps) {
         {t("files")}
       </Typography>
 
-      <Box sx={{ overflow: "hidden" }}>
+      <Box sx={{ overflow: "hidden" }} component={BaseOnViewDiv}>
         <Box
           sx={{
             position: "relative",

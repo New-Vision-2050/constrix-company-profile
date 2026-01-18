@@ -5,6 +5,7 @@ import { Iconify } from "@/components/iconify";
 import CategoryCard from "../category-card";
 import { AboutPageProjectType } from "@/types/api/base/about-page";
 import { useTranslations } from "next-intl";
+import BaseOnViewDiv from "@/components/motion/on-view";
 
 const categories = [
   { id: 1, title: "Technology", students: 497 },
@@ -25,7 +26,7 @@ type Props = {
 function FeaturedCategories({ projects }: Props) {
   const t = useTranslations("about");
   return (
-    <Box>
+    <Box component={BaseOnViewDiv}>
       <Grid container spacing={3}>
         <Grid size={{ xs: 12, lg: 4 }}>
           <Typography

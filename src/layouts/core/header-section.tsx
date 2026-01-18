@@ -199,24 +199,24 @@ export function HeaderSection({
           WebkitBackdropFilter: `blur(6px)`,
           backgroundColor: varAlpha(
             theme.vars.palette.background.defaultChannel,
-            0.8
+            0.8,
           ),
           paddingLeft: theme.spacing(2),
           paddingRight: theme.spacing(2),
           paddingTop: isScrolled ? theme.spacing(2) : theme.spacing(2.5),
           paddingBottom: isScrolled ? theme.spacing(2) : theme.spacing(2.5),
-          width: isScrolled ? "100%" : `${theme.breakpoints.values.xl}px`,
+          width: isScrolled
+            ? "100%"
+            : {
+                xs: "100%",
+                lg: `${theme.breakpoints.values.lg}px`,
+                xl: `${theme.breakpoints.values.xl}px`,
+              },
           marginTop: isScrolled ? "0px" : { xs: 0, md: theme.spacing(2) },
           borderRadius: isScrolled
             ? "0px"
             : { xs: 0, md: `${theme.shape.borderRadius}px` },
-          maxWidth: isScrolled
-            ? "100%"
-            : {
-                xs: "100%",
-                md: "90%",
-                xl: `${theme.breakpoints.values.xl}px`,
-              },
+          maxWidth: isScrolled ? "100%" : { xs: "100%", md: "90%" },
           transition: theme.transitions.create(
             [
               "padding-top",
@@ -229,7 +229,7 @@ export function HeaderSection({
             {
               duration: theme.transitions.duration.standard,
               easing: theme.transitions.easing.easeInOut,
-            }
+            },
           ),
         }}
       >
@@ -305,7 +305,7 @@ export function HeaderSection({
                       "&:hover": {
                         backgroundColor: varAlpha(
                           theme.vars.palette.primary.mainChannel,
-                          0.12
+                          0.12,
                         ),
                       },
                     }}
@@ -420,7 +420,7 @@ const HeaderRoot = styled(AppBar, {
     WebkitBackdropFilter: `blur(6px)`,
     backgroundColor: varAlpha(
       theme.vars.palette.background.defaultChannel,
-      0.8
+      0.8,
     ),
     ...(isOffset && {
       opacity: 1,
@@ -474,7 +474,7 @@ const HeaderContainer = styled(Container, {
       height: "var(--layout-header-desktop-height)",
       gap: theme.spacing(3),
     },
-  })
+  }),
 );
 
 const HeaderCenterArea = styled("div", {
@@ -487,5 +487,5 @@ const HeaderCenterArea = styled("div", {
     [theme.breakpoints.up(layoutQuery)]: {
       display: "flex",
     },
-  })
+  }),
 );

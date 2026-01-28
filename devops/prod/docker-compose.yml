@@ -20,18 +20,30 @@ services:
     labels:
       - "traefik.enable=true"
       # Option 1: Use a different domain
-      - "traefik.http.routers.company-profile-router.rule=HostRegexp(`^website(-[a-z0-9-]+)?\\.constrix-nv\\.com$`) || PathPrefix(`/`)"
-      # Option 2: Use a path prefix (uncomment and comment line above)
-      # - "traefik.http.routers.company-profile-router.rule=PathPrefix(`/company`)"
+      # Router for website-*.constrix-nv.com subdomains
+      - "traefik.http.routers.company-profile-router.rule=HostRegexp(`^website(-[a-z0-9-]+)?\\.constrix-nv\\.com$`)"
       - "traefik.http.routers.company-profile-router.entrypoints=https"
       - "traefik.http.routers.company-profile-router.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.company-profile-router.priority=10"
+      # Router for custom domains (add your custom domains here)
+      - "traefik.http.routers.company-profile-custom.rule=Host(`amrslh.com`)"
+      - "traefik.http.routers.company-profile-custom.entrypoints=https"
+      - "traefik.http.routers.company-profile-custom.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.company-profile-custom.priority=10"
+      - "traefik.http.routers.company-profile-custom.service=company-profile-router"
+      # Shared service
       - "traefik.http.services.company-profile-router.loadbalancer.server.port=3001"
-      - "traefik.http.routers.company-profile-router.priority=9"
-      # HTTP router - redirects to HTTPS
-      - "traefik.http.routers.company-profile-router-http.rule=HostRegexp(`^website(-[a-z0-9-]+)?\\.constrix-nv\\.com$`) || PathPrefix(`/`)"
+      # HTTP router for website-* - redirects to HTTPS
+      - "traefik.http.routers.company-profile-router-http.rule=HostRegexp(`^website(-[a-z0-9-]+)?\\.constrix-nv\\.com$`)"
       - "traefik.http.routers.company-profile-router-http.entrypoints=http"
-      - "traefik.http.routers.company-profile-router-http.priority=9"
+      - "traefik.http.routers.company-profile-router-http.priority=10"
       - "traefik.http.routers.company-profile-router-http.middlewares=redirect-to-https"
+      # HTTP router for custom domains - redirects to HTTPS
+      - "traefik.http.routers.company-profile-custom-http.rule=Host(`amrslh.com`)"
+      - "traefik.http.routers.company-profile-custom-http.entrypoints=http"
+      - "traefik.http.routers.company-profile-custom-http.priority=10"
+      - "traefik.http.routers.company-profile-custom-http.middlewares=redirect-to-https"
+      # Redirect middleware
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true"
     networks:

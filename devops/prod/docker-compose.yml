@@ -20,7 +20,7 @@ services:
     labels:
       - "traefik.enable=true"
       # Option 1: Use a different domain
-      - "traefik.http.routers.company-profile-router.rule=HostRegexp(`^website(-[a-z0-9-]+)?\\.constrix-nv\\.com$`)"
+      - "traefik.http.routers.company-profile-router.rule=HostRegexp(`^website(-[a-z0-9-]+)?\\.constrix-nv\\.com$`) || HostRegexp(`^{host:.+}$`)"
       # Option 2: Use a path prefix (uncomment and comment line above)
       # - "traefik.http.routers.company-profile-router.rule=PathPrefix(`/company`)"
       - "traefik.http.routers.company-profile-router.entrypoints=https"

@@ -14,6 +14,8 @@ export interface NewsFilters {
 
 export const NewsApi = {
   list: (filters?: NewsFilters) =>
-    baseApi.get<ListNewsResponse>("/website-news", { params: filters }),
+    baseApi.get<ListNewsResponse>("/website-news", {
+      params: { status: 1, ...filters },
+    }),
   show: (id: string) => baseApi.get<ShowNewsItemResponse>(`website-news/${id}`),
 };

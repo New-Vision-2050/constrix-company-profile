@@ -11,7 +11,7 @@ import { useTranslations } from "next-intl";
 import { AboutPagePayload } from "@/types/api/base/about-page";
 import { Eye, MessageSquare, Diagram } from "iconsax-reactjs";
 import DescriptionSection from "../../components/description-section";
-import PartnersView from "@/sections/home/partners/partners-view";
+import PartnersView from "@/modules/home/home/partners/partners-view";
 import BaseOnViewDiv from "@/components/motion/on-view";
 
 function AboutMainView({ data }: { data: AboutPagePayload }) {

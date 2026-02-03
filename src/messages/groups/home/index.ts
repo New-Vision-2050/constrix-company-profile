@@ -35,6 +35,20 @@ export const homeMessages = new MessagesGroup({
   aboutUsTitle: _m("Get to know us", "تعرف علينا"),
   projectsTitle: _m("Our Most Important Projects", "أهم مشاريعنا"),
   showMore: _m("Show More", "عرض المزيد"),
+  partnersDescription: _m(
+    "We collaborate with industry-leading partners to deliver exceptional results and innovative solutions.",
+    "نتعاون مع شركاء رائدين في الصناعة لتقديم نتائج استثنائية وحلول مبتكرة."
+  ),
+  certificatesDescription: _m(
+    "Our certifications demonstrate our commitment to quality, excellence, and industry standards.",
+    "تثبت شهاداتنا التزامنا بالجودة والتميز ومعايير الصناعة."
+  ),
+  approvalsDescription: _m(
+    "Recognized and approved by leading authorities, ensuring compliance and trust.",
+    "معترف بها ومعتمدة من قبل السلطات الرائدة، مما يضمن الامتثال والثقة."
+  ),
+  founderDetails: _m("Founder Details", "تفاصيل المؤسس"),
+  clickToReadMore: _m("Click to read more", "انقر لقراءة المزيد"),
   projects: new MessagesGroup({
     project1: new MessagesGroup({
       title: _m("Supervision of Execution", "الاشراف على التنفيذ"),
@@ -88,3 +102,4 @@ export const homeMessages = new MessagesGroup({
     }),
   }),
 });
+

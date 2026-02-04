@@ -5,34 +5,45 @@ import CompanyProfileView2 from "@/modules/home/main-view-2/company-profile/comp
 import AboutUsView2 from "@/modules/home/main-view-2/about-us/about-us-view-2";
 import ProjectsView2 from "@/modules/home/main-view-2/projects/projects-view-2";
 import { BE_HomePageData } from "@/types/api/base/home-page";
+import BaseOnViewDiv from "@/components/motion/on-view";
 
 type Props = {
-    data: BE_HomePageData
-}
+  data: BE_HomePageData;
+};
 
 function HomePageView2({ data }: Props) {
   return (
     <div>
       <HeroView2 data={data?.home_page_setting} />
       {data?.website_services && data?.website_services.length > 0 && (
-        <ServicesView2 data={data?.website_services} />
+        <BaseOnViewDiv>
+          <ServicesView2 data={data?.website_services} />
+        </BaseOnViewDiv>
       )}
       {data?.featured_projects && data?.featured_projects.length > 0 && (
-        <ProjectsView2 data={data?.featured_projects} />
+        <BaseOnViewDiv>
+          <ProjectsView2 data={data?.featured_projects} />
+        </BaseOnViewDiv>
       )}
       {data?.founders && data?.founders.length > 0 && (
-        <AboutUsView2 data={data?.founders} />
+        <BaseOnViewDiv>
+          <AboutUsView2 data={data?.founders} />
+        </BaseOnViewDiv>
       )}
       {data?.home_page_setting?.video_profile_file && (
-        <CompanyProfileView2
-          data={data?.home_page_setting?.video_profile_file || ""}
-        />
+        <BaseOnViewDiv>
+          <CompanyProfileView2
+            data={data?.home_page_setting?.video_profile_file || ""}
+          />
+        </BaseOnViewDiv>
       )}
-      <PartnersCombinedView
-        partners={data?.company_icons}
-        certificates={data?.certificate_icons}
-        approvals={data?.approval_icons}
-      />
+      <BaseOnViewDiv>
+        <PartnersCombinedView
+          partners={data?.company_icons}
+          certificates={data?.certificate_icons}
+          approvals={data?.approval_icons}
+        />
+      </BaseOnViewDiv>
     </div>
   );
 }

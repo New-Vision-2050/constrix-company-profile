@@ -7,12 +7,16 @@ const BaseOnViewDiv = forwardRef<HTMLDivElement, HTMLMotionProps<"div">>(
   (props, ref) => {
     return (
       <motion.div
-        initial={{ opacity: 0, x: 60 }}
+        initial={{ opacity: 0, x: 90 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ amount: 0.1 }}
         {...props}
         ref={ref}
-        transition={{ ...MotionBaseTransition, ...props.transition }}
+        transition={{
+          ...MotionBaseTransition,
+          duration: 0.6,
+          ...props.transition,
+        }}
       />
     );
   },

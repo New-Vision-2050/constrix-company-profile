@@ -26,7 +26,13 @@ async function LocaleLayout({
   const direction = _langs.find((l) => l.value === locale)?.direction || "ltr";
   return (
     <NextIntlClientProvider>
-      <html lang={locale} dir={direction}>
+      <html
+        style={{
+          overflowX: "hidden",
+        }}
+        lang={locale}
+        dir={direction}
+      >
         <body>
           <ReactQueryClientProvider>
             <ThemeProvider direction={direction} theme={theme}>

@@ -19,14 +19,32 @@ services:
       - DEPLOYMENT_ID=${DEPLOYMENT_ID}
     labels:
       - "traefik.enable=true"
-      # Option 1: Use a different domain
+      # Router for website-*.constrix-nv.com subdomains
       - "traefik.http.routers.company-profile-router.rule=HostRegexp(`^website(-[a-z0-9-]+)?\\.constrix-nv\\.com$`)"
-      # Option 2: Use a path prefix (uncomment and comment line above)
-      # - "traefik.http.routers.company-profile-router.rule=PathPrefix(`/company`)"
       - "traefik.http.routers.company-profile-router.entrypoints=https"
       - "traefik.http.routers.company-profile-router.tls.certresolver=letsencrypt"
-      - "traefik.http.services.company-profile-router.loadbalancer.server.port=3001"
       - "traefik.http.routers.company-profile-router.priority=9"
+      # Catch-all router for ANY custom domain (lowest priority)
+      - "traefik.http.routers.company-profile-catchall.rule=HostRegexp(`.+`)"
+      - "traefik.http.routers.company-profile-catchall.entrypoints=https"
+      - "traefik.http.routers.company-profile-catchall.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.company-profile-catchall.priority=1"
+      - "traefik.http.routers.company-profile-catchall.service=company-profile-router"
+      # Shared service
+      - "traefik.http.services.company-profile-router.loadbalancer.server.port=3001"
+      # HTTP router for website-* - redirects to HTTPS
+      - "traefik.http.routers.company-profile-router-http.rule=HostRegexp(`^website(-[a-z0-9-]+)?\\.constrix-nv\\.com$`)"
+      - "traefik.http.routers.company-profile-router-http.entrypoints=http"
+      - "traefik.http.routers.company-profile-router-http.priority=9"
+      - "traefik.http.routers.company-profile-router-http.middlewares=redirect-to-https"
+      # HTTP catch-all - redirects to HTTPS
+      - "traefik.http.routers.company-profile-catchall-http.rule=HostRegexp(`.+`)"
+      - "traefik.http.routers.company-profile-catchall-http.entrypoints=http"
+      - "traefik.http.routers.company-profile-catchall-http.priority=1"
+      - "traefik.http.routers.company-profile-catchall-http.middlewares=redirect-to-https"
+      # Redirect middleware
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true"
     networks:
       - traefik_network
 

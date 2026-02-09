@@ -22,11 +22,13 @@ services:
       # Router for website-*.constrix-nv.com subdomains
       - "traefik.http.routers.company-profile-router.rule=HostRegexp(`^website(-[a-z0-9-]+)?\\.constrix-nv\\.com$`)"
       - "traefik.http.routers.company-profile-router.entrypoints=https"
+      - "traefik.http.routers.company-profile-router.tls=true"
       - "traefik.http.routers.company-profile-router.tls.certresolver=letsencrypt"
       - "traefik.http.routers.company-profile-router.priority=9"
       # Catch-all router for ANY custom domain (lowest priority)
       - "traefik.http.routers.company-profile-catchall.rule=HostRegexp(`.+`)"
       - "traefik.http.routers.company-profile-catchall.entrypoints=https"
+      - "traefik.http.routers.company-profile-catchall.tls=true"
       - "traefik.http.routers.company-profile-catchall.tls.certresolver=letsencrypt"
       - "traefik.http.routers.company-profile-catchall.priority=1"
       - "traefik.http.routers.company-profile-catchall.service=company-profile-router"

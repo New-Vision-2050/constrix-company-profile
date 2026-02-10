@@ -21,13 +21,13 @@ services:
       - "traefik.enable=true"
       # Router for website-*.constrix-nv.com subdomains
       - "traefik.http.routers.company-profile-router.rule=HostRegexp(`^website(-[a-z0-9-]+)?\\.constrix-nv\\.com$`)"
-      - "traefik.http.routers.company-profile-router.entrypoints=https"
+      - "traefik.http.routers.company-profile-router.entrypoints=websecure"
       - "traefik.http.routers.company-profile-router.tls=true"
       - "traefik.http.routers.company-profile-router.tls.certresolver=le"
       - "traefik.http.routers.company-profile-router.priority=9"
       # Catch-all router for ANY custom domain (uses HTTP challenge)
       - "traefik.http.routers.company-profile-catchall.rule=HostRegexp(`.+`)"
-      - "traefik.http.routers.company-profile-catchall.entrypoints=https"
+      - "traefik.http.routers.company-profile-catchall.entrypoints=websecure"
       - "traefik.http.routers.company-profile-catchall.tls=true"
       - "traefik.http.routers.company-profile-catchall.tls.certresolver=le-http"
       - "traefik.http.routers.company-profile-catchall.priority=1"
@@ -36,7 +36,7 @@ services:
       - "traefik.http.services.company-profile-router.loadbalancer.server.port=3001"
       # HTTP router for website-* - redirects to HTTPS
       - "traefik.http.routers.company-profile-router-http.rule=HostRegexp(`^website(-[a-z0-9-]+)?\\.constrix-nv\\.com$`)"
-      - "traefik.http.routers.company-profile-router-http.entrypoints=http"
+      - "traefik.http.routers.company-profile-router-http.entrypoints=web"
       - "traefik.http.routers.company-profile-router-http.priority=9"
       - "traefik.http.routers.company-profile-router-http.middlewares=redirect-to-https"
       # NO HTTP catch-all - allows Traefik ACME handler to serve challenges

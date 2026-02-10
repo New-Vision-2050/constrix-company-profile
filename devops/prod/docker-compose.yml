@@ -39,11 +39,7 @@ services:
       - "traefik.http.routers.company-profile-router-http.entrypoints=http"
       - "traefik.http.routers.company-profile-router-http.priority=9"
       - "traefik.http.routers.company-profile-router-http.middlewares=redirect-to-https"
-      # HTTP catch-all - NO redirect to allow ACME challenge
-      - "traefik.http.routers.company-profile-catchall-http.rule=HostRegexp(`.+`)"
-      - "traefik.http.routers.company-profile-catchall-http.entrypoints=http"
-      - "traefik.http.routers.company-profile-catchall-http.priority=1"
-      - "traefik.http.routers.company-profile-catchall-http.service=company-profile-router"
+      # NO HTTP catch-all - allows Traefik ACME handler to serve challenges
       # Redirect middleware
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true"

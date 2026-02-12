@@ -25,11 +25,11 @@ services:
       - "traefik.http.routers.company-profile-router.tls=true"
       - "traefik.http.routers.company-profile-router.tls.certresolver=letsencrypt"
       - "traefik.http.routers.company-profile-router.priority=9"
-      # Catch-all router for ANY custom domain (lowest priority to allow ACME)
+      # Catch-all router for ANY custom domain (uses HTTP challenge)
       - "traefik.http.routers.company-profile-catchall.rule=HostRegexp(`.+`)"
       - "traefik.http.routers.company-profile-catchall.entrypoints=https"
       - "traefik.http.routers.company-profile-catchall.tls=true"
-      - "traefik.http.routers.company-profile-catchall.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.company-profile-catchall.tls.certresolver=letsencrypt-http"
       - "traefik.http.routers.company-profile-catchall.priority=1"
       - "traefik.http.routers.company-profile-catchall.service=company-profile-router"
       # Shared service
@@ -39,11 +39,7 @@ services:
       - "traefik.http.routers.company-profile-router-http.entrypoints=http"
       - "traefik.http.routers.company-profile-router-http.priority=9"
       - "traefik.http.routers.company-profile-router-http.middlewares=redirect-to-https"
-      # HTTP catch-all - NO redirect to allow ACME challenge
-      - "traefik.http.routers.company-profile-catchall-http.rule=HostRegexp(`.+`)"
-      - "traefik.http.routers.company-profile-catchall-http.entrypoints=http"
-      - "traefik.http.routers.company-profile-catchall-http.priority=1"
-      - "traefik.http.routers.company-profile-catchall-http.service=company-profile-router"
+      # NO HTTP catch-all - allows Traefik ACME handler to serve challenges
       # Redirect middleware
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true"
@@ -53,3 +49,4 @@ services:
 networks:
   traefik_network:
     external: true
+

@@ -18,16 +18,16 @@ type PropsT = {
 export default function ProjectImagesCarousel({ projectData }: PropsT) {
     const ProjectImages = useMemo(() => [
         projectData?.main_image,
-        ...projectData?.secondary_images
-    ].filter(imageUrl => typeof imageUrl === 'string' && imageUrl.trim() !== ''), [projectData])
+        ...(projectData?.secondary_images || [])
+    ].filter(imageUrl => typeof imageUrl === 'string' && imageUrl.trim() !== ''), [projectData]);
 
     return <Box sx={{ width: "100%", py: 2 }}>
         <Swiper
             modules={[Autoplay, EffectCoverflow]}
             effect="coverflow"
             centeredSlides
-            slidesPerView="auto"
-            coverflowEffect={{ rotate: 0, stretch: 0, depth: 300, modifier: 2, slideShadows: true }}
+            slidesPerView={3}
+            coverflowEffect={{ rotate: 0, stretch: 0, depth: 100, modifier: 1, slideShadows: true }}
             autoplay={{ delay: 3000, disableOnInteraction: false }}
             speed={600}
             onInit={(swiper) => {
@@ -35,12 +35,12 @@ export default function ProjectImagesCarousel({ projectData }: PropsT) {
                 if (ProjectImages.length > 1) swiper.slideTo(1, 0);
             }}
             breakpoints={{
-                640: { coverflowEffect: { depth: 250, modifier: 2 } },
-                1024: { coverflowEffect: { depth: 200, modifier: 2 } },
+                640: { coverflowEffect: { depth: 80, modifier: 1 } },
+                1024: { coverflowEffect: { depth: 100, modifier: 1 } },
             }}
         >
             {ProjectImages.map((imageUrl, index) => (
-                <SwiperSlide key={`${imageUrl}-${index}`} style={{ width: "80%" }}>
+                <SwiperSlide key={`${imageUrl}-${index}`} style={{ width: "33%" }}>
                     <Card
                         sx={{
                             borderRadius: 2.5,
@@ -52,7 +52,13 @@ export default function ProjectImagesCarousel({ projectData }: PropsT) {
                         }}
                     >
                         <Box sx={{ position: "relative", width: "100%", aspectRatio: "16 / 10" }}>
-                            <Image src={imageUrl} alt={imageUrl} fill style={{ objectFit: "cover" }} />
+                            <Image 
+                                src={imageUrl} 
+                                alt={`Project image ${index + 1}`} 
+                                fill 
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                style={{ objectFit: "cover" }}
+                            />
                         </Box>
                     </Card>
                 </SwiperSlide>

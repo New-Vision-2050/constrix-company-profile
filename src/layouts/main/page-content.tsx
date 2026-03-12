@@ -7,12 +7,14 @@ import DarkGradiantBgBox from "@/components/ui/others/box/dark-gradiant-bg";
 type Props = PropsWithChildren<{
   title?: ReactNode;
   description?: ReactNode;
+  backgroundImage?: string;
 }>;
 
-function MainPageContent({ title, description, children }: Props) {
+function MainPageContent({ title, description, backgroundImage, children }: Props) {
   return (
     <Stack>
       <DarkGradiantBgBox
+        backgroundImage={backgroundImage}
         py={18}
         gap={3}
         alignItems="center"

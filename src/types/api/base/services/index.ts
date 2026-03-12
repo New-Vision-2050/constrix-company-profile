@@ -9,6 +9,7 @@ export interface BE_ServicePageData {
   company_id: string;
   created_at: string;
   updated_at: string;
+  main_image?: string;
   departments: BE_ServiceDepartment[];
 }
 

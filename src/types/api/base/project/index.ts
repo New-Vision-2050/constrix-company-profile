@@ -8,6 +8,9 @@ export interface BE_FeaturedProject {
   website_project_setting_id: string;
   name_ar: string;
   name_en: string;
+  title: string;
+  title_ar: string;
+  title_en: string;
   description: string;
   description_ar: string;
   description_en: string;

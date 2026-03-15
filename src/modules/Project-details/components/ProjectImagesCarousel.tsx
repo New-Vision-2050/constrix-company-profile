@@ -19,7 +19,7 @@ export default function ProjectImagesCarousel({ projectData }: PropsT) {
     const ProjectImages = useMemo(() => [
         projectData?.main_image,
         ...projectData?.secondary_images
-    ], [projectData])
+    ].filter(item => item && typeof item === 'string' && item.trim() !== ""), [projectData])
 
     return <Box sx={{ width: "100%", py: 2 }}>
         <Swiper
@@ -39,8 +39,8 @@ export default function ProjectImagesCarousel({ projectData }: PropsT) {
                 1024: { coverflowEffect: { depth: 200, modifier: 2 } },
             }}
         >
-            {ProjectImages.map((imageUrl) => (
-                <SwiperSlide key={imageUrl} style={{ width: "80%" }}>
+            {ProjectImages.filter(imageUrl => imageUrl && typeof imageUrl === 'string' && imageUrl.trim() !== "").map((imageUrl, index) => (
+                <SwiperSlide key={`slide-${index}`} style={{ width: "80%" }}>
                     <Card
                         sx={{
                             borderRadius: 2.5,

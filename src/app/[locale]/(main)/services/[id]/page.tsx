@@ -25,7 +25,11 @@ export default async function ServiceDetailsPage({
     }
 
     return (
-        <MainPageContent title={serviceData.name} description={<ServiceDetailsContactBtn />}>
+        <MainPageContent 
+            title={serviceData.name} 
+            description={<ServiceDetailsContactBtn />}
+            backgroundImage={serviceData.icon}
+        >
             <ServicesDetailsView serviceData={serviceData} />
         </MainPageContent>
     );

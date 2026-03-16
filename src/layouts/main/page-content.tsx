@@ -14,6 +14,7 @@ function MainPageContent({ title, description, backgroundImage, children }: Prop
   return (
     <Stack>
       <DarkGradiantBgBox
+        backgroundImage={backgroundImage}
         py={18}
         gap={3}
         alignItems="center"

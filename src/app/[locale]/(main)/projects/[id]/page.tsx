@@ -21,7 +21,10 @@ export default async function ProjectDetailsPage({
     const projectData = projectRes.data.payload;
 
     return (
-        <MainPageContent title={projectData.title}>
+        <MainPageContent 
+            title={projectData.title}
+            backgroundImage={projectData.main_image}
+        >
             <LayoutStack>
                 <ProjectDetailsView projectData={projectData} />
             </LayoutStack>

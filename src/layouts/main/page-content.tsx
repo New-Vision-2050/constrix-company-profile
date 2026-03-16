@@ -20,6 +20,7 @@ function MainPageContent({ title, description, backgroundImage, children }: Prop
         alignItems="center"
         display="flex"
         flexDirection="column"
+        backgroundImage={backgroundImage}
       >
         {title && (
           <PageSection>

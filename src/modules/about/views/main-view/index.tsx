@@ -18,7 +18,7 @@ function AboutMainView({ data }: { data: AboutPagePayload }) {
   const t = useTranslations("about");
   const { palette } = useTheme();
   return (
-    <MainPageContent title={t("title")} description={data.description}>
+    <MainPageContent title={t("title")} description={data.description} backgroundImage={data.main_image}>
       <LayoutStack spacing={8}>
         <DescriptionSection data={data} />
         <PageSection component={BaseOnViewDiv}>

@@ -3,7 +3,7 @@
 import React, { useMemo } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Box, Card } from "@mui/material";
+import { Box, Card, Typography } from "@mui/material";
 import { Autoplay, EffectCoverflow } from "swiper/modules";
 import { BE_FeaturedProject } from "@/types/api/base/project";
 
@@ -18,7 +18,7 @@ type PropsT = {
 export default function ProjectImagesCarousel({ projectData }: PropsT) {
     const ProjectImages = useMemo(() => [
         projectData?.main_image,
-        ...projectData?.secondary_images
+        ...(projectData?.secondary_images || []).map(img => img.url),
     ].filter(imageUrl => typeof imageUrl === 'string' && imageUrl.trim() !== ''), [projectData])
 
     return <Box sx={{ width: "100%", py: 2 }}>
@@ -44,13 +44,30 @@ export default function ProjectImagesCarousel({ projectData }: PropsT) {
                     <Card
                         sx={{
                             borderRadius: 2.5,
+                            boxShadow: 3,
+                            height: "100%",
+                            width: "100%",
+                            maxWidth: {
+                                xs: "100%",
+                                sm: "500px",
+                                md: "650px",
+                                lg: "800px",
+                                xl: "1000px",
+                            },
+                            mx: "auto",
                         }}
                     >
                         <Box sx={{ position: "relative", width: "100%", aspectRatio: "16 / 10" }}>
-                            <Image src={imageUrl} alt={imageUrl} fill style={{ objectFit: "cover" }} />
+                            <Image src={imageUrl} alt={`Project image ${index + 1}`} fill style={{ objectFit: "cover" }} />
+                        </Box>
+                        <Box sx={{ p: { xs: 2, sm: 2.5, md: 3 } }}>
+                            <Typography variant="body2" color="text.secondary" textAlign="center">
+                                {projectData?.title} - Image {index + 1}
+                            </Typography>
                         </Box>
                     </Card>
                 </SwiperSlide>
             ))}
         </Swiper>
     </Box>
+}

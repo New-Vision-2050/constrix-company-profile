@@ -18,7 +18,7 @@ type PropsT = {
 export default function ProjectImagesCarousel({ projectData }: PropsT) {
     const ProjectImages = useMemo(() => [
         projectData?.main_image,
-        ...(projectData?.secondary_images || []).map(img => img.url),
+        ...(projectData?.secondary_images || []),
     ].filter(imageUrl => typeof imageUrl === 'string' && imageUrl.trim() !== ''), [projectData])
 
     return <Box sx={{ width: "100%", py: 2 }}>

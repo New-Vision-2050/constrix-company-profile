@@ -6,9 +6,8 @@ import ServiceDescription from "./components/ServiceDescription";
 import { useTranslations } from "next-intl";
 import { BE_WebsiteService } from "@/types/api/base/services";
 
-
 interface ServicesDetailsModuleProps {
-  serviceData: BE_WebsiteService
+  serviceData: BE_WebsiteService;
 }
 
 /**
@@ -26,9 +25,14 @@ export default function ServicesDetailsView({
       {/* Service Header */}
       <ServiceHeader title={serviceData.name} />
       {/* Service Description */}
-      <ServiceDescription label={t("serviceDescription")} description={serviceData.description} />
+      <ServiceDescription
+        label={t("serviceDescription")}
+        description={serviceData.description}
+      />
       {/* Previous Work Slider */}
-      <OurPreviousWorks previousWorks={serviceData.previous_work} />
+      {serviceData.previous_work && serviceData.previous_work.length > 0 && (
+        <OurPreviousWorks previousWorks={serviceData.previous_work} />
+      )}
     </LayoutStack>
   );
 }

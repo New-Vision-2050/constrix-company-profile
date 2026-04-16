@@ -1,7 +1,6 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-import { MainLayout } from "@/layouts/main";
+import { usePathname, useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
 import { useAtom } from "jotai";
 import { portfolioDataAtom, getLocalized } from "@/store/portfolio";
@@ -9,15 +8,21 @@ import { Iconify } from "@/components/iconify";
 import Link from "next/link";
 import { alpha, useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
 import { useEffect, useState } from "react";
 import { useLocale } from "next-intl";
+import { useBE_Theme } from "@/lib/theme/client/theme-provider";
+import { CONFIG } from "@/config-global";
 
 export default function PortfolioLayout({ children }: { children: React.ReactNode }) {
   const [data] = useAtom(portfolioDataAtom);
   const pathname = usePathname();
   const theme = useTheme();
   const locale = useLocale();
+  const router = useRouter();
   const isRtl = theme.direction === 'rtl';
+  const { data: themeData } = useBE_Theme();
+  const PRIMARY = theme.palette.primary.main;
   
   // To handle hydration mismatch with Jotai / visibility setting
   const [mounted, setMounted] = useState(false);
@@ -39,22 +44,34 @@ export default function PortfolioLayout({ children }: { children: React.ReactNod
 
   if (!isDev && (!data.settings.isVisible || (!isAllowedUrl && !hasAccess))) {
     return (
-      <MainLayout>
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh', flexDirection: 'column', gap: 2 }}>
-          <Typography variant="h4">Portfolio is currently hidden.</Typography>
-          <Typography variant="body2" color="text.secondary">
-            (It is hidden because of the visibility requirement. To view in production, append ?{data.settings.allowedUrl} to the URL)
-          </Typography>
-        </Box>
-      </MainLayout>
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: 'column', gap: 2 }}>
+        <Typography variant="h4">Portfolio is currently hidden.</Typography>
+      </Box>
     );
   }
 
   const isHome = pathname.toLowerCase().includes('/homeemployee');
 
   return (
-    <MainLayout>
-      <Box sx={{ position: 'relative', display: 'flex', width: '100%', minHeight: 'calc(100vh - 80px)' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: '#f5f5f5', display: 'flex', flexDirection: 'column' }}>
+      {/* Back Button */}
+      <Box sx={{ position: 'fixed', top: 16, ...(isRtl ? { right: 16 } : { left: 16 }), zIndex: 1200 }}>
+        <IconButton
+          onClick={() => router.push(`/${locale}`)}
+          sx={{
+            bgcolor: PRIMARY,
+            color: '#fff',
+            boxShadow: `0 4px 12px ${alpha(PRIMARY, 0.4)}`,
+            '&:hover': { bgcolor: alpha(PRIMARY, 0.85), transform: 'scale(1.05)' },
+            transition: 'all 0.2s',
+            width: 44,
+            height: 44,
+          }}
+        >
+          <Iconify icon={isRtl ? 'mingcute:arrow-right-line' : 'mingcute:arrow-left-line'} width={22} />
+        </IconButton>
+      </Box>
+      <Box sx={{ position: 'relative', display: 'flex', width: '100%', flexGrow: 1 }}>
 
         {/* Main Content Area */}
         <Box sx={{ flexGrow: 1, position: 'relative', bgcolor: data.settings.colors.background }}>
@@ -64,11 +81,11 @@ export default function PortfolioLayout({ children }: { children: React.ReactNod
         {/* Right Sidebar (Only for non-home pages) */}
         {!isHome && (
           <Box sx={{ 
-            width: 300, 
+            width: 280, 
             flexShrink: 0,
             display: { xs: 'none', md: 'flex' },
             flexDirection: 'column',
-            bgcolor: data.settings.colors.primary,
+            bgcolor: PRIMARY,
           }}>
             <Box
               component="img"
@@ -104,7 +121,7 @@ export default function PortfolioLayout({ children }: { children: React.ReactNod
             ...(isRtl ? { left: 24 } : { right: 24 }),
             top: '50%',
             transform: 'translateY(-50%)',
-            bgcolor: data.settings.colors.primary,
+            bgcolor: PRIMARY,
             borderRadius: 4,
             py: 2,
             px: 1,
@@ -156,6 +173,54 @@ export default function PortfolioLayout({ children }: { children: React.ReactNod
         </Box>
 
       </Box>
-    </MainLayout>
+
+      {/* Simple Footer */}
+      <Box
+        component="footer"
+        sx={{
+          bgcolor: PRIMARY,
+          py: { xs: 2.5, md: 3 },
+          px: { xs: 3, md: 6 },
+          display: 'flex',
+          flexDirection: { xs: 'column', sm: 'row' },
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 2,
+        }}
+      >
+        <Box
+          component="img"
+          src={themeData?.icon_url || CONFIG.logo}
+          alt={CONFIG.appName}
+          sx={{ height: 36, width: 'auto', objectFit: 'contain', filter: 'brightness(0) invert(1)' }}
+        />
+
+        <Typography
+          variant="subtitle1"
+          sx={{ fontWeight: 700, color: '#fff', letterSpacing: 1, textAlign: 'center' }}
+        >
+          {CONFIG.appName}
+        </Typography>
+
+        <Box
+          component="a"
+          href={`mailto:${themeData?.contact_info?.email || ''}`}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1,
+            color: alpha('#fff', 0.85),
+            textDecoration: 'none',
+            '&:hover': { color: '#fff' },
+            transition: 'color 0.2s',
+          }}
+        >
+          <Iconify icon="mingcute:mail-line" width={18} sx={{ color: '#fff' }} />
+          <Typography variant="body2" sx={{ fontWeight: 500, color: 'inherit' }}>
+            {themeData?.contact_info?.email || 'info@constrix.com'}
+          </Typography>
+        </Box>
+      </Box>
+    </Box>
   );
 }

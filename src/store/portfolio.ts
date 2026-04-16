@@ -23,11 +23,11 @@ export interface PortfolioData {
   resume: {
     title: LocalizedString;
     profileImage: string;
-    education: { degree: LocalizedString; school: LocalizedString; description: LocalizedString }[];
-    experience: { role: LocalizedString; company: LocalizedString; description: LocalizedString }[];
-    skills: { name: LocalizedString; level: number }[];
-    languages: { name: LocalizedString; level: LocalizedString }[];
-    certifications: { name: LocalizedString; issuer: LocalizedString; year: string }[];
+    qualifications: { title: LocalizedString; institution: LocalizedString; year: string; description: LocalizedString }[];
+    summary: LocalizedString;
+    experience: { role: LocalizedString; company: LocalizedString; period: LocalizedString; description: LocalizedString; skills: { name: LocalizedString; icon: string }[] }[];
+    courses: { name: LocalizedString; provider: LocalizedString; year: string; icon: string }[];
+    certifications: { name: LocalizedString; issuer: LocalizedString; year: string; icon: string }[];
   };
   portfolio: {
     title: LocalizedString;
@@ -46,6 +46,13 @@ export interface PortfolioData {
     address: LocalizedString;
     email: string;
     phone: string;
+    socialLinks: {
+      instagram: string;
+      facebook: string;
+      whatsapp: string;
+      linkedin: string;
+      twitter: string;
+    };
   };
   settings: {
     isVisible: boolean;
@@ -83,56 +90,59 @@ const defaultData: PortfolioData = {
   resume: {
     title: { en: 'RESUME', ar: 'السيرة الذاتية' },
     profileImage: '/assets/images/portfolio/benayman-profile.png',
-    education: [
-      { 
-        degree: { en: 'B.Sc. Computer Engineering', ar: 'بكالوريوس هندسة الحاسوب' }, 
-        school: { en: 'Engineering University', ar: 'جامعة الهندسة' }, 
-        description: { en: 'Specialized in Software Engineering and Web Technologies', ar: 'متخصص في هندسة البرمجيات وتقنيات الويب' } 
+    qualifications: [
+      {
+        title: { en: 'B.Sc. Computer Engineering', ar: 'بكالوريوس هندسة الحاسوب' },
+        institution: { en: 'Engineering University', ar: 'جامعة الهندسة' },
+        year: '2018 – 2022',
+        description: { en: 'Specialized in Software Engineering and Web Technologies with honors.', ar: 'متخصص في هندسة البرمجيات وتقنيات الويب بمرتبة الشرف.' }
       },
-      { 
-        degree: { en: 'Frontend Development Bootcamp', ar: 'معسكر تطوير الفرونت إند' }, 
-        school: { en: 'Tech Academy', ar: 'أكاديمية التقنية' }, 
-        description: { en: 'Advanced React and Modern Web Development', ar: 'React المتقدم وتطوير الويب الحديث' } 
+      {
+        title: { en: 'Frontend Development Diploma', ar: 'دبلوم تطوير الفرونت إند' },
+        institution: { en: 'Tech Academy', ar: 'أكاديمية التقنية' },
+        year: '2022 – 2023',
+        description: { en: 'Intensive program covering React, Next.js, and modern web standards.', ar: 'برنامج مكثف يغطي React وNext.js ومعايير الويب الحديثة.' }
       },
     ],
+    summary: {
+      en: 'Passionate Frontend Engineer with 4+ years of experience building scalable, high-performance web applications for engineering consultancy firms. Proficient in modern JavaScript frameworks with a strong eye for UI/UX and clean code architecture.',
+      ar: 'مهندس فرونت إند متميز بخبرة تزيد عن 4 سنوات في بناء تطبيقات ويب قابلة للتطوير وعالية الأداء لشركات الاستشارات الهندسية. متمكن من أطر JavaScript الحديثة مع حس قوي بتصميم الواجهات وهندسة الكود النظيف.'
+    },
     experience: [
-      { 
-        role: { en: 'Senior Frontend Engineer', ar: 'مهندس فرونت إند أول' }, 
-        company: { en: 'Engineering Consultancy', ar: 'شركة استشارات هندسية' }, 
-        description: { en: 'Leading frontend development for enterprise web applications', ar: 'قيادة تطوير الفرونت إند لتطبيقات الويب المؤسسية' } 
+      {
+        role: { en: 'Senior Frontend Engineer', ar: 'مهندس فرونت إند أول' },
+        company: { en: 'Engineering Consultancy Co.', ar: 'شركة الاستشارات الهندسية' },
+        period: { en: '2023 – Present', ar: '2023 – حتى الآن' },
+        description: { en: 'Lead the frontend team in building enterprise-grade web platforms for major engineering projects. Improved performance by 40% through code optimization.', ar: 'قيادة فريق الفرونت إند في بناء منصات ويب للمشاريع الهندسية الكبرى. تحسين الأداء بنسبة 40% من خلال تحسين الكود.' },
+        skills: [
+          { name: { en: 'React.js', ar: 'React.js' }, icon: 'logos:react' },
+          { name: { en: 'Next.js', ar: 'Next.js' }, icon: 'logos:nextjs-icon' },
+          { name: { en: 'TypeScript', ar: 'TypeScript' }, icon: 'logos:typescript-icon' },
+        ]
       },
-      { 
-        role: { en: 'Frontend Developer', ar: 'مطور فرونت إند' }, 
-        company: { en: 'Tech Solutions Inc.', ar: 'شركة الحلول التقنية' }, 
-        description: { en: 'Built responsive web applications using React and Next.js', ar: 'بناء تطبيقات ويب متجاوبة باستخدام React و Next.js' } 
-      },
-      { 
-        role: { en: 'Junior Web Developer', ar: 'مطور ويب مبتدئ' }, 
-        company: { en: 'Digital Agency', ar: 'وكالة رقمية' }, 
-        description: { en: 'Developed modern websites with HTML, CSS, and JavaScript', ar: 'تطوير مواقع ويب حديثة باستخدام HTML و CSS و JavaScript' } 
+      {
+        role: { en: 'Frontend Developer', ar: 'مطور فرونت إند' },
+        company: { en: 'Tech Solutions Inc.', ar: 'شركة الحلول التقنية' },
+        period: { en: '2021 – 2023', ar: '2021 – 2023' },
+        description: { en: 'Built responsive dashboards and client portals using React and Material-UI. Collaborated with backend teams on REST API integrations.', ar: 'بناء لوحات تحكم ومنصات عملاء متجاوبة. تعاون مع فرق الباكند في تكامل واجهات برمجة التطبيقات.' },
+        skills: [
+          { name: { en: 'Material-UI', ar: 'Material-UI' }, icon: 'logos:material-ui' },
+          { name: { en: 'JavaScript', ar: 'JavaScript' }, icon: 'logos:javascript' },
+          { name: { en: 'Git', ar: 'Git' }, icon: 'logos:git-icon' },
+        ]
       },
     ],
-    skills: [
-      { name: { en: 'React.js', ar: 'React.js' }, level: 95 },
-      { name: { en: 'Next.js', ar: 'Next.js' }, level: 92 },
-      { name: { en: 'TypeScript', ar: 'TypeScript' }, level: 90 },
-      { name: { en: 'JavaScript (ES6+)', ar: 'JavaScript (ES6+)' }, level: 93 },
-      { name: { en: 'HTML5 & CSS3', ar: 'HTML5 & CSS3' }, level: 95 },
-      { name: { en: 'Tailwind CSS', ar: 'Tailwind CSS' }, level: 88 },
-      { name: { en: 'Material-UI', ar: 'Material-UI' }, level: 90 },
-      { name: { en: 'Git & GitHub', ar: 'Git & GitHub' }, level: 87 },
-      { name: { en: 'Responsive Design', ar: 'التصميم المتجاوب' }, level: 94 },
-    ],
-    languages: [
-      { name: { en: 'Arabic', ar: 'العربية' }, level: { en: 'Native', ar: 'اللغة الأم' } },
-      { name: { en: 'English', ar: 'الإنجليزية' }, level: { en: 'Fluent', ar: 'بطلاقة' } },
-      { name: { en: 'French', ar: 'الفرنسية' }, level: { en: 'Intermediate', ar: 'متوسط' } },
+    courses: [
+      { name: { en: 'Advanced React Patterns', ar: 'أنماط React المتقدمة' }, provider: { en: 'Udemy', ar: 'يوديمي' }, year: '2023', icon: 'logos:react' },
+      { name: { en: 'TypeScript Complete Guide', ar: 'دليل TypeScript الشامل' }, provider: { en: 'Udemy', ar: 'يوديمي' }, year: '2023', icon: 'logos:typescript-icon' },
+      { name: { en: 'Next.js & React - The Complete Guide', ar: 'Next.js وReact - الدليل الكامل' }, provider: { en: 'Udemy', ar: 'يوديمي' }, year: '2022', icon: 'logos:nextjs-icon' },
+      { name: { en: 'CSS for JavaScript Developers', ar: 'CSS لمطوري JavaScript' }, provider: { en: 'Josh W. Comeau', ar: 'جوش كومو' }, year: '2022', icon: 'logos:css-3' },
     ],
     certifications: [
-      { name: { en: 'React Developer Certification', ar: 'شهادة مطور React' }, issuer: { en: 'Meta', ar: 'ميتا' }, year: '2024' },
-      { name: { en: 'Advanced JavaScript', ar: 'JavaScript المتقدم' }, issuer: { en: 'Udemy', ar: 'يوديمي' }, year: '2023' },
-      { name: { en: 'Frontend Web Developer', ar: 'مطور واجهات الويب' }, issuer: { en: 'freeCodeCamp', ar: 'freeCodeCamp' }, year: '2022' },
-      { name: { en: 'Responsive Web Design', ar: 'تصميم الويب المتجاوب' }, issuer: { en: 'Google', ar: 'جوجل' }, year: '2022' },
+      { name: { en: 'Meta React Developer', ar: 'مطور React من Meta' }, issuer: { en: 'Meta / Coursera', ar: 'Meta / Coursera' }, year: '2024', icon: 'logos:react' },
+      { name: { en: 'Google UX Design', ar: 'تصميم UX من Google' }, issuer: { en: 'Google / Coursera', ar: 'Google / Coursera' }, year: '2023', icon: 'logos:google-icon' },
+      { name: { en: 'Frontend Web Developer', ar: 'مطور واجهات الويب' }, issuer: { en: 'freeCodeCamp', ar: 'freeCodeCamp' }, year: '2022', icon: 'simple-icons:freecodecamp' },
+      { name: { en: 'Responsive Web Design', ar: 'تصميم الويب المتجاوب' }, issuer: { en: 'Google', ar: 'جوجل' }, year: '2022', icon: 'logos:google-icon' },
     ],
   },
   portfolio: {
@@ -166,15 +176,22 @@ const defaultData: PortfolioData = {
   contact: {
     title: { en: 'CONTACT', ar: 'اتصل بي' },
     profileImage: '/assets/images/portfolio/benayman-profile.png',
-    address: { en: '123 Street Name', ar: '١٢٣ اسم الشارع' },
+    address: { en: 'Cairo, Egypt', ar: 'القاهرة، مصر' },
     email: 'hello@example.com',
-    phone: '+1 234 567 890',
+    phone: '+20 100 000 0000',
+    socialLinks: {
+      instagram: 'https://instagram.com/',
+      facebook: 'https://facebook.com/',
+      whatsapp: 'https://wa.me/201000000000',
+      linkedin: 'https://linkedin.com/in/',
+      twitter: 'https://twitter.com/',
+    },
   },
   settings: {
     isVisible: true,
     allowedUrl: 'benjamin',
     colors: {
-      primary: '#ffc107',
+      primary: '#F42589',
       background: '#ffffff',
       text: '#000000',
     },
@@ -184,7 +201,6 @@ const defaultData: PortfolioData = {
     { id: 'about', label: { en: 'ABOUT ME', ar: 'عني' }, path: '/PortfolioEmployee/about', icon: 'mingcute:user-2-line' },
     { id: 'resume', label: { en: 'RESUME', ar: 'السيرة الذاتية' }, path: '/PortfolioEmployee/Resume', icon: 'mingcute:briefcase-line' },
     { id: 'portfolio', label: { en: 'PORTFOLIO', ar: 'الأعمال' }, path: '/PortfolioEmployee/Portfolio', icon: 'mingcute:monitor-line' },
-    { id: 'testimonials', label: { en: 'TESTIMONIALS', ar: 'التوصيات' }, path: '/PortfolioEmployee/Testimonials', icon: 'solar:speaker-bold' },
     { id: 'contact', label: { en: 'CONTACT', ar: 'اتصل بي' }, path: '/PortfolioEmployee/Contact', icon: 'mingcute:send-plane-line' },
   ],
 };

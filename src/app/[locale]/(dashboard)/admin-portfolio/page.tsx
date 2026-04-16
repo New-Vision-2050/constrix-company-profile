@@ -168,60 +168,144 @@ export default function AdminPortfolioPage() {
       <Paper sx={{ p: 4, mb: 4 }}>
         <Typography variant="h6" sx={{ mb: 3 }}>Resume Section</Typography>
         <LocalizedInput label="Section Title" value={localData.resume.title} onChange={(v) => handleChange('resume', 'title', v)} />
-        
+
+        {/* Qualifications */}
         <Divider sx={{ my: 4 }} />
-        <Typography variant="subtitle1" sx={{ mb: 2 }}>Education</Typography>
-        {localData.resume.education.map((edu, index) => (
-          <Box key={index} sx={{ p: 2, mb: 2, border: '1px solid #eee', borderRadius: 1 }}>
-            <LocalizedInput label="Degree" value={edu.degree} onChange={(v) => {
-              const newEdu = [...localData.resume.education];
-              newEdu[index].degree = v;
-              handleChange('resume', 'education', newEdu);
+        <Typography variant="subtitle1" sx={{ mb: 2, fontWeight: 700 }}>Qualifications</Typography>
+        {localData.resume.qualifications.map((q, index) => (
+          <Box key={index} sx={{ p: 2, mb: 2, border: '1px solid #eee', borderRadius: 2 }}>
+            <LocalizedInput label="Title / Degree" value={q.title} onChange={(v) => {
+              const arr = [...localData.resume.qualifications]; arr[index].title = v;
+              handleChange('resume', 'qualifications', arr);
             }} />
-            <LocalizedInput label="School" value={edu.school} onChange={(v) => {
-              const newEdu = [...localData.resume.education];
-              newEdu[index].school = v;
-              handleChange('resume', 'education', newEdu);
+            <LocalizedInput label="Institution" value={q.institution} onChange={(v) => {
+              const arr = [...localData.resume.qualifications]; arr[index].institution = v;
+              handleChange('resume', 'qualifications', arr);
             }} />
-            <LocalizedInput label="Description" value={edu.description} onChange={(v) => {
-              const newEdu = [...localData.resume.education];
-              newEdu[index].description = v;
-              handleChange('resume', 'education', newEdu);
+            <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+              <TextField fullWidth label="Year (e.g. 2018 – 2022)" value={q.year} onChange={(e) => {
+                const arr = [...localData.resume.qualifications]; arr[index].year = e.target.value;
+                handleChange('resume', 'qualifications', arr);
+              }} />
+            </Box>
+            <LocalizedInput label="Description" value={q.description} onChange={(v) => {
+              const arr = [...localData.resume.qualifications]; arr[index].description = v;
+              handleChange('resume', 'qualifications', arr);
             }} multiline />
-            <Button color="error" onClick={() => {
-              const newEdu = localData.resume.education.filter((_, i) => i !== index);
-              handleChange('resume', 'education', newEdu);
-            }}>Delete Education</Button>
+            <Button color="error" size="small" onClick={() => handleChange('resume', 'qualifications', localData.resume.qualifications.filter((_, i) => i !== index))}>Delete</Button>
           </Box>
         ))}
-        <Button variant="outlined" onClick={() => handleChange('resume', 'education', [...localData.resume.education, { degree: {en:'',ar:''}, school: {en:'',ar:''}, description: {en:'',ar:''} }])}>+ Add Education</Button>
+        <Button variant="outlined" size="small" onClick={() => handleChange('resume', 'qualifications', [...localData.resume.qualifications, { title:{en:'',ar:''}, institution:{en:'',ar:''}, year:'', description:{en:'',ar:''} }])}>+ Add Qualification</Button>
 
+        {/* Summary */}
         <Divider sx={{ my: 4 }} />
-        <Typography variant="subtitle1" sx={{ mb: 2 }}>Experience</Typography>
+        <Typography variant="subtitle1" sx={{ mb: 2, fontWeight: 700 }}>Summary</Typography>
+        <LocalizedInput label="Summary Text" value={localData.resume.summary} onChange={(v) => handleChange('resume', 'summary', v)} multiline />
+
+        {/* Experience */}
+        <Divider sx={{ my: 4 }} />
+        <Typography variant="subtitle1" sx={{ mb: 2, fontWeight: 700 }}>Previous Experience</Typography>
         {localData.resume.experience.map((exp, index) => (
-          <Box key={index} sx={{ p: 2, mb: 2, border: '1px solid #eee', borderRadius: 1 }}>
+          <Box key={index} sx={{ p: 2, mb: 2, border: '1px solid #eee', borderRadius: 2 }}>
             <LocalizedInput label="Role" value={exp.role} onChange={(v) => {
-              const newExp = [...localData.resume.experience];
-              newExp[index].role = v;
-              handleChange('resume', 'experience', newExp);
+              const arr = [...localData.resume.experience]; arr[index].role = v;
+              handleChange('resume', 'experience', arr);
             }} />
             <LocalizedInput label="Company" value={exp.company} onChange={(v) => {
-              const newExp = [...localData.resume.experience];
-              newExp[index].company = v;
-              handleChange('resume', 'experience', newExp);
+              const arr = [...localData.resume.experience]; arr[index].company = v;
+              handleChange('resume', 'experience', arr);
+            }} />
+            <LocalizedInput label="Period" value={exp.period} onChange={(v) => {
+              const arr = [...localData.resume.experience]; arr[index].period = v;
+              handleChange('resume', 'experience', arr);
             }} />
             <LocalizedInput label="Description" value={exp.description} onChange={(v) => {
-              const newExp = [...localData.resume.experience];
-              newExp[index].description = v;
-              handleChange('resume', 'experience', newExp);
+              const arr = [...localData.resume.experience]; arr[index].description = v;
+              handleChange('resume', 'experience', arr);
             }} multiline />
-            <Button color="error" onClick={() => {
-              const newExp = localData.resume.experience.filter((_, i) => i !== index);
-              handleChange('resume', 'experience', newExp);
-            }}>Delete Experience</Button>
+            <Typography variant="caption" sx={{ fontWeight: 600, display: 'block', mb: 1, mt: 1 }}>Skills (with icons)</Typography>
+            {(exp.skills || []).map((sk, si) => (
+              <Box key={si} sx={{ display: 'flex', gap: 2, mb: 1 }}>
+                <LocalizedInput label={`Skill ${si+1} Name`} value={sk.name} onChange={(v) => {
+                  const arr = [...localData.resume.experience]; arr[index].skills[si].name = v;
+                  handleChange('resume', 'experience', arr);
+                }} />
+                <TextField label="Icon (e.g. logos:react)" value={sk.icon} onChange={(e) => {
+                  const arr = [...localData.resume.experience]; arr[index].skills[si].icon = e.target.value;
+                  handleChange('resume', 'experience', arr);
+                }} sx={{ minWidth: 220 }} />
+                <Button color="error" size="small" onClick={() => {
+                  const arr = [...localData.resume.experience]; arr[index].skills = arr[index].skills.filter((_,i)=>i!==si);
+                  handleChange('resume', 'experience', arr);
+                }}>✕</Button>
+              </Box>
+            ))}
+            <Button size="small" variant="outlined" onClick={() => {
+              const arr = [...localData.resume.experience]; arr[index].skills = [...(arr[index].skills||[]), {name:{en:'',ar:''},icon:''}];
+              handleChange('resume', 'experience', arr);
+            }}>+ Add Skill</Button>
+            <Box sx={{ mt: 1 }}>
+              <Button color="error" size="small" onClick={() => handleChange('resume', 'experience', localData.resume.experience.filter((_, i) => i !== index))}>Delete Experience</Button>
+            </Box>
           </Box>
         ))}
-        <Button variant="outlined" onClick={() => handleChange('resume', 'experience', [...localData.resume.experience, { role: {en:'',ar:''}, company: {en:'',ar:''}, description: {en:'',ar:''} }])}>+ Add Experience</Button>
+        <Button variant="outlined" size="small" onClick={() => handleChange('resume', 'experience', [...localData.resume.experience, { role:{en:'',ar:''}, company:{en:'',ar:''}, period:{en:'',ar:''}, description:{en:'',ar:''}, skills:[] }])}>+ Add Experience</Button>
+
+        {/* Courses */}
+        <Divider sx={{ my: 4 }} />
+        <Typography variant="subtitle1" sx={{ mb: 2, fontWeight: 700 }}>Courses</Typography>
+        {localData.resume.courses.map((course, index) => (
+          <Box key={index} sx={{ p: 2, mb: 2, border: '1px solid #eee', borderRadius: 2 }}>
+            <LocalizedInput label="Course Name" value={course.name} onChange={(v) => {
+              const arr = [...localData.resume.courses]; arr[index].name = v;
+              handleChange('resume', 'courses', arr);
+            }} />
+            <LocalizedInput label="Provider" value={course.provider} onChange={(v) => {
+              const arr = [...localData.resume.courses]; arr[index].provider = v;
+              handleChange('resume', 'courses', arr);
+            }} />
+            <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+              <TextField fullWidth label="Year" value={course.year} onChange={(e) => {
+                const arr = [...localData.resume.courses]; arr[index].year = e.target.value;
+                handleChange('resume', 'courses', arr);
+              }} />
+              <TextField fullWidth label="Icon (e.g. logos:react)" value={course.icon} onChange={(e) => {
+                const arr = [...localData.resume.courses]; arr[index].icon = e.target.value;
+                handleChange('resume', 'courses', arr);
+              }} />
+            </Box>
+            <Button color="error" size="small" onClick={() => handleChange('resume', 'courses', localData.resume.courses.filter((_, i) => i !== index))}>Delete</Button>
+          </Box>
+        ))}
+        <Button variant="outlined" size="small" onClick={() => handleChange('resume', 'courses', [...localData.resume.courses, { name:{en:'',ar:''}, provider:{en:'',ar:''}, year:'', icon:'' }])}>+ Add Course</Button>
+
+        {/* Certifications */}
+        <Divider sx={{ my: 4 }} />
+        <Typography variant="subtitle1" sx={{ mb: 2, fontWeight: 700 }}>Professional Certifications</Typography>
+        {localData.resume.certifications.map((cert, index) => (
+          <Box key={index} sx={{ p: 2, mb: 2, border: '1px solid #eee', borderRadius: 2 }}>
+            <LocalizedInput label="Certificate Name" value={cert.name} onChange={(v) => {
+              const arr = [...localData.resume.certifications]; arr[index].name = v;
+              handleChange('resume', 'certifications', arr);
+            }} />
+            <LocalizedInput label="Issuer" value={cert.issuer} onChange={(v) => {
+              const arr = [...localData.resume.certifications]; arr[index].issuer = v;
+              handleChange('resume', 'certifications', arr);
+            }} />
+            <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+              <TextField fullWidth label="Year" value={cert.year} onChange={(e) => {
+                const arr = [...localData.resume.certifications]; arr[index].year = e.target.value;
+                handleChange('resume', 'certifications', arr);
+              }} />
+              <TextField fullWidth label="Icon (e.g. logos:react)" value={cert.icon} onChange={(e) => {
+                const arr = [...localData.resume.certifications]; arr[index].icon = e.target.value;
+                handleChange('resume', 'certifications', arr);
+              }} />
+            </Box>
+            <Button color="error" size="small" onClick={() => handleChange('resume', 'certifications', localData.resume.certifications.filter((_, i) => i !== index))}>Delete</Button>
+          </Box>
+        ))}
+        <Button variant="outlined" size="small" onClick={() => handleChange('resume', 'certifications', [...localData.resume.certifications, { name:{en:'',ar:''}, issuer:{en:'',ar:''}, year:'', icon:'' }])}>+ Add Certification</Button>
       </Paper>
 
       {/* Portfolio Section */}
@@ -264,9 +348,22 @@ export default function AdminPortfolioPage() {
         <Typography variant="h6" sx={{ mb: 3 }}>Contact Section</Typography>
         <LocalizedInput label="Section Title" value={localData.contact.title} onChange={(v) => handleChange('contact', 'title', v)} />
         <LocalizedInput label="Address" value={localData.contact.address} onChange={(v) => handleChange('contact', 'address', v)} />
-        <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
+        <Box sx={{ display: 'flex', gap: 2, mt: 2, mb: 4 }}>
           <TextField fullWidth label="Email" value={localData.contact.email} onChange={(e) => handleChange('contact', 'email', e.target.value)} />
           <TextField fullWidth label="Phone" value={localData.contact.phone} onChange={(e) => handleChange('contact', 'phone', e.target.value)} />
+        </Box>
+        <Divider sx={{ my: 3 }} />
+        <Typography variant="subtitle1" sx={{ mb: 2, fontWeight: 700 }}>Social Media Links</Typography>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          {(['instagram', 'facebook', 'whatsapp', 'linkedin', 'twitter'] as const).map((platform) => (
+            <TextField
+              key={platform}
+              fullWidth
+              label={platform.charAt(0).toUpperCase() + platform.slice(1) + ' URL'}
+              value={localData.contact.socialLinks[platform]}
+              onChange={(e) => handleChange('contact', 'socialLinks', { ...localData.contact.socialLinks, [platform]: e.target.value })}
+            />
+          ))}
         </Box>
       </Paper>
 

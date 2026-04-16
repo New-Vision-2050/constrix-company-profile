@@ -2,108 +2,101 @@
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import { useAtom } from "jotai";
 import { portfolioDataAtom, getLocalized } from "@/store/portfolio";
 import { alpha } from "@mui/material/styles";
-import Grid from "@mui/material/Grid";
 import { Iconify } from "@/components/iconify";
 import { useLocale } from "next-intl";
+
+const SOCIAL = [
+  { key: 'instagram' as const, icon: 'mdi:instagram',      label: 'Instagram', color: '#E1306C' },
+  { key: 'facebook'  as const, icon: 'mdi:facebook',       label: 'Facebook',  color: '#1877F2' },
+  { key: 'whatsapp'  as const, icon: 'mdi:whatsapp',       label: 'WhatsApp',  color: '#25D366' },
+  { key: 'linkedin'  as const, icon: 'mdi:linkedin',       label: 'LinkedIn',  color: '#0A66C2' },
+  { key: 'twitter'   as const, icon: 'mdi:twitter',        label: 'Twitter / X', color: '#1DA1F2' },
+];
 
 export default function ContactPage() {
   const [data] = useAtom(portfolioDataAtom);
   const locale = useLocale();
+  const primary = data.settings.colors.primary;
 
   return (
-    <Box sx={{ p: { xs: 4, md: 8 }, minHeight: '80vh', bgcolor: '#fff', display: 'flex', flexDirection: 'column' }}>
-      
+    <Box sx={{ minHeight: '100vh', bgcolor: '#f5f5f5', py: 8, px: { xs: 3, md: 6 }, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+
       {/* Title */}
-      <Box sx={{ display: 'flex', justifyContent: 'center', mb: 8 }}>
-        <Box sx={{ border: '2px solid', borderColor: alpha('#000', 0.1), px: { xs: 4, md: 8 }, py: 2 }}>
-          <Typography variant="h3" sx={{ fontWeight: 800, letterSpacing: 4 }}>
-            {getLocalized(data.contact.title, locale)}
-          </Typography>
-        </Box>
+      <Box sx={{ textAlign: 'center', mb: 6 }}>
+        <Typography variant="h2" sx={{ fontWeight: 900, letterSpacing: 6, mb: 1 }}>
+          {getLocalized(data.contact.title, locale)}
+        </Typography>
+        <Box sx={{ width: 56, height: 4, bgcolor: primary, mx: 'auto', borderRadius: 2 }} />
+        <Typography variant="body1" sx={{ color: 'text.secondary', mt: 2 }}>
+          {locale === 'en' ? 'Reach out through any of the platforms below' : 'تواصل معي عبر أي من المنصات أدناه'}
+        </Typography>
       </Box>
 
-      {/* Grid Content */}
-      <Grid container spacing={8} sx={{ maxWidth: 1000, mx: 'auto' }}>
-        
-        {/* Info Column */}
-        <Grid item xs={12} md={5}>
-          <Typography variant="h4" sx={{ fontWeight: 800, mb: 4, letterSpacing: 1.5 }}>
-            {locale === 'en' ? "GET IN TOUCH" : "تواصل معي"}
-          </Typography>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-            
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <Box sx={{ width: 48, height: 48, borderRadius: '50%', bgcolor: data.settings.colors.primary, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#000' }}>
-                <Iconify icon="mingcute:location-fill" width={24} />
-              </Box>
-              <Box>
-                <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>{locale === 'en' ? "Location" : "الموقع"}</Typography>
-                <Typography variant="body2" sx={{ color: 'text.secondary' }}>{getLocalized(data.contact.address, locale)}</Typography>
-              </Box>
+      {/* Contact Info Row */}
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3, justifyContent: 'center', mb: 6 }}>
+        {[
+          { icon: 'mingcute:location-fill', label: getLocalized(data.contact.address, locale) },
+          { icon: 'mingcute:mail-fill',     label: data.contact.email },
+          { icon: 'mingcute:phone-fill',    label: data.contact.phone },
+        ].map((item, i) => (
+          <Box key={i} sx={{ display: 'flex', alignItems: 'center', gap: 1.5, bgcolor: '#fff', px: 2.5, py: 1.5, borderRadius: 3, boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+            <Box sx={{ color: primary }}>
+              <Iconify icon={item.icon} width={20} />
             </Box>
-
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <Box sx={{ width: 48, height: 48, borderRadius: '50%', bgcolor: data.settings.colors.primary, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#000' }}>
-                <Iconify icon="mingcute:mail-fill" width={24} />
-              </Box>
-              <Box>
-                <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>{locale === 'en' ? "Email" : "البريد الإلكتروني"}</Typography>
-                <Typography variant="body2" sx={{ color: 'text.secondary' }}>{data.contact.email}</Typography>
-              </Box>
-            </Box>
-
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <Box sx={{ width: 48, height: 48, borderRadius: '50%', bgcolor: data.settings.colors.primary, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#000' }}>
-                <Iconify icon="mingcute:phone-fill" width={24} />
-              </Box>
-              <Box>
-                <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>{locale === 'en' ? "Phone" : "الهاتف"}</Typography>
-                <Typography variant="body2" sx={{ color: 'text.secondary' }}>{data.contact.phone}</Typography>
-              </Box>
-            </Box>
-
+            <Typography variant="body2" sx={{ fontWeight: 500 }}>{item.label}</Typography>
           </Box>
-        </Grid>
+        ))}
+      </Box>
 
-        {/* Form Column */}
-        <Grid item xs={12} md={7}>
-          <Box component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
-                <TextField fullWidth label={locale === 'en' ? "Your Name" : "الاسم"} variant="outlined" />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField fullWidth label={locale === 'en' ? "Your Email" : "البريد الإلكتروني"} variant="outlined" />
-              </Grid>
-            </Grid>
-            <TextField fullWidth label={locale === 'en' ? "Subject" : "الموضوع"} variant="outlined" />
-            <TextField fullWidth label={locale === 'en' ? "Message" : "الرسالة"} variant="outlined" multiline rows={4} />
-            <Button
-              variant="contained"
-              sx={{
-                mt: 2,
-                py: 1.5,
-                bgcolor: data.settings.colors.primary,
-                color: '#000',
-                fontWeight: 700,
-                alignSelf: 'flex-start',
-                '&:hover': {
-                  bgcolor: alpha(data.settings.colors.primary, 0.8),
-                }
-              }}
+      {/* Social Links Grid */}
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr 1fr', sm: 'repeat(3, 1fr)', md: 'repeat(5, 1fr)' }, gap: 3, width: '100%', maxWidth: 900 }}>
+        {SOCIAL.map(({ key, icon, label, color }) => (
+          <Box
+            key={key}
+            component="a"
+            href={data.contact.socialLinks[key]}
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 1.5,
+              bgcolor: '#fff',
+              borderRadius: 4,
+              py: 4,
+              px: 2,
+              textDecoration: 'none',
+              boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+              border: '2px solid transparent',
+              transition: 'all 0.3s',
+              cursor: 'pointer',
+              '&:hover': {
+                borderColor: color,
+                transform: 'translateY(-6px)',
+                boxShadow: `0 8px 24px ${alpha(color, 0.25)}`,
+                '& .social-icon-bg': { bgcolor: color },
+                '& .social-icon': { color: '#fff' },
+                '& .social-label': { color },
+              },
+            }}
+          >
+            <Box
+              className="social-icon-bg"
+              sx={{ width: 64, height: 64, borderRadius: '50%', bgcolor: alpha(color, 0.12), display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background-color 0.3s' }}
             >
-              {locale === 'en' ? "SEND MESSAGE" : "إرسال الرسالة"}
-            </Button>
+              <Iconify className="social-icon" icon={icon} width={32} sx={{ color, transition: 'color 0.3s' }} />
+            </Box>
+            <Typography className="social-label" variant="subtitle2" sx={{ fontWeight: 700, color: 'text.primary', transition: 'color 0.3s' }}>
+              {label}
+            </Typography>
           </Box>
-        </Grid>
+        ))}
+      </Box>
 
-      </Grid>
-      
     </Box>
   );
 }

@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
         hostname: "constrix.*",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        pathname: "**",
+      },
     ],
   },
   output: "standalone", // Required for Docker deployment

@@ -9,10 +9,12 @@ import Link from "next/link";
 import { alpha, useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
+import Fade from "@mui/material/Fade";
 import { useEffect, useState } from "react";
 import { useLocale } from "next-intl";
 import { useBE_Theme } from "@/lib/theme/client/theme-provider";
 import { CONFIG } from "@/config-global";
+import { usePageScrollNavigation } from "@/hooks/use-page-scroll-navigation";
 
 export default function PortfolioLayout({ children }: { children: React.ReactNode }) {
   const [data] = useAtom(portfolioDataAtom);
@@ -29,13 +31,23 @@ export default function PortfolioLayout({ children }: { children: React.ReactNod
 
   // Visibility Check (Hidden by default unless accessed via defined URL)
   const isAllowedUrl = typeof window !== 'undefined' && window.location.href.includes(data.settings.allowedUrl);
-  
+
   useEffect(() => {
     setMounted(true);
     if (isAllowedUrl && data.settings.allowedUrl) {
       localStorage.setItem('portfolio_access', data.settings.allowedUrl);
     }
   }, [isAllowedUrl, data.settings.allowedUrl]);
+
+  // Mouse scroll navigation using custom hook
+  usePageScrollNavigation({
+    pages: data.navigation,
+    currentPath: pathname,
+    locale,
+    scrollThreshold: 50,
+    debounceTime: 400,
+    enabled: mounted,
+  });
 
   if (!mounted) return null;
 
@@ -74,8 +86,28 @@ export default function PortfolioLayout({ children }: { children: React.ReactNod
       <Box sx={{ position: 'relative', display: 'flex', width: '100%', flexGrow: 1 }}>
 
         {/* Main Content Area */}
-        <Box sx={{ flexGrow: 1, position: 'relative', bgcolor: data.settings.colors.background }}>
-          {children}
+        <Box sx={{ flexGrow: 1, position: 'relative', bgcolor: data.settings.colors.background, overflow: 'hidden' }}>
+          <Fade in key={pathname} timeout={500}>
+            <Box
+              sx={{
+                width: '100%',
+                height: '100%',
+                animation: 'slideUp 0.5s ease-out',
+                '@keyframes slideUp': {
+                  '0%': {
+                    opacity: 0,
+                    transform: 'translateY(20px)',
+                  },
+                  '100%': {
+                    opacity: 1,
+                    transform: 'translateY(0)',
+                  },
+                },
+              }}
+            >
+              {children}
+            </Box>
+          </Fade>
         </Box>
 
         {/* Right Sidebar (Only for non-home pages) */}

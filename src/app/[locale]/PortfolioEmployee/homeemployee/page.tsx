@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useAtom } from "jotai";
 import { portfolioDataAtom, getLocalized } from "@/store/portfolio";
-import { alpha } from "@mui/material/styles";
+import { alpha, useTheme } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Link from "next/link";
 import { useLocale } from "next-intl";
@@ -12,6 +12,8 @@ import { useLocale } from "next-intl";
 export default function HomeEmployeePage() {
   const [data] = useAtom(portfolioDataAtom);
   const locale = useLocale();
+  const theme = useTheme();
+  const primary = theme.palette.primary.main;
 
   return (
     <Box sx={{ display: 'flex', height: '100%', minHeight: '80vh', flexDirection: { xs: 'column', md: 'row' } }}>
@@ -42,8 +44,8 @@ export default function HomeEmployeePage() {
             {locale === 'en' ? "I'M " : "أنا "} 
             <Typography component="span" variant="inherit" sx={{ 
               color: 'transparent', 
-              WebkitTextStroke: `2px ${data.settings.colors.primary}`,
-              textShadow: `0 0 0 ${alpha(data.settings.colors.primary, 0.2)}`
+              WebkitTextStroke: `2px ${primary}`,
+              textShadow: `0 0 0 ${alpha(primary, 0.2)}`
             }}>
               {getLocalized(data.home.name, locale)}
             </Typography>
@@ -51,7 +53,7 @@ export default function HomeEmployeePage() {
           
           <Box sx={{ 
             display: 'inline-block', 
-            bgcolor: data.settings.colors.primary, 
+            bgcolor: primary, 
             px: 2, 
             py: 0.5, 
             mb: 4,
@@ -71,14 +73,14 @@ export default function HomeEmployeePage() {
             href={`/${locale}${data.home.buttonLink}`}
             variant="contained"
             sx={{
-              bgcolor: data.settings.colors.primary,
+              bgcolor: primary,
               color: '#000',
               px: 4,
               py: 1.5,
               borderRadius: 4,
               fontWeight: 700,
               '&:hover': {
-                bgcolor: alpha(data.settings.colors.primary, 0.8),
+                bgcolor: alpha(primary, 0.8),
               }
             }}
           >

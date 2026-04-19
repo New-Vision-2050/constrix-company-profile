@@ -5,14 +5,15 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import { useAtom } from "jotai";
 import { portfolioDataAtom, getLocalized } from "@/store/portfolio";
-import { alpha } from "@mui/material/styles";
+import { alpha, useTheme } from "@mui/material/styles";
 import { Iconify } from "@/components/iconify";
 import { useLocale } from "next-intl";
 
 export default function AboutPage() {
   const [data] = useAtom(portfolioDataAtom);
   const locale = useLocale();
-  const primary = data.settings.colors.primary;
+  const theme = useTheme();
+  const primary = theme.palette.primary.main;
 
   const infoItems = [
     { icon: 'mingcute:user-2-line',    labelEn: 'Full Name',  labelAr: 'الاسم الكامل', value: getLocalized(data.home.name, locale) },

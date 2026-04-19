@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useAtom } from "jotai";
 import { portfolioDataAtom, getLocalized } from "@/store/portfolio";
-import { alpha } from "@mui/material/styles";
+import { alpha, useTheme } from "@mui/material/styles";
 import { Iconify } from "@/components/iconify";
 import { useLocale } from "next-intl";
 
@@ -19,10 +19,11 @@ const SOCIAL = [
 export default function ContactPage() {
   const [data] = useAtom(portfolioDataAtom);
   const locale = useLocale();
-  const primary = data.settings.colors.primary;
+  const theme = useTheme();
+  const primary = theme.palette.primary.main;
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: '#f5f5f5', py: 8, px: { xs: 3, md: 6 }, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: theme.palette.background.default, py: 8, px: { xs: 3, md: 6 }, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
       {/* Title */}
       <Box sx={{ textAlign: 'center', mb: 6 }}>
@@ -42,7 +43,7 @@ export default function ContactPage() {
           { icon: 'mingcute:mail-fill',     label: data.contact.email },
           { icon: 'mingcute:phone-fill',    label: data.contact.phone },
         ].map((item, i) => (
-          <Box key={i} sx={{ display: 'flex', alignItems: 'center', gap: 1.5, bgcolor: '#fff', px: 2.5, py: 1.5, borderRadius: 3, boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+          <Box key={i} sx={{ display: 'flex', alignItems: 'center', gap: 1.5, bgcolor: theme.palette.background.paper, px: 2.5, py: 1.5, borderRadius: 3, boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
             <Box sx={{ color: primary }}>
               <Iconify icon={item.icon} width={20} />
             </Box>
@@ -65,7 +66,7 @@ export default function ContactPage() {
               flexDirection: 'column',
               alignItems: 'center',
               gap: 1.5,
-              bgcolor: '#fff',
+              bgcolor: theme.palette.background.paper,
               borderRadius: 4,
               py: 4,
               px: 2,

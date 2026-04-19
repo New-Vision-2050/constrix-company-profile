@@ -26,7 +26,7 @@ export default function ResumePage() {
   const [data] = useAtom(portfolioDataAtom);
   const locale = useLocale();
   const theme = useTheme();
-  const primary = data.settings.colors.primary;
+  const primary = theme.palette.primary.main;
 
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: '#f5f5f5', py: 8, px: { xs: 3, md: 6 } }}>
